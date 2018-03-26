@@ -1,7 +1,7 @@
 <?php
 /**
  * Template part for displaying gallery posts
- *
+ * post-format为gallery的content模板
  * @link https://codex.wordpress.org/Template_Hierarchy
  *
  * @package WordPress
@@ -13,82 +13,115 @@
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-	<?php   //当前是博客主页且是置顶文章，输出图标
-	if ( is_sticky() && is_home() ) {
-		echo twentyseventeen_get_svg( array( 'icon' => 'thumb-tack' ) );
-	}
-	?>
+
+    <?php if( ! is_single() ) :   //若非单篇文章(即文章列表) ?>
+        <?php if ( get_post_gallery() ): //有画廊，则以slider的方式，显示画廊图片 ?>
+            <?php $ID = get_the_ID(); ?>
+		    <div class="entry-gallery">
+                <div id="carousel-post-gallery-<?php echo $ID; ?>" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner" role="listbox"> <!-- Wrapper for slides -->
+                        <?php
+                        $gallery_image_num = 0;
+                        $gallery_img = get_post_gallery_images(); //获取画廊的所有图片
+                        foreach( $gallery_img as $image ){
+                            echo '<div class="item '. ($gallery_image_num ? '': 'active') . '"><img src="'
+                                 . $image . '" class="post-gallery-image"></div>';
+                            $gallery_image_num++;
+                        }
+                        ?>
+                    </div> <!-- .carousel-inner -->
+
+                    <ol class="carousel-indicators">    <!-- Indicators -->
+                        <?php
+                        for($i = 0; $i < $gallery_image_num; $i++) {
+                            echo '<li data-target="#carousel-post-gallery-'
+                            . $ID
+                            . '" data-slide-to="'
+                            . $i
+                            . '" class="'
+                            . ($i ? '' : 'active')
+                            . '"></li>';
+                            }
+                        ?>
+                    </ol> <!-- .carousel-indicators -->
+
+                    <a class="left carousel-control" href="#carousel-post-gallery-<?php echo $ID ?>" role="button" data-slide="prev">
+                        <span class="fa fa-chevron-left" aria-hidden="true"></span>
+                        <span class="sr-only"><?php _e( 'Previous', 'twentyseventeen' ); ?></span>
+                    </a>
+                    <a class="right carousel-control" href="#carousel-post-gallery-<?php echo $ID ?>" role="button" data-slide="next">
+                        <span class="fa fa-chevron-right" aria-hidden="true"></span>
+                        <span class="sr-only"><?php _e( 'Next', 'twentyseventeen' ); ?></span>
+                    </a>
+                </div>  <!-- .carousel -->
+            </div>  <!-- .entry-gallery -->
+
+        <?php elseif('' !== get_the_post_thumbnail() ) : //无画廊有缩略图，则显示缩略图 ?>
+            <div class="post-thumbnail">
+                <a href="<?php the_permalink(); ?>">
+				    <?php the_post_thumbnail( 'jigim-thumbnail-image' ); ?>
+                </a>
+            </div><!-- .post-thumbnail -->
+
+        <?php else: //也无缩略图，则显示文章中第一张图片 ?>
+            <?php $img = jigim_get_post_first_img( get_the_content() ); ?>
+            <div class="post-image-attachment"><a href="<?php the_permalink(); ?>">
+                <img src = "<?php jigim_get_post_first_img( get_the_content() );?>" alt="post image attachment">
+            </a> </div><!-- .post-image-attachment -->
+        <?php endif; ?>
+    <?php endif; ?>
+
+
+	<?php if ( is_sticky() && is_home() ) : //当前是主页（文章列表）且是置顶文章，输出图标 ?>
+        <span class="fa fa-thumb-tack"></span>
+	<?php endif; ?>
 
 	<?php   //文章meta信息和标题 ?>
 	<header class="entry-header">
-		<?php                                    //section1: meta
-			if ( 'post' === get_post_type() ) { //文章post type为post
-			echo '<div class="entry-meta">';
-					if ( is_single() ) {        //单篇文章时，打印日期时间作者
-					twentyseventeen_posted_on();
-					} else {                    //文章列表时，打印日期时间和编辑链接
-					echo twentyseventeen_time_link();
-					twentyseventeen_edit_link();
-					}
-			echo '</div><!-- .entry-meta -->';
-		};
-		                                        //section2: title
-		if ( is_single() ) {
-			the_title( '<h1 class="entry-title">', '</h1>' );
-		} elseif ( is_front_page() && is_home() ) {
-			the_title( '<h3 class="entry-title"><a href="' . esc_url( get_permalink() ) . '" rel="bookmark">', '</a></h3>' );
-		} else {
-			the_title( '<h2 class="entry-title"><a href="' . esc_url( get_permalink() ) . '" rel="bookmark">', '</a></h2>' );
-		}
+		<?php
+        //section1: 文章分类
+        jigim_entry_category();
+
+        //section2: 文章标题
+        jigim_entry_title();
+
+        //section3: meta（作者、日期）,文章post type为post且单篇文章时
+        if ( 'post' === get_post_type() && is_single() ) {
+            echo '<div class="entry-meta">';
+                jigim_posted_on();    //打印作者头像日期时间
+                jigim_edit_link();    //打印编辑链接
+            echo '</div><!-- .entry-meta -->';
+        }
 		?>
 	</header><!-- .entry-header -->
 
-	<?php if ( '' !== get_the_post_thumbnail() && ! is_single() && ! get_post_gallery() ) :
-		//若不是单篇文章(文章列表)，且有缩略图且无画廊，则显示缩略图 ?>
-		<div class="post-thumbnail">
-			<a href="<?php the_permalink(); ?>">
-				<?php the_post_thumbnail( 'twentyseventeen-featured-image' ); ?>
-			</a>
-		</div><!-- .post-thumbnail -->
+	<?php //if ( is_single() || (!get_post_gallery() &&  !get_the_post_thumbnail()) ):
+	    //若是单篇文章，或文章列表时既无画廊也无缩略图，则显示文章内容    ?>
+    <?php if ( is_single() ): //若是单篇文章，则显示文章内容 ?>
+	    <div class="entry-content">
+		    <?php
+            /* translators: %s: Name of current post */
+            the_content( sprintf(
+                __( 'Continue reading<span class="screen-reader-text"> "%s"</span>', 'twentyseventeen' ),
+                get_the_title()
+            ) );
+            //单文章分页时，显示分页链接
+            wp_link_pages( array(
+                'before'      => '<div class="page-links">' . __( 'Pages:', 'twentyseventeen' ),
+                'after'       => '</div>',
+                'link_before' => '<span class="page-number">',
+                'link_after'  => '</span>',
+            ) );
+		    ?>
+    	</div><!-- .entry-content -->
+
+        <footer class="entry-footer">
+            <?php jigim_entry_tag();    //输出tag列表 ?>
+        </footer>
+	<?php else: ?>
+        <footer class="entry-footer">
+			<?php jigim_posted_on(); //文章列表时，作者日期时间显示在底部 ?>
+        </footer>
 	<?php endif; ?>
-
-	<div class="entry-content">
-
-		<?php
-		if ( ! is_single() ) {
-			//若不是单篇文章(文章列表)且有画廊，则先显示画廊
-			// If not a single post, highlight the gallery.
-			if ( get_post_gallery() ) {
-				echo '<div class="entry-gallery">';
-					echo get_post_gallery();
-				echo '</div>';
-			};
-
-		};
-
-		if ( is_single() || ! get_post_gallery() ) {
-			//若是单篇文章，或文章列表时无画廊，则显示文章内容
-			/* translators: %s: Name of current post */
-			the_content( sprintf(
-				__( 'Continue reading<span class="screen-reader-text"> "%s"</span>', 'twentyseventeen' ),
-				get_the_title()
-			) );
-			//单文章分页时，显示分页链接
-			wp_link_pages( array(
-				'before'      => '<div class="page-links">' . __( 'Pages:', 'twentyseventeen' ),
-				'after'       => '</div>',
-				'link_before' => '<span class="page-number">',
-				'link_after'  => '</span>',
-			) );
-		};
-		?>
-
-	</div><!-- .entry-content -->
-
-	<?php   //输出分类、tag列表和编辑链接
-	if ( is_single() ) {
-		twentyseventeen_entry_footer();
-	}
-	?>
 
 </article><!-- #post-## -->

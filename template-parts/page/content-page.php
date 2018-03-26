@@ -17,7 +17,7 @@
     <!-- 1. 页面标题 -->
 	<header class="entry-header">
 		<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
-		<?php twentyseventeen_edit_link( get_the_ID() ); ?>
+		<?php jigim_edit_link( get_the_ID() ); ?>
 	</header><!-- .entry-header -->
 
     <!-- 2. 页面内容 -->

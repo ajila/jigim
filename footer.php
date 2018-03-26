@@ -21,20 +21,22 @@
 				<?php
                 //section1.放widget的sidebar区
 				get_template_part( 'template-parts/footer/footer', 'widgets' );
+
                 //section2.页脚菜单
 				if ( has_nav_menu( 'social' ) ) : ?>
 					<nav class="social-navigation" role="navigation" aria-label="<?php esc_attr_e( 'Footer Social Links Menu', 'twentyseventeen' ); ?>">
 						<?php
-							wp_nav_menu( array(
-								'theme_location' => 'social',
-								'menu_class'     => 'social-links-menu',
-								'depth'          => 1,
-								'link_before'    => '<span class="screen-reader-text">',
-								'link_after'     => '</span>' . twentyseventeen_get_svg( array( 'icon' => 'chain' ) ),
-							) );
+                        wp_nav_menu( array(
+                            'theme_location' => 'social',
+                            'menu_class'     => 'social-links-menu',
+                            'depth'          => 1,
+                            'link_before'    => '<span class="screen-reader-text">',
+                            'link_after'     => '</span><span class="fa fa-chain"></span>',
+                        ) );
 						?>
 					</nav><!-- .social-navigation -->
 				<?php endif;
+
                 //section3.站点信息区
 				get_template_part( 'template-parts/footer/site', 'info' );
 				?>

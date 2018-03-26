@@ -53,9 +53,9 @@ function twentyseventeen_setup() {
 	 */
 	add_theme_support( 'post-thumbnails' );
 
-	add_image_size( 'twentyseventeen-featured-image', 2000, 1200, true );
-
-	add_image_size( 'twentyseventeen-thumbnail-avatar', 100, 100, true );
+	add_image_size( 'jigim-featured-image', 2000, 1200, true );
+    add_image_size('jigim-thumbnail-image', 570, 640, true );
+	add_image_size( 'jigim-thumbnail-avatar', 160, 100, true );
 
 	// Set the default content width.默认内容宽度
 	$GLOBALS['content_width'] = 525;
@@ -384,7 +384,8 @@ function twentyseventeen_excerpt_more( $link ) {
 	$link = sprintf( '<p class="link-more"><a href="%1$s" class="more-link">%2$s</a></p>',
 		esc_url( get_permalink( get_the_ID() ) ),
 		/* translators: %s: Name of current post */
-		sprintf( __( 'Continue reading<span class="screen-reader-text"> "%s"</span>', 'twentyseventeen' ), get_the_title( get_the_ID() ) )
+		sprintf( __( 'Continue reading<span class="screen-reader-text"> "%s"</span>', 'twentyseventeen' ),
+            get_the_title( get_the_ID() ) )
 	);
 	return ' &hellip; ' . $link;
 }
@@ -451,6 +452,9 @@ function twentyseventeen_scripts() {
 	// Theme stylesheet. 默认样式表style.css
 	wp_enqueue_style( 'twentyseventeen-style', get_stylesheet_uri() );
 
+	// 自定义样式main.css
+	wp_enqueue_style( 'jigim-style', get_theme_file_uri( '/assets/css/main.css' ), array(),'1.0' );
+
 	// Load the dark colorscheme.
 	if ( 'dark' === get_theme_mod( 'colorscheme', 'light' ) || is_customize_preview() ) {
 		wp_enqueue_style( 'twentyseventeen-colors-dark', get_theme_file_uri( '/assets/css/colors-dark.css' ), array( 'twentyseventeen-style' ), '1.0' );
@@ -466,11 +470,20 @@ function twentyseventeen_scripts() {
 	wp_enqueue_style( 'twentyseventeen-ie8', get_theme_file_uri( '/assets/css/ie8.css' ), array( 'twentyseventeen-style' ), '1.0' );
 	wp_style_add_data( 'twentyseventeen-ie8', 'conditional', 'lt IE 9' );
 
-	// Load the html5 shiv.
-	wp_enqueue_script( 'html5', get_theme_file_uri( '/assets/js/html5.js' ), array(), '3.7.3' );
-	wp_script_add_data( 'html5', 'conditional', 'lt IE 9' );
+	// IE10 viewport hack for Surface/desktop Windows 8 bug
+	wp_enqueue_style( 'ie10-viewport-bug-workaround', get_theme_file_uri( '/assets/css/ie10-viewport-bug-workaround.css' ), array( 'twentyseventeen-style' ), '1.0' );
+	wp_style_add_data( 'ie10-viewport-bug-workaround', 'conditional', 'IE 10' );
 
-	wp_enqueue_script( 'twentyseventeen-skip-link-focus-fix', get_theme_file_uri( '/assets/js/skip-link-focus-fix.js' ), array(), '1.0', true );
+	// Load Modernizr
+	//wp_enqueue_script('modernizr', get_theme_file_uri('/assets/js/vendor/modernizr-2.8.3.min.js'),array(), '2.8.3');
+
+	// Load HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries
+	wp_enqueue_script( 'html5', get_theme_file_uri( '/assets/js/vendor/html5.js' ), array(), '3.7.3' );
+	wp_enqueue_script( 'respond', 'http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js', array(), '1.4.2');
+	wp_script_add_data( 'html5', 'conditional', '(lt IE 9) & (!IEMobile)' );
+	wp_script_add_data( 'respond', 'conditional', '(lt IE 9) & (!IEMobile)' );
+
+	//wp_enqueue_script( 'twentyseventeen-skip-link-focus-fix', get_theme_file_uri( '/assets/js/skip-link-focus-fix.js' ), array(), '1.0', true );
 
 	$twentyseventeen_l10n = array(
 		'quote'          => twentyseventeen_get_svg( array( 'icon' => 'quote-right' ) ),
@@ -480,18 +493,28 @@ function twentyseventeen_scripts() {
 		wp_enqueue_script( 'twentyseventeen-navigation', get_theme_file_uri( '/assets/js/navigation.js' ), array( 'jquery' ), '1.0', true );
 		$twentyseventeen_l10n['expand']         = __( 'Expand child menu', 'twentyseventeen' );
 		$twentyseventeen_l10n['collapse']       = __( 'Collapse child menu', 'twentyseventeen' );
-		$twentyseventeen_l10n['icon']           = twentyseventeen_get_svg( array( 'icon' => 'angle-down', 'fallback' => true ) );
+		//$twentyseventeen_l10n['icon']           = twentyseventeen_get_svg( array( 'icon' => 'angle-down', 'fallback' => true ) );
 	}
 
-	wp_enqueue_script( 'twentyseventeen-global', get_theme_file_uri( '/assets/js/global.js' ), array( 'jquery' ), '1.0', true );
+	//wp_enqueue_script( 'twentyseventeen-global', get_theme_file_uri( '/assets/js/global.js' ), array( 'jquery' ), '1.0', true );
 
-	wp_enqueue_script( 'jquery-scrollto', get_theme_file_uri( '/assets/js/jquery.scrollTo.js' ), array( 'jquery' ), '2.1.2', true );
+	wp_enqueue_script( 'jquery-scrollto', get_theme_file_uri( '/assets/js/vendor/jquery.scrollTo.js' ), array( 'jquery' ), '2.1.2', true );
 
-	wp_localize_script( 'twentyseventeen-skip-link-focus-fix', 'twentyseventeenScreenReaderText', $twentyseventeen_l10n );
+	//wp_localize_script( 'twentyseventeen-skip-link-focus-fix', 'twentyseventeenScreenReaderText', $twentyseventeen_l10n );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
+
+	//所有插件js
+	wp_enqueue_script( 'jigim-plugins', get_theme_file_uri( '/assets/js/plugins.js' ), array( 'jquery' ), '1.0', true );
+	//wp_enqueue_script( 'jigim-plugins', get_theme_file_uri( '/assets/js/bootstrap.min.js' ), array( 'jquery' ), '1.0', true );
+	//自定义js
+	wp_enqueue_script( 'jigim-plugins', get_theme_file_uri( '/assets/js/main.js' ), array( 'jquery' ), '1.0', true );
+
+	//IE10 viewport hack for Surface/desktop Windows 8 bug
+	wp_enqueue_script( 'ie10-viewport-bug-workaround', get_theme_file_uri( '/assets/js/vendor/ie10-viewport-bug-workaround.js' ), array(), '1.0', true );
+	wp_script_add_data( 'ie10-viewport-bug-workaround', 'conditional', 'IE 10' );
 }
 endif;
 add_action( 'wp_enqueue_scripts', 'twentyseventeen_scripts' );
@@ -519,7 +542,7 @@ function twentyseventeen_content_image_sizes_attr( $sizes, $size ) {
 	if ( is_active_sidebar( 'sidebar-1' ) || is_archive() || is_search() || is_home() || is_page() ) {
 	    //有侧边栏或文章列表或页面
 		if ( ! ( is_page() && 'one-column' === get_theme_mod( 'page_options' ) ) && 767 <= $width ) {
-		    //不是图片宽过767的单列页面
+		    //非单列页面，且图片宽过767的
 			 $sizes = '(max-width: 767px) 89vw, (max-width: 1000px) 54vw, (max-width: 1071px) 543px, 580px';
 		}
 	}
@@ -618,6 +641,18 @@ function twentyseventeen_widget_tag_cloud_args( $args ) {
 }
 endif;
 add_filter( 'widget_tag_cloud_args', 'twentyseventeen_widget_tag_cloud_args' );
+
+/* 去除head加载<link rel='dns-prefetch' href='//s.w.org'> */
+/*  或
+function remove_dns_prefetch( $hints, $relation_type ) {
+    if ( 'dns-prefetch' === $relation_type ) {
+        return array_diff( wp_dependencies_unique_hosts(), $hints );
+    }
+    return $hints;
+}
+add_filter( 'wp_resource_hints', 'remove_dns_prefetch', 10, 2 );
+*/
+remove_filter('wp_head', 'wp_resource_hints', 2);
 
 /**
  * Implement the Custom Header feature. 自定义header

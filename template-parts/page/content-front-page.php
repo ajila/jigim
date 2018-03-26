@@ -13,7 +13,7 @@
 
 	<?php if ( has_post_thumbnail() ) :
         //获取附件图像（特性图）的src数组
-		$thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'twentyseventeen-featured-image' );
+		$thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'jigim-featured-image' );
 
 		// Calculate aspect ratio计算高宽比: 高h / 宽w * 100%.
 		$ratio = $thumbnail[2] / $thumbnail[1] * 100;
@@ -34,7 +34,7 @@
 			<header class="entry-header">
 				<?php the_title( '<h2 class="entry-title">', '</h2>' ); ?>
 
-				<?php twentyseventeen_edit_link( get_the_ID() ); ?>
+				<?php jigim_edit_link( get_the_ID() ); ?>
 			</header><!-- .entry-header -->
             <!-- 2.2 页面内容 -->
 			<div class="entry-content">

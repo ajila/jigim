@@ -1,14 +1,14 @@
 <?php
 /**
  * SVG icons related functions and filters
- *
+ * SVG图标相关函数和filters
  * @package WordPress
  * @subpackage Twenty_Seventeen
  * @since 1.0
  */
 
 if ( ! function_exists( 'twentyseventeen_include_svg_icons' ) ) :
-/**
+/** 包含svg定义到footer
  * Add SVG definitions to the footer.
  */
 function twentyseventeen_include_svg_icons() {
@@ -21,12 +21,12 @@ function twentyseventeen_include_svg_icons() {
 	}
 }
 endif;
-add_action( 'wp_footer', 'twentyseventeen_include_svg_icons', 9999 );
+//add_action( 'wp_footer', 'twentyseventeen_include_svg_icons', 9999 );
 
 if ( ! function_exists( 'twentyseventeen_get_svg' ) ) :
 /**
  * Return SVG markup.
- *
+ * 返回svg标记
  * @param array $args {
  *     Parameters needed to display an SVG.
  *
@@ -121,11 +121,11 @@ endif;
 if ( ! function_exists( 'twentyseventeen_nav_menu_social_icons' ) ) :
 /**
  * Display SVG icons in social links menu.
- *
- * @param  string  $item_output The menu item output.
- * @param  WP_Post $item        Menu item object.
- * @param  int     $depth       Depth of the menu.
- * @param  array   $args        wp_nav_menu() arguments.
+ * 在social链接菜单项中添加svg图标
+ * @param  string  $item_output The menu item output. 每个菜单项li输出的html
+ * @param  WP_Post $item        Menu item object.     每个菜单项li对象
+ * @param  int     $depth       Depth of the menu.    菜单深度
+ * @param  array   $args        wp_nav_menu() arguments. 函数wp_nav_menu的参数对象
  * @return string  $item_output The menu item output with social icon.
  */
 function twentyseventeen_nav_menu_social_icons( $item_output, $item, $depth, $args ) {
@@ -144,17 +144,17 @@ function twentyseventeen_nav_menu_social_icons( $item_output, $item, $depth, $ar
 	return $item_output;
 }
 endif;
-add_filter( 'walker_nav_menu_start_el', 'twentyseventeen_nav_menu_social_icons', 10, 4 );
+//add_filter( 'walker_nav_menu_start_el', 'twentyseventeen_nav_menu_social_icons', 10, 4 );
 
 
 if ( ! function_exists( 'twentyseventeen_dropdown_icon_to_menu_link' ) ) :
 /**
  * Add dropdown icon if menu item has children.
- *
- * @param  string  $title The menu item's title.
- * @param  WP_Post $item  The current menu item.
- * @param  array   $args  An array of wp_nav_menu() arguments.
- * @param  int     $depth Depth of menu item. Used for padding.
+ * 为有子菜单的菜单项添加图标
+ * @param  string  $title The menu item's title. 菜单项li内a内的title
+ * @param  WP_Post $item  The current menu item.当前菜单项li对象
+ * @param  array   $args  An array of wp_nav_menu() arguments.函数wp_nav_menu的参数对象
+ * @param  int     $depth Depth of menu item. Used for padding.菜单深度
  * @return string  $title The menu item's title with dropdown icon.
  */
 function twentyseventeen_dropdown_icon_to_menu_link( $title, $item, $args, $depth ) {
@@ -169,13 +169,13 @@ function twentyseventeen_dropdown_icon_to_menu_link( $title, $item, $args, $dept
 	return $title;
 }
 endif;
-add_filter( 'nav_menu_item_title', 'twentyseventeen_dropdown_icon_to_menu_link', 10, 4 );
+//add_filter( 'nav_menu_item_title', 'twentyseventeen_dropdown_icon_to_menu_link', 10, 4 );
 
 
 if ( ! function_exists( 'twentyseventeen_social_links_icons' ) ) :
 /**
  * Returns an array of supported social links (URL and icon name).
- *
+ * 支持的social链接列表（链接、图标名）
  * @return array $social_links_icons
  */
 function twentyseventeen_social_links_icons() {

@@ -40,7 +40,7 @@ function twentyseventeen_body_classes( $classes ) {
 		$classes[] = 'has-header-image';
 	}
 
-	// Add class if sidebar is used.有侧边栏的
+	// Add class if sidebar is used.有侧边栏的非页面(文章页)
 	if ( is_active_sidebar( 'sidebar-1' ) && ! is_page() ) {
 		$classes[] = 'has-sidebar';
 	}
@@ -100,10 +100,102 @@ function twentyseventeen_panel_count() {
 endif;
 
 if ( ! function_exists( 'twentyseventeen_is_frontpage' ) ) :
-/** 检查是首页不是主页
+/** 检查是首页不是主页（静态首页）
  * Checks to see if we're on the homepage or not.
  */
 function twentyseventeen_is_frontpage() {
 	return ( is_front_page() && ! is_home() );
+}
+endif;
+
+if ( ! function_exists( 'twentyseventeen_navigation_menu_item_handle' ) ) :
+/**
+ * 将wp生成的菜单项li，按bootstrap导航菜单的标记结构修改
+ * @param  string  $item_output The menu item output. 每个菜单项li输出的html
+ * @param  WP_Post $item        Menu item object.     每个菜单项li对象
+ * @param  int     $depth       Depth of the menu.    菜单深度
+ * @param  array   $args        wp_nav_menu() arguments. 函数wp_nav_menu的参数对象
+ * @return string  $item_output The menu item output with social icon.
+ */
+function twentyseventeen_nav_menu_item_handle($item_output, $item, $depth, $args) {
+	if ( 'top' === $args->theme_location ) {
+		//处理有子菜单的li
+		foreach ( $item->classes as $value ) {
+			if( 'menu-item-has-children' === $value || 'page_item_has_children' === $value){
+				//Array_push($item->classes ,'dropdown');
+				echo 'this is '.$item_output;
+				$item_output = str_replace( 'menu-item-has-children', 'dropdown',$item_output);
+			}
+		}
+	}
+	return $item_output;
+}
+endif;
+//add_filter( 'walker_nav_menu_start_el', 'twentyseventeen_nav_menu_item_handle',10, 4 );
+
+
+if ( ! function_exists( 'jigim_get_post_first_img' ) ) :
+/**
+ * 返回文章中第一张图片，文章无图片则返回默认图片
+ * @param  string  $$post_content   文章内容
+ * @return string  $first_img       文章中第一张图片，文章无图片则返回默认图片
+ */
+function jigim_get_post_first_img( $post_content ){
+
+	$first_img = '';
+	$matches = '';
+	ob_start();
+	//ob_end_clean();
+	$output = preg_match_all('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $post_content, $matches);
+
+	//获取文章中第一张图片的路径
+	$first_img = $matches [1] [0];
+	//如果文章无图片，获取自定义图片
+	if( empty( $first_img ) ){
+		$first_img = get_stylesheet_directory_uri() . '/assets/images/default_thumb.jpg';
+	}
+	ob_end_clean();
+	return $first_img;
+}
+endif;
+
+
+if ( ! function_exists( 'jigim_set_post_views' ) ) :
+/**
+ * 为文章添加统计阅读次数的meta
+ */
+function jigim_set_post_views () {
+	global $post;
+	if (is_single() || is_page()) {
+		$post_id   = $post->ID;
+		$count_key = 'views';
+		$count     = get_post_meta( $post_id, $count_key, true );
+
+		if ( $count == '' ) {
+			delete_post_meta( $post_id, $count_key );
+			add_post_meta( $post_id, $count_key, '0' );
+		} else {
+			update_post_meta( $post_id, $count_key, $count + 1 );
+		}
+	}
+}
+add_action('get_header', 'jigim_set_post_views');
+endif;
+
+if ( ! function_exists( 'jigim_get_post_views' ) ) :
+/**
+ * 获取文章阅读次数
+ * @param  string  $post_id   文章id
+ * @return string  $count       文章阅读次数
+ */
+function jigim_get_post_views ($post_id) {
+	$count_key = 'views';
+	$count = get_post_meta($post_id, $count_key, true);
+	if ($count == '') {
+		delete_post_meta($post_id, $count_key);
+		add_post_meta($post_id, $count_key, '0');
+		$count = '0';
+	}
+	return number_format_i18n($count);
 }
 endif;

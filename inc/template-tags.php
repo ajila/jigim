@@ -9,58 +9,189 @@
  * @since 1.0
  */
 
-if ( ! function_exists( 'twentyseventeen_posted_on' ) ) :
+if ( ! function_exists( 'jigim_posted_on' ) ) :
 /** 显示当前文章日期和作者等meta信息的html
  * Prints HTML with meta information for the current post-date/time and author.
  */
-function twentyseventeen_posted_on() {
+function jigim_posted_on() {
 
 	// Get the author name; wrap it in a link. 作者名及其链接
+	$ID = get_the_author_meta( 'ID' );
 	$byline = sprintf(
 		/* translators: %s: post author */
 		__( 'by %s', 'twentyseventeen' ),
-		'<span class="author vcard"><a class="url fn n" href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '">' . get_the_author() . '</a></span>'
+		'<span class="author vcard"><a class="url fn n" href="' . esc_url( get_author_posts_url( $ID ) ) . '">' . get_the_author() . '</a></span>'
 	);
 
-	// Finally, let's write all of this to the page.文章日期+作者信息
-	echo '<span class="posted-on">' . twentyseventeen_time_link() . '</span><span class="byline"> ' . $byline . '</span>';
-
+	// Finally, let's write all of this to the page.作者信息+文章日期
+	echo '<span class="post-avatar">' .get_avatar($ID,64,'',''). '</span>'
+	     .'<span class="byline"> ' . $byline . '</span>'
+	     .'<span class="posted-on">' . jigim_time_link() . '</span>';
 }
 endif;
 
 
-if ( ! function_exists( 'twentyseventeen_time_link' ) ) :
+if ( ! function_exists( 'jigim_time_link' ) ) :
 /** 返回文章（发表/更新）日期
  * Gets a nicely formatted string for the published date.
  */
-function twentyseventeen_time_link() {
+function jigim_time_link() {
 	$time_string = '<time class="entry-date published updated" datetime="%1$s">%2$s</time>';
+	$year = get_the_time('Y');
+	$month = get_the_time('n');
+	$day = get_the_time('j');
+	$time_string_updated = '';
 	if ( get_the_time( 'U' ) !== get_the_modified_time( 'U' ) ) {
-		$time_string = '<time class="entry-date published" datetime="%1$s">%2$s</time><time class="updated" datetime="%3$s">%4$s</time>';
+		$time_string = '<time class="entry-date published" datetime="%1$s">%2$s</time>';
+		$time_string_updated = '<time class="entry-date updated" datetime="%1$s">%2$s</time>';
+		$modified_year = get_the_modified_time('Y');
+		$modified_month = get_the_modified_time('n');
+		$modified_day = get_the_modified_time('j');
 	}
 
+	//组合时间标签
 	$time_string = sprintf( $time_string,
 		get_the_date( DATE_W3C ),
-		get_the_date(),
-		get_the_modified_date( DATE_W3C ),
-		get_the_modified_date()
+		get_the_date()
 	);
+	if ( get_the_time( 'U' ) !== get_the_modified_time( 'U' ) ) {
+		$time_string_updated = sprintf( $time_string_updated,
+			get_the_modified_date( DATE_W3C ),
+			get_the_modified_date()
+		);
+	}
 
-	// Wrap the time string in a link, and preface it with 'Posted on'.
-	return sprintf(
+	// 包装时间标签。Wrap the time string in a link, and preface it with 'Posted on'.
+	if( is_single() && ( get_the_time( 'U' ) !== get_the_modified_time( 'U' ) )){
+		$time_string = sprintf(
 		/* translators: %s: post date */
-		__( '<span class="screen-reader-text">Posted on</span> %s', 'twentyseventeen' ),
-		'<a href="' . esc_url( get_permalink() ) . '" rel="bookmark">' . $time_string . '</a>'
-	);
+			__( '<span class="posted-time-text">Posted on %1$s</span><span class="updated-time-text">Updated on %2$s</span> ','twentyseventeen' ),
+			'<a href="' . esc_url( get_day_link($year,$month,$day) ) . '" rel="bookmark">' . $time_string . '</a>',
+			'<a href="' . esc_url( get_day_link($modified_year,$modified_month,$modified_day) ) . '" rel="bookmark">' . $time_string_updated . '</a>'
+		);
+	}
+	else{
+		$time_string = sprintf(
+		/* translators: %s: post date */
+			__( '<span class="posted-time-text">Posted on %s</span>', 'twentyseventeen' ),
+			'<a href="' . esc_url( get_day_link($year,$month,$day) ) . '" rel="bookmark">' . $time_string . '</a>'
+		);
+	}
+
+	return $time_string;
 }
 endif;
 
 
-if ( ! function_exists( 'twentyseventeen_entry_footer' ) ) :
+if ( ! function_exists( 'jigim_entry_title' ) ) :
+/** 显示文章标题的html
+ * Prints HTML with meta information for the title
+ */
+function jigim_entry_title(){
+	if ( is_single() ) {
+		the_title( '<h1 class="entry-title">', '</h1>' );
+	} elseif ( is_front_page() && is_home() ) {
+		the_title( '<h3 class="entry-title"><a href="' . esc_url( get_permalink() ) . '" rel="bookmark">', '</a></h3>' );
+	} else {
+		the_title( '<h2 class="entry-title"><a href="' . esc_url( get_permalink() ) . '" rel="bookmark">', '</a></h2>' );
+	}
+}
+endif;
+
+
+if ( ! function_exists( 'jigim_entry_category' ) ) :
+/** 显示文章分类信息的html
+ * Prints HTML with meta information for the categories
+ */
+function jigim_entry_category_2(){
+	if ( 'post' === get_post_type() ) { //文章类型才显示
+		$separate_meta = __( ' | ', 'twentyseventeen' );
+		// Get Categories for posts.获取分类列表
+		$categories_list = get_the_category_list( $separate_meta );
+
+		if ( $categories_list ) {
+			//获取文章的分类对象数组
+			$categories = get_the_category();
+			$cat_num = 0;
+
+			//用分隔符提取字符串
+			$array = explode($separate_meta, $categories_list);
+			echo '<ul class="entry-category">';
+				foreach ( $array as $cat_item) {
+					echo '<li class="category-' . $categories[ $cat_num ]->slug . '">' . $cat_item . '</li>';
+					$cat_num ++;
+				}
+			echo '</ul>';
+		}
+	}
+}
+
+function jigim_entry_category(){
+
+	if ( 'post' === get_post_type() ) { //文章类型才显示
+
+		$categories = get_the_category();   //获取文章的分类对象数组
+		if ( $categories ) {
+			echo '<ul class="entry-categories">';
+			foreach ( $categories as $cat) {
+				echo '<li class="category-' . $cat->slug . '"><a href="' . get_category_link($cat)
+				     . '" rel="category tag">' . $cat->name . '</a></li>';
+			}
+			echo '</ul>';
+		}
+	}
+}
+endif;
+
+
+if ( ! function_exists( 'jigim_entry_tag' ) ) :
+/** 显示文章tag信息的html
+ * Prints HTML with meta information for the tag
+ */
+function jigim_entry_tag_2() {
+	if ( 'post' === get_post_type() ) { //文章类型才显示
+		$separate_meta = __( ', ', 'twentyseventeen' );
+		//获取文章的tag列表
+		$tags_list = get_the_tag_list( '', $separate_meta );
+		if ( $tags_list && ! is_wp_error( $tags_list ) ) {
+			//获取文章的tag对象数组
+			$tags = get_the_tags();
+			$tags_num = 0;
+
+			//用分隔符提取字符串
+			echo '<ul class="entry-tags">';
+				$array = explode($separate_meta, $tags_list);
+				foreach( $array as $tag_item){
+					echo '<li class="tag-' . $tags[$tags_num]->slug . '">' . $tag_item . '</li>';
+					$tags_num++;
+				}
+			echo '</ul>';
+		}
+	}
+}
+
+function jigim_entry_tag() {
+	if ( 'post' === get_post_type() ) { //文章类型才显示
+
+		$tags = get_the_tags(); //获取文章的tag对象数组
+		if ( $tags && ! is_wp_error( $tags ) ) {
+			echo '<ul class="entry-tags">';
+			foreach( $tags as $tag_item){
+				echo '<li class="tag-' . $tag_item->slug . '"><a href="' . get_tag_link($tag_item)
+				     . '" rel="tag">' . $tag_item->name . '</a></li>';
+			}
+			echo '</ul>';
+		}
+	}
+}
+endif;
+
+
+if ( ! function_exists( 'jigim_entry_footer' ) ) :
 /** 显示分类/tag/编辑链接等meta信息的html
  * Prints HTML with meta information for the categories, tags and comments.
  */
-function twentyseventeen_entry_footer() {
+function jigim_entry_footer() {
 	/* translators: used between list items, there is a space after the comma */
 	$separate_meta = __( ', ', 'twentyseventeen' );
 
@@ -94,15 +225,14 @@ function twentyseventeen_entry_footer() {
 				}
 			}
 
-			twentyseventeen_edit_link(); //显示（文章/页面）编辑链接
-
+			jigim_edit_link(); //显示（文章/页面）编辑链接
 		echo '</footer> <!-- .entry-footer -->';
 	}
 }
 endif;
 
 
-if ( ! function_exists( 'twentyseventeen_edit_link' ) ) :
+if ( ! function_exists( 'jigim_edit_link' ) ) :
 /**
  * Returns an accessibility-friendly link to edit a post or page.
  * 显示（文章/页面）编辑链接
@@ -111,7 +241,7 @@ if ( ! function_exists( 'twentyseventeen_edit_link' ) ) :
  * of the template hierarchy and their content. Helpful when/if the single-page
  * layout with multiple posts/pages shown gets confusing.
  */
-function twentyseventeen_edit_link() {
+function jigim_edit_link() {
 	edit_post_link(
 		sprintf(
 			/* translators: %s: Name of current post */
@@ -123,6 +253,7 @@ function twentyseventeen_edit_link() {
 	);
 }
 endif;
+
 
 if ( ! function_exists( 'twentyseventeen_front_page_section' ) ) :
 /**
@@ -158,6 +289,7 @@ function twentyseventeen_front_page_section( $partial = null, $id = 0 ) {
 }
 endif;
 
+
 if ( ! function_exists( 'twentyseventeen_categorized_blog' ) ) :
 /**
  * Returns true if a blog has more than 1 category.
@@ -191,6 +323,7 @@ function twentyseventeen_categorized_blog() {
 }
 endif;
 
+
 if ( ! function_exists( 'twentyseventeen_category_transient_flusher' ) ) :
 /** 编辑完成保存后，清除瞬态值
  * Flush out the transients used in twentyseventeen_categorized_blog.
@@ -205,3 +338,75 @@ function twentyseventeen_category_transient_flusher() {
 endif;
 add_action( 'edit_category', 'twentyseventeen_category_transient_flusher' );
 add_action( 'save_post',     'twentyseventeen_category_transient_flusher' );
+
+
+if ( ! function_exists( 'jigim_archive_meta_header' ) ) :
+/** 显示存档页archive（category、tag、date、author等）的
+ * 特性图、标题、简介等信息
+ * Prints HTML with meta information for the archive
+ */
+function jigim_archive_meta_header(){
+	if ( is_category() ) {
+
+		$title = single_cat_title( '', false );
+		$feature_image = get_stylesheet_directory_uri() . '/assets/images/feature_category-'.$title.'.jpg';
+		$title_string = sprintf( __( '%1$s Category: %2$s','twentyseventeen' ),
+			'<span class="sr-only">','</span>'.$title );
+
+	} elseif ( is_tag() ) {
+
+		$title = single_tag_title( '', false );
+		$feature_image = get_stylesheet_directory_uri() . '/assets/images/feature_tag-'.$title.'.jpg';
+		$title_string = sprintf( __( '%1$s Tag: %2$s','twentyseventeen' ),
+			'<span class="sr-only">','</span>'.$title );
+
+	} elseif ( is_author() ) {
+
+		$title = get_the_author();
+		$feature_image = get_stylesheet_directory_uri() . '/assets/images/feature_author-'.$title.'.jpg';
+		$title_string = sprintf( __( '%1$s Author: %2$s','twentyseventeen' ),
+			'<span class="sr-only">','</span><span class="vcard">' .$title . '</span>' );
+		$avatar = get_avatar(get_the_author_meta( 'ID' ),64,'','');
+		$post_num = get_the_author_posts();
+
+	} elseif ( is_year() ) {
+
+		$feature_image = get_stylesheet_directory_uri() . '/assets/images/feature_year.jpg';
+		$title_string = sprintf( __( '%1$s Year: %2$s','twentyseventeen' ),
+			'<span class="sr-only">', '</span>'.get_the_date( _x( 'Y', 'yearly archives date format' ) ) );
+
+	} elseif ( is_month() ) {
+
+		$feature_image = get_stylesheet_directory_uri() . '/assets/images/feature_month.jpg';
+		$title_string = sprintf( __( '%1$s Month: %2$s','twentyseventeen' ),
+			'<span class="sr-only">', '</span>'.get_the_date( _x( 'F Y', 'monthly archives date format' ) ) );
+
+	} elseif ( is_day() ) {
+
+		$feature_image = get_stylesheet_directory_uri() . '/assets/images/feature_day.jpg';
+		$title_string = sprintf( __( '%1$s Day: %2$s','twentyseventeen' ),
+			'<span class="sr-only">', '</span>'.get_the_date( _x( 'F j, Y', 'daily archives date format' ) ) );
+
+	} else {
+
+		$feature_image = get_stylesheet_directory_uri() . '/assets/images/default_feature.jpg';
+		$title_string = __( 'Archives','twentyseventeen' );
+
+	}
+
+	//$feature_image = '<div class="single-featured-image-header"><img src="'.$feature_image.'" alt="feature image"></div>';
+	//$title_string = '<h1 class="page-title">'.$title_string.'</h1>';
+	//$post_num_string = '';//'<span class="archive-post-num">'.$post_num.'篇文章</span>';
+	//$description_string = '<div class="taxonomy-description">'.get_the_archive_description().'</div>';
+
+	echo '<header class="page-header">';
+		echo '<div class="single-featured-image-header"><img src="'.$feature_image.'" alt="feature image"></div>';
+		if( is_author() ){
+			echo '<span class="post-avatar">' .$avatar. '</span>';
+		}
+		echo '<h1 class="page-title">'.$title_string.'</h1>';
+		echo '<span class="archive-post-num">'.$post_num.'篇文章</span>';
+		echo '<div class="taxonomy-description">'.get_the_archive_description().'</div>';
+	echo '</header><!-- .page-header -->';
+}
+endif;

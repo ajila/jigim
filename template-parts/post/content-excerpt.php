@@ -1,7 +1,7 @@
 <?php
 /**
  * Template part for displaying posts with excerpts
- *  只用于搜索结果页和首页panel显示最新文章时，显示文章摘要
+ *  非post_format，只用于搜索结果页search，和首页panel显示最新文章时，显示文章摘要
  * Used in Search Results and for Recent Posts in Front Page panels.
  *
  * @link https://codex.wordpress.org/Template_Hierarchy
@@ -21,13 +21,13 @@
 		<?php                                   //section1: meta
         if ( 'post' === get_post_type() ) { //文章post type为post
 	        echo '<div class="entry-meta">';//打印日期时间和编辑链接
-	            echo twentyseventeen_time_link();
-	            twentyseventeen_edit_link();
+	            echo jigim_time_link();
+	            jigim_edit_link();
 	        echo '</div>';
         }                                   //文章post type为page
         elseif ( 'page' === get_post_type() && get_edit_post_link() ) {
             echo '<div class="entry-meta">';
-	            twentyseventeen_edit_link(); //只打印编辑链接
+	            jigim_edit_link(); //只打印编辑链接
 	        echo '</div>';
         }
 

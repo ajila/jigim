@@ -18,14 +18,18 @@
 get_header(); ?>
 
 <div class="wrap">
+<!--[if lt IE 8]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/" style="text-decoration:underline">upgrade your browser</a> to improve your experience.</p>
+    <p class="browserupgrade">你使用的浏览器版本<strong>已经过时</strong>. 为了获得更好的体验，请<a href="http://browsehappy.com/" style="text-decoration:underline">升级你的浏览器</a>.</p>
+<![endif]-->
 
 	<!-- section1: 标题 -->
 	<?php if ( is_home() && ! is_front_page() ) : //是博客文章主页但非网站首页，则显示页面标题?>
-		<header class="page-header">
+		<header class="page-header sr-only">
 			<h1 class="page-title"><?php single_post_title(); ?></h1>
 		</header>
 	<?php else : //博客文章主页做网站首页，则显示字符串?>
-	    <header class="page-header">
+	    <header class="page-header sr-only">
 		    <h2 class="page-title"><?php _e( 'Posts', 'twentyseventeen' ); ?></h2>
 	    </header>
 	<?php endif; ?>
@@ -51,8 +55,8 @@ get_header(); ?>
 
 				/* 文章分页导航 */
 				the_posts_pagination( array(
-					'prev_text' => twentyseventeen_get_svg( array( 'icon' => 'arrow-left' ) ) . '<span class="screen-reader-text">' . __( 'Previous page', 'twentyseventeen' ) . '</span>',
-					'next_text' => '<span class="screen-reader-text">' . __( 'Next page', 'twentyseventeen' ) . '</span>' . twentyseventeen_get_svg( array( 'icon' => 'arrow-right' ) ),
+					'prev_text' => '<span class="fa fa-chevron-left"></span><span class="screen-reader-text">' . __( 'Previous page', 'twentyseventeen' ) . '</span>',
+					'next_text' => '<span class="screen-reader-text">' . __( 'Next page', 'twentyseventeen' ) . '</span><span class="fa fa-chevron-right"></span>',
 					'before_page_number' => '<span class="meta-nav screen-reader-text">' . __( 'Page', 'twentyseventeen' ) . ' </span>',
 				) );
 

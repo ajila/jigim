@@ -38,16 +38,20 @@ get_header(); ?>
                                    . '</span><span aria-hidden="true" class="nav-subtitle">'
                                    . __( 'Previous', 'twentyseventeen' )
                                    . '</span> <span class="nav-title"><span class="nav-title-icon-wrapper">'
-                                   . twentyseventeen_get_svg( array( 'icon' => 'arrow-left' ) )
+                                   . '<span class="fa fa-chevron-left"></span>'
                                    . '</span>%title</span>',
 					'next_text' => '<span class="screen-reader-text">'
                                    . __( 'Next Post', 'twentyseventeen' )
                                    . '</span><span aria-hidden="true" class="nav-subtitle">'
                                    . __( 'Next', 'twentyseventeen' )
                                    . '</span> <span class="nav-title">%title<span class="nav-title-icon-wrapper">'
-                                   . twentyseventeen_get_svg( array( 'icon' => 'arrow-right' ) )
+                                   . '<span class="fa fa-chevron-right"></span>'
                                    . '</span></span>',
 				) );
+
+			    //4. 显示同一分类下的相关文章
+				get_template_part( 'template-parts/slider/slider', 'related-post' );
+
 			//endwhile; // End of the loop.
 			else :
 				get_template_part( 'template-parts/post/content', 'none' );

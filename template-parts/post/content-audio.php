@@ -1,7 +1,7 @@
 <?php
 /**
  * Template part for displaying audio posts
- *
+ * post-format为audio的content模板
  * @link https://codex.wordpress.org/Template_Hierarchy
  *
  * @package WordPress
@@ -13,95 +13,87 @@
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-	<?php   //当前是博客主页且是置顶文章，输出图标
-		if ( is_sticky() && is_home() ) {
-			echo twentyseventeen_get_svg( array( 'icon' => 'thumb-tack' ) );
-		}
-	?>
 
-	<?php   //文章meta信息和标题 ?>
-	<header class="entry-header">
-		<?php                                    //section1: meta
-			if ( 'post' === get_post_type() ) { //文章post type为post
-				echo '<div class="entry-meta">';
-					if ( is_single() ) {        //单篇文章时，打印日期时间作者
-						twentyseventeen_posted_on();
-					} else {                    //文章列表时，打印日期时间和编辑链接
-						echo twentyseventeen_time_link();
-						twentyseventeen_edit_link();
-					}
-				echo '</div><!-- .entry-meta -->';
-			};
-		                                        //section2: title
-			if ( is_single() ) {
-				the_title( '<h1 class="entry-title">', '</h1>' );
-			} elseif ( is_front_page() && is_home() ) {
-				the_title( '<h3 class="entry-title"><a href="' . esc_url( get_permalink() ) . '" rel="bookmark">', '</a></h3>' );
-			} else {
-				the_title( '<h2 class="entry-title"><a href="' . esc_url( get_permalink() ) . '" rel="bookmark">', '</a></h2>' );
-			}
-		?>
-	</header><!-- .entry-header -->
+	<?php if( !is_single()) { //非单篇文章(文章列表)
 
-	<?php   //获取文章内容中的音频
+		//获取文章内容中的音频
 		$content = apply_filters( 'the_content', get_the_content() );
-		$audio = false;
-
-		// Only get audio from the content if a playlist isn't present.
-	    //文章内容中不包含播放列表，则从内容中查找音频标签
+		$audio   = false;
+		// Only get video from the content if a playlist isn't present.
+		// 文章内容中不包含播放列表，则从内容中查找音频标签
 		if ( false === strpos( $content, 'wp-playlist-script' ) ) {
 			$audio = get_media_embedded_in_content( $content, array( 'audio' ) );
 		}
+
+		if ( ! empty( $audio ) ) {  //若有音频，则显示第一个音频标签
+			echo '<div class="entry-audio">';
+			    echo $audio[0];
+			echo '</div>';
+		}
+		else if ( '' !== get_the_post_thumbnail() ) {   //若无音频，有缩略图则显示缩略图
+			echo '<div class="post-thumbnail"><a href="' . esc_url( get_permalink() ) . '">';
+			    the_post_thumbnail( 'jigim-thumbnail-image' );
+			echo '</a></div><!-- .post-thumbnail -->';
+		}
+		else {  //也无缩略图，则显示文章中第一张图片
+			$img = jigim_get_post_first_img( get_the_content() );
+			echo '<div class="post-image-attachment"><a href="' . esc_url(get_permalink()) . '">';
+			    echo '<img src = "'. $img . '" alt="post image attachment">';
+			echo '</a> </div><!-- .post-image-attachment -->';
+        }
+	}
 	?>
 
-	<?php if ( '' !== get_the_post_thumbnail() && ! is_single() ) :
-        //若不是单篇文章(文章列表)，且有缩略图，则显示缩略图 ?>
-		<div class="post-thumbnail">
-			<a href="<?php the_permalink(); ?>">
-				<?php the_post_thumbnail( 'twentyseventeen-featured-image' ); ?>
-			</a>
-		</div><!-- .post-thumbnail -->
+
+	<?php if ( is_sticky() && is_home() ) : //当前是博客主页（文章列表）且是置顶文章，输出图标 ?>
+        <span class="fa fa-thumb-tack"></span>
 	<?php endif; ?>
 
-	<div class="entry-content">
-
+	<?php   //文章meta信息和标题 ?>
+	<header class="entry-header">
 		<?php
-		if ( ! is_single() ) {
-            //若不是单篇文章(文章列表)且有音频，则遍历音频，先显示音频标签
-			// If not a single post, highlight the audio file.
-			if ( ! empty( $audio ) ) {
-				foreach ( $audio as $audio_html ) {
-					echo '<div class="entry-audio">';
-						echo $audio_html;
-					echo '</div><!-- .entry-audio -->';
-				}
-			};
+		//section1: 文章分类
+		jigim_entry_category();
 
-		};
+		//section2: 文章标题
+		jigim_entry_title();
 
-		if ( is_single() || empty( $audio ) ) {
-        //若是单篇文章，或文章列表时音频为空，则显示文章内容
+		//section3: meta（作者、日期）,文章post type为post且单篇文章时
+		if ( 'post' === get_post_type() && is_single() ) {
+			echo '<div class="entry-meta">';
+			jigim_posted_on();    //打印作者头像日期时间
+			jigim_edit_link();    //打印编辑链接
+			echo '</div><!-- .entry-meta -->';
+		}
+		?>
+	</header><!-- .entry-header -->
+
+	<?php if ( is_single() || ( empty($audio) && !get_the_post_thumbnail() ) ):
+		//若是单篇文章，或文章列表时既无音频也无缩略图，则显示文章内容 ?>
+	    <div class="entry-content">
+        <?php
 			/* translators: %s: Name of current post */
 			the_content( sprintf(
 				__( 'Continue reading<span class="screen-reader-text"> "%s"</span>', 'twentyseventeen' ),
 				get_the_title()
 			) );
-			//单文章分页时，显示分页链接
+			//显示分页链接
 			wp_link_pages( array(
 				'before'      => '<div class="page-links">' . __( 'Pages:', 'twentyseventeen' ),
 				'after'       => '</div>',
 				'link_before' => '<span class="page-number">',
 				'link_after'  => '</span>',
 			) );
-		};
-		?>
+        ?>
+	    </div><!-- .entry-content -->
 
-	</div><!-- .entry-content -->
-
-	<?php   //输出分类、tag列表和编辑链接
-	if ( is_single() ) {
-		twentyseventeen_entry_footer();
-	}
-	?>
+        <footer class="entry-footer">
+            <?php jigim_entry_tag();    //输出tag列表 ?>
+        </footer>
+	<?php else: //文章列表时，作者日期时间显示在底部 ?>
+        <footer class="entry-footer">
+			<?php jigim_posted_on();  ?>
+        </footer>
+	<?php endif; ?>
 
 </article><!-- #post-## -->
