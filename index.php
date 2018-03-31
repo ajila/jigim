@@ -10,7 +10,7 @@
  * @link https://codex.wordpress.org/Template_Hierarchy
  *
  * @package WordPress
- * @subpackage Twenty_Seventeen
+ * @subpackage Jig_im
  * @since 1.0
  * @version 1.0
  */
@@ -24,11 +24,11 @@ get_header(); ?>
 <![endif]-->
 
 	<!-- section1: 标题 -->
-	<?php if ( is_home() && ! is_front_page() ) : //是博客文章主页但非网站首页，则显示页面标题?>
+	<?php if ( is_home() && ! is_front_page() ) : //是主页但非首页，则显示页面标题?>
 		<header class="page-header sr-only">
 			<h1 class="page-title"><?php single_post_title(); ?></h1>
 		</header>
-	<?php else : //博客文章主页做网站首页，则显示字符串?>
+	<?php else : //主页做首页，则显示字符串?>
 	    <header class="page-header sr-only">
 		    <h2 class="page-title"><?php _e( 'Posts', 'twentyseventeen' ); ?></h2>
 	    </header>

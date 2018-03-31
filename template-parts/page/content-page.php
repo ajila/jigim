@@ -5,7 +5,7 @@
  * @link https://codex.wordpress.org/Template_Hierarchy
  *
  * @package WordPress
- * @subpackage Twenty_Seventeen
+ * @subpackage Jig_im
  * @since 1.0
  * @version 1.0
  */
@@ -17,7 +17,7 @@
     <!-- 1. 页面标题 -->
 	<header class="entry-header">
 		<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
-		<?php jigim_edit_link( get_the_ID() ); ?>
+		<?php jigim_edit_link(); ?>
 	</header><!-- .entry-header -->
 
     <!-- 2. 页面内容 -->
@@ -28,6 +28,8 @@
 			wp_link_pages( array(
 				'before' => '<div class="page-links">' . __( 'Pages:', 'twentyseventeen' ),
 				'after'  => '</div>',
+				'link_before' => '<span class="page-number">',
+				'link_after'  => '</span>',
 			) );
 		?>
 	</div><!-- .entry-content -->

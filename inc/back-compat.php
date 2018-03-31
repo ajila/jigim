@@ -7,7 +7,7 @@
  * relies on many newer functions and markup changes introduced in 4.7.
  *
  * @package WordPress
- * @subpackage Twenty_Seventeen
+ * @subpackage Jig_im
  * @since Twenty Seventeen 1.0
  */
 

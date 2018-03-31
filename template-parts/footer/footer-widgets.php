@@ -3,7 +3,7 @@
  * Displays footer widgets if assigned
  *
  * @package WordPress
- * @subpackage Twenty_Seventeen
+ * @subpackage Jig_im
  * @since 1.0
  * @version 1.0
  */

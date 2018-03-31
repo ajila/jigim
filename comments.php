@@ -8,7 +8,7 @@
  * @link https://codex.wordpress.org/Template_Hierarchy
  *
  * @package WordPress
- * @subpackage Twenty_Seventeen
+ * @subpackage Jig_im
  * @since 1.0
  * @version 1.0
  */
@@ -28,6 +28,7 @@ if ( post_password_required() ) {
 	<?php   //若有评论则显示所有评论
 	// You can start editing here -- including this comment!
 	if ( have_comments() ) : ?>
+
         <?php //1.评论标题和评论数 ?>
 		<h2 class="comments-title">
 			<?php
@@ -38,41 +39,36 @@ if ( post_password_required() ) {
 			} else {
 				printf(
 					/* translators: 1: number of comments, 2: post title */
-					_nx(
-						'%1$s Reply to &ldquo;%2$s&rdquo;',
-						'%1$s Replies to &ldquo;%2$s&rdquo;',
-						$comments_number,
-						'comments title',
-						'twentyseventeen'
-					),
+					_nx('%1$s Reply to &ldquo;%2$s&rdquo;','%1$s Replies to &ldquo;%2$s&rdquo;',$comments_number,'comments title','twentyseventeen'),
 					number_format_i18n( $comments_number ),
 					get_the_title()
 				);
 			}
 			?>
 		</h2>
+
         <?php //2.列出所有评论 ?>
 		<ol class="comment-list">
 			<?php
-				wp_list_comments( array(
-					'avatar_size' => 100,
-					'style'       => 'ul',
-					'short_ping'  => true,
-					'reply_text'  => twentyseventeen_get_svg( array( 'icon' => 'mail-reply' ) ) . __( 'Reply', 'twentyseventeen' ),
-				) );
+            wp_list_comments( array(
+                'avatar_size' => 100,
+                'style'       => 'ul',
+                'short_ping'  => true,
+                'reply_text'  => '<span class="fa fa-reply"></span>' . __( 'Reply', 'twentyseventeen' ),
+            ) );
 			?>
 		</ol>
+
 		<?php //3.评论分页链接 ?>
 		<?php the_comments_pagination( array(
-			'prev_text' => twentyseventeen_get_svg( array( 'icon' => 'arrow-left' ) ) . '<span class="screen-reader-text">' . __( 'Previous', 'twentyseventeen' ) . '</span>',
-			'next_text' => '<span class="screen-reader-text">' . __( 'Next', 'twentyseventeen' ) . '</span>' . twentyseventeen_get_svg( array( 'icon' => 'arrow-right' ) ),
+			'prev_text' => '<span class="fa fa-chevron-left"></span><span class="screen-reader-text">' . __( 'Previous', 'twentyseventeen' ) . '</span>',
+			'next_text' => '<span class="screen-reader-text">' . __( 'Next', 'twentyseventeen' ) . '</span><span class="fa fa-chevron-right"></span>' ,
 		) );
 	endif; // Check for have_comments().
 
 	// If comments are closed and there are comments, let's leave a little note, shall we?
-    //若当前文章支持评论，且有评论，且评论关闭，则显示提示消息
+    // 若当前文章支持评论，且有评论，且评论关闭，则显示提示消息
 	if ( ! comments_open() && get_comments_number() && post_type_supports( get_post_type(), 'comments' ) ) : ?>
-
 		<p class="no-comments"><?php _e( 'Comments are closed.', 'twentyseventeen' ); ?></p>
 	<?php
 	endif;

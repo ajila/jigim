@@ -29,7 +29,7 @@
             'posts_per_page'   => 6,
             'offset'           => 0,
             'suppress_filters' => false, // <- for language plugins
-            'category__in'     => $cat_array,  //显示分类与当前文章相同的文章
+            'category__in'     => $cat_array,  //显示分类属于当前文章的分类之一的文章
 	        'post__not_in'     => array(get_the_ID())   //排除当前文章
         );
         $the_query = new WP_Query($args);
@@ -52,7 +52,7 @@
                     }
                     echo '<div class="entry-content">';
                         echo '<div class="posted-on">'.get_the_time('Y年n月j日').'</div>';
-                        echo '<h5 class="entry-title">'.get_the_title().'</h5>';
+                        echo '<h5 class="entry-title"><a href="' .esc_url(get_permalink()) .'">'.get_the_title().'</a></h5>';
                         echo '<div class="entry-summary">'.get_the_excerpt().'</div>';
     	            echo '</div><!-- .entry-header -->';
 	            echo '</li> <!-- .related-post-item -->';

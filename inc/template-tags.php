@@ -5,12 +5,13 @@
  * Eventually, some of the functionality here could be replaced by core features.
  *
  * @package WordPress
- * @subpackage Twenty_Seventeen
+ * @subpackage Jig_im
  * @since 1.0
  */
 
 if ( ! function_exists( 'jigim_posted_on' ) ) :
-/** 显示当前文章日期和作者等meta信息的html
+/**
+ * 显示当前文章日期和作者等meta信息的html
  * Prints HTML with meta information for the current post-date/time and author.
  */
 function jigim_posted_on() {
@@ -32,7 +33,8 @@ endif;
 
 
 if ( ! function_exists( 'jigim_time_link' ) ) :
-/** 返回文章（发表/更新）日期
+/**
+ * 返回文章（发表/更新）日期
  * Gets a nicely formatted string for the published date.
  */
 function jigim_time_link() {
@@ -84,7 +86,8 @@ endif;
 
 
 if ( ! function_exists( 'jigim_entry_title' ) ) :
-/** 显示文章标题的html
+/**
+ * 显示文章标题的html
  * Prints HTML with meta information for the title
  */
 function jigim_entry_title(){
@@ -100,9 +103,26 @@ endif;
 
 
 if ( ! function_exists( 'jigim_entry_category' ) ) :
-/** 显示文章分类信息的html
+/**
+ * 显示文章分类信息的html
  * Prints HTML with meta information for the categories
  */
+function jigim_entry_category(){
+
+	if ( 'post' === get_post_type() ) { //文章类型才显示
+
+		$categories = get_the_category();   //获取文章的分类对象数组
+		if ( $categories ) {
+			echo '<ul class="entry-categories">';
+			foreach ( $categories as $cat) {
+				echo '<li class="category-' . $cat->slug . '"><a href="' . get_category_link($cat)
+				     . '" rel="category tag">' . $cat->name . '</a></li>';
+			}
+			echo '</ul>';
+		}
+	}
+}
+/*
 function jigim_entry_category_2(){
 	if ( 'post' === get_post_type() ) { //文章类型才显示
 		$separate_meta = __( ' | ', 'twentyseventeen' );
@@ -125,29 +145,30 @@ function jigim_entry_category_2(){
 		}
 	}
 }
+*/
+endif;
 
-function jigim_entry_category(){
 
+if ( ! function_exists( 'jigim_entry_tag' ) ) :
+/**
+ * 显示文章tag信息的html
+ * Prints HTML with meta information for the tag
+ */
+function jigim_entry_tag() {
 	if ( 'post' === get_post_type() ) { //文章类型才显示
 
-		$categories = get_the_category();   //获取文章的分类对象数组
-		if ( $categories ) {
-			echo '<ul class="entry-categories">';
-			foreach ( $categories as $cat) {
-				echo '<li class="category-' . $cat->slug . '"><a href="' . get_category_link($cat)
-				     . '" rel="category tag">' . $cat->name . '</a></li>';
+		$tags = get_the_tags(); //获取文章的tag对象数组
+		if ( $tags && ! is_wp_error( $tags ) ) {
+			echo '<ul class="entry-tags">';
+			foreach( $tags as $tag_item){
+				echo '<li class="tag-' . $tag_item->slug . '"><a href="' . get_tag_link($tag_item)
+				     . '" rel="tag">' . $tag_item->name . '</a></li>';
 			}
 			echo '</ul>';
 		}
 	}
 }
-endif;
-
-
-if ( ! function_exists( 'jigim_entry_tag' ) ) :
-/** 显示文章tag信息的html
- * Prints HTML with meta information for the tag
- */
+/*
 function jigim_entry_tag_2() {
 	if ( 'post' === get_post_type() ) { //文章类型才显示
 		$separate_meta = __( ', ', 'twentyseventeen' );
@@ -169,26 +190,13 @@ function jigim_entry_tag_2() {
 		}
 	}
 }
-
-function jigim_entry_tag() {
-	if ( 'post' === get_post_type() ) { //文章类型才显示
-
-		$tags = get_the_tags(); //获取文章的tag对象数组
-		if ( $tags && ! is_wp_error( $tags ) ) {
-			echo '<ul class="entry-tags">';
-			foreach( $tags as $tag_item){
-				echo '<li class="tag-' . $tag_item->slug . '"><a href="' . get_tag_link($tag_item)
-				     . '" rel="tag">' . $tag_item->name . '</a></li>';
-			}
-			echo '</ul>';
-		}
-	}
-}
+*/
 endif;
 
 
 if ( ! function_exists( 'jigim_entry_footer' ) ) :
-/** 显示分类/tag/编辑链接等meta信息的html
+/**
+ * 显示分类/tag/编辑链接等meta信息的html
  * Prints HTML with meta information for the categories, tags and comments.
  */
 function jigim_entry_footer() {
@@ -203,21 +211,21 @@ function jigim_entry_footer() {
 
 	// We don't want to output .entry-footer if it will be empty, so make sure its not.
 	// 分类列表非空且分类数大于1，或tag列表非空，或有编辑链接
-	if ( ( ( twentyseventeen_categorized_blog() && $categories_list ) || $tags_list ) || get_edit_post_link() ) {
+	if ( ( ( jigim_categorized_blog() && $categories_list ) || $tags_list ) || get_edit_post_link() ) {
 
 		echo '<footer class="entry-footer">';
 
 			if ( 'post' === get_post_type() ) { //文章类型才显示分类和tag
-				if ( ( $categories_list && twentyseventeen_categorized_blog() ) || $tags_list ) {
+				if ( ( $categories_list && jigim_categorized_blog() ) || $tags_list ) {
 					echo '<span class="cat-tags-links">';
 						// Make sure there's more than one category before displaying.
-						if ( $categories_list && twentyseventeen_categorized_blog() ) { //显示文章分类
-							echo '<span class="cat-links">'. twentyseventeen_get_svg( array( 'icon' => 'folder-open' ) )
+						if ( $categories_list && jigim_categorized_blog() ) {   //显示文章分类
+							echo '<span class="cat-links"><span class="fa fa-folder-open-o"></span> '
 							     . '<span class="screen-reader-text">' . __( 'Categories', 'twentyseventeen' ) . '</span>' . $categories_list . '</span>';
 						}
 
-						if ( $tags_list && ! is_wp_error( $tags_list ) ) { //显示文章tag
-							echo '<span class="tags-links">' . twentyseventeen_get_svg( array( 'icon' => 'hashtag' ) )
+						if ( $tags_list && ! is_wp_error( $tags_list ) ) {      //显示文章tag
+							echo '<span class="tags-links"><span class="fa fa-hashtag"></span> '
 							     . '<span class="screen-reader-text">' . __( 'Tags', 'twentyseventeen' ) . '</span>' . $tags_list . '</span>';
 						}
 
@@ -255,14 +263,14 @@ function jigim_edit_link() {
 endif;
 
 
-if ( ! function_exists( 'twentyseventeen_front_page_section' ) ) :
+if ( ! function_exists( 'jigim_front_page_section' ) ) :
 /**
  * Display a front page section.
  * 显示首页章节
  * @param WP_Customize_Partial $partial Partial associated with a selective refresh request.
  * @param integer              $id Front page section to display.
  */
-function twentyseventeen_front_page_section( $partial = null, $id = 0 ) {
+function jigim_front_page_section( $partial = null, $id = 0 ) {
 	if ( is_a( $partial, 'WP_Customize_Partial' ) ) {
 		// Find out the id and set it up during a selective refresh.
 		global $twentyseventeencounter;
@@ -271,33 +279,37 @@ function twentyseventeen_front_page_section( $partial = null, $id = 0 ) {
 	}
 
 	global $post; // 在创建post data之前，修改全局对象$post.
-	if ( get_theme_mod( 'panel_' . $id ) ) {    //获取panel_n的值（pageid）
-		$post = get_post( get_theme_mod( 'panel_' . $id ) );//获取指定首页章节的post数据
-		setup_postdata( $post );    //用返回的post数据创建全局post对象
+	if ( get_theme_mod( 'panel_' . $id ) ) {    //获取panel_n的值（page_id）
+
+		$post = get_post( get_theme_mod( 'panel_' . $id ) );//获取指定首页章节(page_id)的post数据
+		setup_postdata( $post );             //用返回的post数据创建全局post对象
 		set_query_var( 'panel', $id );  //设置查询变量，传递参数给下面的模板文件调用
 		//显示首页章节页面内容
 		get_template_part( 'template-parts/page/content', 'front-page-panels' );
 
 		wp_reset_postdata();        //复位全局变量$post
+
 	} elseif ( is_customize_preview() ) {   //panel_n未设置，在预览窗口中显示占位符
+
 		// The output placeholder anchor.
 		echo '<article class="panel-placeholder panel twentyseventeen-panel twentyseventeen-panel'
 		     . $id . '" id="panel' . $id . '"><span class="twentyseventeen-panel-title">'
 		     . sprintf( __( 'Front Page Section %1$s Placeholder', 'twentyseventeen' ), $id )
 		     . '</span></article>';
+
 	}
 }
 endif;
 
 
-if ( ! function_exists( 'twentyseventeen_categorized_blog' ) ) :
+if ( ! function_exists( 'jigim_categorized_blog' ) ) :
 /**
  * Returns true if a blog has more than 1 category.
  * 计算文章分类数，有超过1个分类则返回true
  * @return bool
  */
-function twentyseventeen_categorized_blog() {
-	$category_count = get_transient( 'twentyseventeen_categories' ); //获取瞬态值
+function jigim_categorized_blog() {
+	$category_count = get_transient( 'jigim_categories' ); //获取瞬态值
 
 	if ( false === $category_count ) {
 		// Create an array of all the categories that are attached to posts.返回文章的分类对象数组
@@ -311,7 +323,7 @@ function twentyseventeen_categorized_blog() {
 		// Count the number of categories that are attached to the posts. 分类数组中的元素个数
 		$category_count = count( $categories );
 
-		set_transient( 'twentyseventeen_categories', $category_count ); //设置瞬态值
+		set_transient( 'jigim_categories', $category_count ); //设置瞬态值，令此部分代码只执行一次
 	}
 
 	// Allow viewing case of 0 or 1 categories in post preview.预览窗口无论有多少分类都返回true
@@ -324,50 +336,57 @@ function twentyseventeen_categorized_blog() {
 endif;
 
 
-if ( ! function_exists( 'twentyseventeen_category_transient_flusher' ) ) :
-/** 编辑完成保存后，清除瞬态值
- * Flush out the transients used in twentyseventeen_categorized_blog.
+if ( ! function_exists( 'jigim_category_transient_flusher' ) ) :
+/**
+ * 编辑完成保存后，清除瞬态值
+ * Flush out the transients used in jigim_categorized_blog.
  */
-function twentyseventeen_category_transient_flusher() {
+function jigim_category_transient_flusher() {
 	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 		return;
 	}
 	// Like, beat it. Dig?
-	delete_transient( 'twentyseventeen_categories' );
+	delete_transient( 'jigim_categories' );
 }
 endif;
-add_action( 'edit_category', 'twentyseventeen_category_transient_flusher' );
-add_action( 'save_post',     'twentyseventeen_category_transient_flusher' );
+add_action( 'edit_category', 'jigim_category_transient_flusher' );
+add_action( 'save_post',     'jigim_category_transient_flusher' );
 
 
 if ( ! function_exists( 'jigim_archive_meta_header' ) ) :
-/** 显示存档页archive（category、tag、date、author等）的
- * 特性图、标题、简介等信息
+/**
+ * 显示存档页archive（category、tag、date、author等）的
+ * header部分（特性图、标题、简介、文章数等信息）
  * Prints HTML with meta information for the archive
  */
 function jigim_archive_meta_header(){
+
+	global  $wp_query;
+	$arch_obj = get_queried_object();
+	$post_num = $wp_query->found_posts; //由全局查询对象获取匹配结果数量
+
 	if ( is_category() ) {
 
 		$title = single_cat_title( '', false );
-		$feature_image = get_stylesheet_directory_uri() . '/assets/images/feature_category-'.$title.'.jpg';
 		$title_string = sprintf( __( '%1$s Category: %2$s','twentyseventeen' ),
 			'<span class="sr-only">','</span>'.$title );
+		$feature_image = get_stylesheet_directory_uri() . '/assets/images/feature_category-'.$arch_obj->slug.'.jpg';
 
 	} elseif ( is_tag() ) {
 
 		$title = single_tag_title( '', false );
-		$feature_image = get_stylesheet_directory_uri() . '/assets/images/feature_tag-'.$title.'.jpg';
 		$title_string = sprintf( __( '%1$s Tag: %2$s','twentyseventeen' ),
 			'<span class="sr-only">','</span>'.$title );
+		$feature_image = get_stylesheet_directory_uri() . '/assets/images/feature_tag-'.$arch_obj->slug.'.jpg';
 
 	} elseif ( is_author() ) {
 
 		$title = get_the_author();
-		$feature_image = get_stylesheet_directory_uri() . '/assets/images/feature_author-'.$title.'.jpg';
 		$title_string = sprintf( __( '%1$s Author: %2$s','twentyseventeen' ),
 			'<span class="sr-only">','</span><span class="vcard">' .$title . '</span>' );
+		$feature_image = get_stylesheet_directory_uri() . '/assets/images/feature_author-'.$title.'.jpg';
 		$avatar = get_avatar(get_the_author_meta( 'ID' ),64,'','');
-		$post_num = get_the_author_posts();
+		//$post_num = get_the_author_posts();
 
 	} elseif ( is_year() ) {
 
@@ -391,6 +410,7 @@ function jigim_archive_meta_header(){
 
 		$feature_image = get_stylesheet_directory_uri() . '/assets/images/default_feature.jpg';
 		$title_string = __( 'Archives','twentyseventeen' );
+		$post_num = 0;
 
 	}
 

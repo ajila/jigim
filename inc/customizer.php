@@ -3,7 +3,7 @@
  * Twenty Seventeen: Customizer
  * customizer相关函数
  * @package WordPress
- * @subpackage Twenty_Seventeen
+ * @subpackage Jig_im
  * @since 1.0
  */
 
@@ -88,13 +88,13 @@ function twentyseventeen_customize_register( $wp_customize ) {
 	) );
 
 	/**
-	 * Filter number of front page sections in Twenty Seventeen.
+	 * Filter number of front page sections.
 	 * 过滤首页章节数
 	 * @since Twenty Seventeen 1.0
 	 *
 	 * @param int $num_sections Number of front page sections.
 	 */
-	$num_sections = apply_filters( 'twentyseventeen_front_page_sections', 4 );
+	$num_sections = apply_filters( 'jigim_front_page_sections', 4 );
 
 	// Create a setting and control for each of the sections available in the theme.
 	// 为每个首页章节创建setting和control和partial
@@ -117,7 +117,7 @@ function twentyseventeen_customize_register( $wp_customize ) {
 
 		$wp_customize->selective_refresh->add_partial( 'panel_' . $i, array(
 			'selector'            => '#panel' . $i,
-			'render_callback'     => 'twentyseventeen_front_page_section',
+			'render_callback'     => 'jigim_front_page_section',
 			'container_inclusive' => true,
 		) );
 	}

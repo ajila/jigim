@@ -5,7 +5,7 @@
  * @link https://codex.wordpress.org/Creating_an_Error_404_Page
  *
  * @package WordPress
- * @subpackage Twenty_Seventeen
+ * @subpackage Jig_im
  * @since 1.0
  * @version 1.0
  */
@@ -18,6 +18,9 @@ get_header(); ?>
 
 			<section class="error-404 not-found">
 				<header class="page-header">
+                    <div class="single-featured-image-header">
+                        <img src="<?php echo get_stylesheet_directory_uri().'/assets/images/feature_404.jpg' ?>" alt="feature image">
+                    </div>
 					<h1 class="page-title"><?php _e( 'Oops! That page can&rsquo;t be found.', 'twentyseventeen' ); ?></h1>
 				</header><!-- .page-header -->
 				<div class="page-content">

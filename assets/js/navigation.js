@@ -1,4 +1,3 @@
-
 /**
  * Theme functions file.
  *
@@ -13,7 +12,7 @@
 		container.find( '.menu-item-has-children, .page_item_has_children' )
             .addClass( 'dropdown' );
 
-		//为菜单项li的a添加类和属性
+		//为菜单项li的a添加类、属性、图标
         container.find( '.menu-item-has-children > a, .page_item_has_children > a' )
             .addClass( 'dropdown-toggle' )
 			.attr('data-toggle', 'dropdown')

@@ -3,12 +3,13 @@
  * SVG icons related functions and filters
  * SVG图标相关函数和filters
  * @package WordPress
- * @subpackage Twenty_Seventeen
+ * @subpackage Jig_im
  * @since 1.0
  */
 
 if ( ! function_exists( 'twentyseventeen_include_svg_icons' ) ) :
-/** 包含svg定义到footer
+/**
+ * 包含svg定义到footer
  * Add SVG definitions to the footer.
  */
 function twentyseventeen_include_svg_icons() {
@@ -21,7 +22,7 @@ function twentyseventeen_include_svg_icons() {
 	}
 }
 endif;
-//add_action( 'wp_footer', 'twentyseventeen_include_svg_icons', 9999 );
+add_action( 'wp_footer', 'twentyseventeen_include_svg_icons', 9999 );
 
 if ( ! function_exists( 'twentyseventeen_get_svg' ) ) :
 /**
@@ -144,7 +145,7 @@ function twentyseventeen_nav_menu_social_icons( $item_output, $item, $depth, $ar
 	return $item_output;
 }
 endif;
-//add_filter( 'walker_nav_menu_start_el', 'twentyseventeen_nav_menu_social_icons', 10, 4 );
+add_filter( 'walker_nav_menu_start_el', 'twentyseventeen_nav_menu_social_icons', 10, 4 );
 
 
 if ( ! function_exists( 'twentyseventeen_dropdown_icon_to_menu_link' ) ) :
@@ -169,7 +170,7 @@ function twentyseventeen_dropdown_icon_to_menu_link( $title, $item, $args, $dept
 	return $title;
 }
 endif;
-//add_filter( 'nav_menu_item_title', 'twentyseventeen_dropdown_icon_to_menu_link', 10, 4 );
+add_filter( 'nav_menu_item_title', 'twentyseventeen_dropdown_icon_to_menu_link', 10, 4 );
 
 
 if ( ! function_exists( 'twentyseventeen_social_links_icons' ) ) :

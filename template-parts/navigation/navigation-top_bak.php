@@ -3,7 +3,7 @@
  * Displays top navigation
  *
  * @package WordPress
- * @subpackage Twenty_Seventeen
+ * @subpackage Jig_im
  * @since 1.0
  * @version 1.2
  */
@@ -28,7 +28,7 @@
 	) ); ?>
 
     <?php //是首页则显示跳到内容的链接 ?>
-	<?php if ( ( twentyseventeen_is_frontpage() || ( is_home() && is_front_page() ) ) && has_custom_header() ) : ?>
+	<?php if ( ( jigim_is_frontpage() || ( is_home() && is_front_page() ) ) && has_custom_header() ) : ?>
 		<a href="#content" class="menu-scroll-down">
             <?php echo twentyseventeen_get_svg( array( 'icon' => 'arrow-right' ) ); ?>
             <span class="screen-reader-text"><?php _e( 'Scroll down to content', 'twentyseventeen' ); ?></span>

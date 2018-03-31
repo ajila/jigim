@@ -5,7 +5,7 @@
  * @link https://codex.wordpress.org/Template_Hierarchy
  *
  * @package WordPress
- * @subpackage Twenty_Seventeen
+ * @subpackage Jig_im
  * @since 1.0
  * @version 1.2
  */
@@ -62,6 +62,7 @@
 		if ( 'post' === get_post_type() && is_single() ) {
 			echo '<div class="entry-meta">';
 			jigim_posted_on();    //打印作者头像日期时间
+			echo '<span class="entry-views">阅读次数 '.jigim_get_post_views(get_the_ID()).'</span>';
 			jigim_edit_link();    //打印编辑链接
 			echo '</div><!-- .entry-meta -->';
 		}

@@ -5,7 +5,7 @@
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/#search-result
  *
  * @package WordPress
- * @subpackage Twenty_Seventeen
+ * @subpackage Jig_im
  * @since 1.0
  * @version 1.0
  */
@@ -15,10 +15,16 @@ get_header(); ?>
 <div class="wrap">
     <!-- section1: 标题 -->
 	<header class="page-header">
-		<?php if ( have_posts() ) : ?>
-			<h1 class="page-title"><?php printf( __( 'Search Results for: %s', 'twentyseventeen' ), '<span>' . get_search_query() . '</span>' ); ?></h1>
+		<?php if ( have_posts() ) : global $wp_query; ?>
+            <div class="single-featured-image-header">
+                <img src="<?php echo get_stylesheet_directory_uri().'/assets/images/feature_search.jpg' ?>" alt="feature image">
+            </div>
+			<h1 class="page-title"><?php printf( __( '%1$s Search Results for: %2$s', 'twentyseventeen' ), $wp_query->found_posts,'<span>' . get_search_query() . '</span>' ); ?></h1>
 		<?php else : ?>
-			<h1 class="page-title"><?php _e( 'Nothing Found', 'twentyseventeen' ); ?></h1>
+            <div class="single-featured-image-header">
+                <img src="<?php echo get_stylesheet_directory_uri().'/assets/images/feature_search-none.jpg' ?>" alt="feature image">
+            </div>
+			<h1 class="page-title"><?php printf(__( 'Nothing Found: %s', 'twentyseventeen' ),'<span>' .get_search_query() .'</span>' ); ?></h1>
 		<?php endif; ?>
 	</header><!-- .page-header -->
 
@@ -43,8 +49,8 @@ get_header(); ?>
 
 			/* 文章分页导航 */
 			the_posts_pagination( array(
-				'prev_text' => twentyseventeen_get_svg( array( 'icon' => 'arrow-left' ) ) . '<span class="screen-reader-text">' . __( 'Previous page', 'twentyseventeen' ) . '</span>',
-				'next_text' => '<span class="screen-reader-text">' . __( 'Next page', 'twentyseventeen' ) . '</span>' . twentyseventeen_get_svg( array( 'icon' => 'arrow-right' ) ),
+				'prev_text' => '<span class="fa fa-chevron-left"></span><span class="screen-reader-text">' . __( 'Previous page', 'twentyseventeen' ) . '</span>',
+				'next_text' => '<span class="screen-reader-text">' . __( 'Next page', 'twentyseventeen' ) . '</span><span class="fa fa-chevron-right"></span>',
 				'before_page_number' => '<span class="meta-nav screen-reader-text">' . __( 'Page', 'twentyseventeen' ) . ' </span>',
 			) );
 

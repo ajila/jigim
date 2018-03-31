@@ -1,16 +1,17 @@
 <?php
 /**
- * Twenty Seventeen: Color Patterns
+ * Jig_im: Color Patterns
  * 主题自定义配色方案
  * @package WordPress
- * @subpackage Twenty_Seventeen
+ * @subpackage Jig_im
  * @since 1.0
  */
 
-/** 为当前自定义配色方案生成css
+/**
+ * 为当前自定义配色方案生成css
  * Generate the CSS for the current custom color scheme.
  */
-function twentyseventeen_custom_colors_css() {
+function jigim_custom_colors_css() {
 	//色相，由用户选择
 	$hue = absint( get_theme_mod( 'colorscheme_hue', 250 ) );
 
@@ -21,12 +22,12 @@ function twentyseventeen_custom_colors_css() {
 	 *
 	 * @param int $saturation Color saturation level.
 	 */
-	$saturation = absint( apply_filters( 'twentyseventeen_custom_colors_saturation', 50 ) );
+	$saturation = absint( apply_filters( 'jigim_custom_colors_saturation', 50 ) );
 	$reduced_saturation = ( .8 * $saturation ) . '%';
 	$saturation = $saturation . '%';
 	$css = '
 /**
- * Twenty Seventeen: Color Patterns
+ * Jig_im: Color Patterns
  * 色彩方案css，用hsl（hs固定，l从暗到亮）
  * Colors are ordered from dark to light.
  */
@@ -562,13 +563,13 @@ body.colors-custom,
 }';
 
 	/**
-	 * Filters Twenty Seventeen custom colors CSS.
+	 * Filters Jig_im custom colors CSS.
 	 * 返回配色方案css，可过滤
-	 * @since Twenty Seventeen 1.0
+	 * @since Jig_im 1.0
 	 *
 	 * @param string $css        Base theme colors CSS.
 	 * @param int    $hue        The user's selected color hue.
 	 * @param string $saturation Filtered theme color saturation level.
 	 */
-	return apply_filters( 'twentyseventeen_custom_colors_css', $css, $hue, $saturation );
+	return apply_filters( 'jigim_custom_colors_css', $css, $hue, $saturation );
 }
