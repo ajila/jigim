@@ -32,17 +32,22 @@
 	<a class="screen-reader-text" href="#content"><?php _e( 'Skip to content', 'twentyseventeen' ); ?></a>
 
 	<header id="masthead" class="site-header" role="banner">
-		<?php //section1.header图片和logo ?>
-		<?php get_template_part( 'template-parts/header/header', 'image' ); ?>
+		<?php //section1.header图片和logo
+		get_template_part( 'template-parts/header/header', 'image' );
+		?>
 
-		<?php //section2.导航菜单 ?>
-		<?php if ( has_nav_menu( 'top' ) ) : ?>
+		<?php //section2.导航菜单
+        if ( has_nav_menu( 'top' ) ) : ?>
 			<div class="navigation-top">
 				<div class="wrap">
 					<?php get_template_part( 'template-parts/navigation/navigation', 'top' ); ?>
 				</div><!-- .wrap -->
 			</div><!-- .navigation-top -->
 		<?php endif; ?>
+
+        <?php   //section3.导航工具（搜索框、用户登录/信息块等）
+        get_template_part( 'template-parts/navigation/navigation', 'utils' );
+        ?>
 
 	</header><!-- #masthead -->
 

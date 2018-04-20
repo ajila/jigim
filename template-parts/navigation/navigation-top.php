@@ -5,7 +5,7 @@
  * @package WordPress
  * @subpackage Jig_im
  * @since 1.0
- * @version 1.2
+ * @version 1.0
  */
 
 ?>
@@ -26,8 +26,8 @@
             <a class="navbar-brand" href="#">Brand</a>
         </div>  <!-- /.navbar-header -->
 
-        <?php //显示菜单 ?>
-	    <?php wp_nav_menu( array(
+	    <?php //显示菜单
+        wp_nav_menu( array(
 		    'theme_location'    => 'top',
 		    'container_class'   => 'navbar-collapse collapse',
 		    'container_id'      => 'navbar-collapse-top',
@@ -35,13 +35,5 @@
 		    //'depth'             => 2
 	    ) ); ?>
 
-        <?php //是首页则显示跳到内容的链接 ?>
-	    <?php if ( ( jigim_is_frontpage() || ( is_home() && is_front_page() ) ) && has_custom_header() ) : ?>
-		<a href="#content" class="menu-scroll-down">
-            <?php //echo twentyseventeen_get_svg( array( 'icon' => 'arrow-right' ) ); ?>
-            <span class="fa fa-angle-double-down"></span>
-            <span class="screen-reader-text"><?php _e( 'Scroll down to content', 'twentyseventeen' ); ?></span>
-        </a>
-	    <?php endif; ?>
     </div>
 </nav><!-- #site-navigation -->

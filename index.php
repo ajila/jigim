@@ -17,7 +17,7 @@
 
 get_header(); ?>
 
-<div class="wrap">
+<div class="wrap container">
 <!--[if lt IE 8]>
     <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/" style="text-decoration:underline">upgrade your browser</a> to improve your experience.</p>
     <p class="browserupgrade">你使用的浏览器版本<strong>已经过时</strong>. 为了获得更好的体验，请<a href="http://browsehappy.com/" style="text-decoration:underline">升级你的浏览器</a>.</p>
@@ -34,44 +34,46 @@ get_header(); ?>
 	    </header>
 	<?php endif; ?>
 
-	<!-- section2: 内容 -->
-	<div id="primary" class="content-area">
-		<main id="main" class="site-main" role="main">
+    <div class="row">
+        <!-- section2: 内容 -->
+        <div id="primary" class="content-area">
+            <main id="main" class="site-main" role="main">
 
-			<?php
-			if ( have_posts() ) :
+                <?php
+                if ( have_posts() ) :
 
-				/* 主循环 */
-				while ( have_posts() ) : the_post();
+                    /* 主循环 */
+                    while ( have_posts() ) : the_post();
 
-					/* 用指定文章格式的内容模板，显示每篇文章
-					 * Include the Post-Format-specific template for the content.
-					 * If you want to override this in a child theme, then include a file
-					 * called content-___.php (where ___ is the Post Format name) and that will be used instead.
-					 */
-					get_template_part( 'template-parts/post/content', get_post_format() );
+                        /* 用指定文章格式的内容模板，显示每篇文章
+                         * Include the Post-Format-specific template for the content.
+                         * If you want to override this in a child theme, then include a file
+                         * called content-___.php (where ___ is the Post Format name) and that will be used instead.
+                         */
+                        get_template_part( 'template-parts/post/content', get_post_format() );
 
-				endwhile;
+                    endwhile;
 
-				/* 文章分页导航 */
-				the_posts_pagination( array(
-					'prev_text' => '<span class="fa fa-chevron-left"></span><span class="screen-reader-text">' . __( 'Previous page', 'twentyseventeen' ) . '</span>',
-					'next_text' => '<span class="screen-reader-text">' . __( 'Next page', 'twentyseventeen' ) . '</span><span class="fa fa-chevron-right"></span>',
-					'before_page_number' => '<span class="meta-nav screen-reader-text">' . __( 'Page', 'twentyseventeen' ) . ' </span>',
-				) );
+                    /* 文章分页导航 */
+                    the_posts_pagination( array(
+                        'prev_text' => '<span class="fa fa-chevron-left"></span><span class="screen-reader-text">' . __( 'Previous page', 'twentyseventeen' ) . '</span>',
+                        'next_text' => '<span class="screen-reader-text">' . __( 'Next page', 'twentyseventeen' ) . '</span><span class="fa fa-chevron-right"></span>',
+                        'before_page_number' => '<span class="meta-nav screen-reader-text">' . __( 'Page', 'twentyseventeen' ) . ' </span>',
+                    ) );
 
-			else :
+                else :
 
-				get_template_part( 'template-parts/post/content', 'none' );
+                    get_template_part( 'template-parts/post/content', 'none' );
 
-			endif;
-			?>
+                endif;
+                ?>
 
-		</main><!-- #main -->
-	</div><!-- #primary -->
+            </main><!-- #main -->
+        </div><!-- #primary -->
 
-	<!-- section3: 侧边栏 -->
-	<?php get_sidebar(); ?>
+        <!-- section3: 侧边栏 -->
+        <?php get_sidebar(); ?>
+    </div> <!-- .row -->
 </div><!-- .wrap -->
 
 <?php get_footer();?>
