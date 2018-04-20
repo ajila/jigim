@@ -1,0 +1,27 @@
+
+@media (max-width: 991px) {
+    body {
+        background-image: url("http://localhost/wp-content/themes/jigim/assets/images/layout_index_sm.png");
+        background-repeat: no-repeat;
+        background-position: top left;
+        background-size: 100%;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+    body {
+        background-image: url("http://localhost/wp-content/themes/jigim/assets/images/layout_index_md.png");
+        background-repeat: no-repeat;
+        background-position: top left;
+        background-size: 100%;
+    }
+}
+
+@media (min-width: 1200px) {
+    body {
+        background-image: url("http://localhost/wp-content/themes/jigim/assets/images/layout_index_lg.png");
+        background-repeat: no-repeat;
+        background-position: top left;
+        background-size: 100%;
+    }
+}
