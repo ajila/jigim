@@ -17,5 +17,23 @@ if ( ! is_active_sidebar( 'sidebar-1' ) ) {
 
 <aside id="secondary" class="widget-area" role="complementary"
        aria-label="<?php esc_attr_e( 'Blog Sidebar', 'twentyseventeen' ); ?>">
-	<?php dynamic_sidebar( 'sidebar-1' ); ?>
+
+    <?php //侧边栏作弹出菜单时，标题和按钮 ?>
+    <div class="sidenav-header">
+        <button type="button" id="sidenav-close-btn" class="navbar-toggle sidenav-close" onclick="side_nav_close(this);">
+            <span class="sr-only">close side navigation</span>
+            <span class="icon-bar bar1"></span>
+            <span class="icon-bar bar2"></span>
+            <span class="icon-bar bar3"></span>
+        </button>
+        <h1 class="sidenav-title">菜单</h1>
+    </div>
+
+	<?php
+    //关于我模块
+	get_template_part( 'template-parts/sidebar/widget', 'about-me' );
+
+    //后台设置的widget
+    dynamic_sidebar( 'sidebar-1' );
+    ?>
 </aside><!-- #secondary -->

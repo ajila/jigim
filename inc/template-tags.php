@@ -159,6 +159,9 @@ function jigim_entry_tag() {
 
 		$tags = get_the_tags(); //获取文章的tag对象数组
 		if ( $tags && ! is_wp_error( $tags ) ) {
+			if( is_single() ) {
+				echo '<span class="tag-text">'.__('tags:', 'twentyseventeen' ).'</span>';
+			}
 			echo '<ul class="entry-tags">';
 			foreach( $tags as $tag_item){
 				echo '<li class="tag-' . $tag_item->slug . '"><a href="' . get_tag_link($tag_item)
@@ -355,6 +358,45 @@ add_action( 'save_post',     'jigim_category_transient_flusher' );
 
 if ( ! function_exists( 'jigim_archive_meta_header' ) ) :
 /**
+* 显示单篇文章页single的
+* header部分（特性图、分类、标题、作者、日期等信息）
+* Prints HTML with meta information for the single
+*/
+function jigim_single_meta_header(){
+	echo '<header class="meta-header">';
+
+		//1.特性图
+		echo '<div class="featured-image-header">';
+		if ( '' !== get_the_post_thumbnail() ) { //有特性图，则显示特性图
+			the_post_thumbnail( 'jigim-featured-image' );
+		}
+		else {   //无特性图，则显示默认特性图
+			echo '<img src="' . get_stylesheet_directory_uri() . '/assets/images/default_feature.jpg" alt="feature image">';
+		}
+		echo '</div><!-- .featured-image-header -->';
+
+		echo '<div class="meta-container">';
+			//2.文章分类
+			jigim_entry_category();
+
+			//3: 文章标题
+			jigim_entry_title();
+
+			//4: 作者、日期
+			echo '<div class="entry-meta">';
+				jigim_posted_on();    //打印作者头像日期时间
+				echo '<span class="entry-views">阅读次数 '.jigim_get_post_views(get_the_ID()).'</span>';
+				jigim_edit_link();  //打印编辑链接
+			echo '</div>';  //.entry-meta
+		echo '</div>';  //.meta-container
+
+	echo '</header>';   //.meta-header
+}
+endif;
+
+
+if ( ! function_exists( 'jigim_archive_meta_header' ) ) :
+/**
  * 显示存档页archive（category、tag、date、author等）的
  * header部分（特性图、标题、简介、文章数等信息）
  * Prints HTML with meta information for the archive
@@ -367,6 +409,7 @@ function jigim_archive_meta_header(){
 
 	if ( is_category() ) {
 
+		$label_string = '<span class="fa fa-folder-open-o">'.__('category','twentyseventeen').'</span>';
 		$title = single_cat_title( '', false );
 		$title_string = sprintf( __( '%1$s Category: %2$s','twentyseventeen' ),
 			'<span class="sr-only">','</span>'.$title );
@@ -374,6 +417,7 @@ function jigim_archive_meta_header(){
 
 	} elseif ( is_tag() ) {
 
+		$label_string = '<span class="fa fa-tag">'.__('tags','twentyseventeen').'</span>';
 		$title = single_tag_title( '', false );
 		$title_string = sprintf( __( '%1$s Tag: %2$s','twentyseventeen' ),
 			'<span class="sr-only">','</span>'.$title );
@@ -381,6 +425,7 @@ function jigim_archive_meta_header(){
 
 	} elseif ( is_author() ) {
 
+		$label_string = '<span class="fa fa-user-circle">'.__('author','twentyseventeen').'</span>';
 		$title = get_the_author();
 		$title_string = sprintf( __( '%1$s Author: %2$s','twentyseventeen' ),
 			'<span class="sr-only">','</span><span class="vcard">' .$title . '</span>' );
@@ -390,24 +435,28 @@ function jigim_archive_meta_header(){
 
 	} elseif ( is_year() ) {
 
+		$label_string = '<span class="fa fa-calendar">'.__('year','twentyseventeen').'</span>';
 		$feature_image = get_stylesheet_directory_uri() . '/assets/images/feature_year.jpg';
 		$title_string = sprintf( __( '%1$s Year: %2$s','twentyseventeen' ),
 			'<span class="sr-only">', '</span>'.get_the_date( _x( 'Y', 'yearly archives date format' ) ) );
 
 	} elseif ( is_month() ) {
 
+		$label_string = '<span class="fa fa-calendar">'.__('month','twentyseventeen').'</span>';
 		$feature_image = get_stylesheet_directory_uri() . '/assets/images/feature_month.jpg';
 		$title_string = sprintf( __( '%1$s Month: %2$s','twentyseventeen' ),
 			'<span class="sr-only">', '</span>'.get_the_date( _x( 'F Y', 'monthly archives date format' ) ) );
 
 	} elseif ( is_day() ) {
 
+		$label_string = '<span class="fa fa-calendar">'.__('day','twentyseventeen').'</span>';
 		$feature_image = get_stylesheet_directory_uri() . '/assets/images/feature_day.jpg';
 		$title_string = sprintf( __( '%1$s Day: %2$s','twentyseventeen' ),
 			'<span class="sr-only">', '</span>'.get_the_date( _x( 'F j, Y', 'daily archives date format' ) ) );
 
 	} else {
 
+		$label_string = '<span class="fa fa-file-archive-o">'.__('archive','twentyseventeen').'</span>';
 		$feature_image = get_stylesheet_directory_uri() . '/assets/images/default_feature.jpg';
 		$title_string = __( 'Archives','twentyseventeen' );
 		$post_num = 0;
@@ -419,14 +468,17 @@ function jigim_archive_meta_header(){
 	//$post_num_string = '';//'<span class="archive-post-num">'.$post_num.'篇文章</span>';
 	//$description_string = '<div class="taxonomy-description">'.get_the_archive_description().'</div>';
 
-	echo '<header class="page-header">';
-		echo '<div class="single-featured-image-header"><img src="'.$feature_image.'" alt="feature image"></div>';
-		if( is_author() ){
-			echo '<span class="post-avatar">' .$avatar. '</span>';
-		}
-		echo '<h1 class="page-title">'.$title_string.'</h1>';
-		echo '<span class="archive-post-num">'.$post_num.'篇文章</span>';
-		echo '<div class="taxonomy-description">'.get_the_archive_description().'</div>';
-	echo '</header><!-- .page-header -->';
+	echo '<header class="meta-header">';
+		echo '<div class="featured-image-header"><img src="'.$feature_image.'" alt="feature image"></div>';
+		echo '<div class="meta-container">';
+			echo '<div class="meta-label">'.$label_string.'</div>';
+			if( is_author() ){
+				echo '<span class="meta-avatar">' .$avatar. '</span>';
+			}
+			echo '<h1 class="meta-title">'.$title_string.'</h1>';
+			echo '<span class="meta-post-num">'.$post_num.'篇文章</span>';
+			echo '<div class="meta-taxonomy-description">'.get_the_archive_description().'</div>';
+		echo '</div>';  //.meta-container
+	echo '</header>';   //.meta-header
 }
 endif;

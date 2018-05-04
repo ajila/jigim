@@ -10,12 +10,15 @@
 
 ?>
 <div class="custom-header">
-	<?php //section1.打印自定义header标记（图片） ?>
+
+	<?php //section1.显示自定义header（图片）的标记
+    if( has_custom_header() ) :?>
     <div class="custom-header-media">
 		<?php the_custom_header_markup(); ?>
 	</div>
+    <?php endif; ?>
 
-	<?php //section2.打印自定义logo图片和标题 ?>
+	<?php //section2.显示自定义logo图片、标题副标题 ?>
 	<?php get_template_part( 'template-parts/header/site', 'branding' ); ?>
 
 </div><!-- .custom-header -->

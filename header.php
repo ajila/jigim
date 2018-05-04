@@ -32,36 +32,37 @@
 	<a class="screen-reader-text" href="#content"><?php _e( 'Skip to content', 'twentyseventeen' ); ?></a>
 
 	<header id="masthead" class="site-header" role="banner">
-		<?php //section1.header图片和logo
-		get_template_part( 'template-parts/header/header', 'image' );
-		?>
+        <div class="banner-bar container-fluid">
+            <?php //section1.header图片和logo，标题副标题
+            get_template_part( 'template-parts/header/header', 'image' );
 
-		<?php //section2.导航菜单
+            //section2.导航工具（搜索框、用户登录/信息块等）
+            get_template_part( 'template-parts/navigation/navigation', 'utils' );
+            ?>
+        </div>
+
+		<?php //section3.导航菜单
         if ( has_nav_menu( 'top' ) ) : ?>
 			<div class="navigation-top">
-				<div class="wrap">
-					<?php get_template_part( 'template-parts/navigation/navigation', 'top' ); ?>
-				</div><!-- .wrap -->
+                <?php get_template_part( 'template-parts/navigation/navigation', 'top' ); ?>
 			</div><!-- .navigation-top -->
 		<?php endif; ?>
 
-        <?php   //section3.导航工具（搜索框、用户登录/信息块等）
-        get_template_part( 'template-parts/navigation/navigation', 'utils' );
-        ?>
-
 	</header><!-- #masthead -->
+
 
 	<?php
     //section3. 是首页才显示 幻灯片轮播
-    if( is_front_page()) :
+    if( is_front_page() && is_home() ) :
 		get_template_part('template-parts/slider/slider','front-page');
     endif;
 
-	/* section4.单篇文章、非首页的页面，有特性图则显示，无则显示默认图
-	 * If a regular post or page, and not the front page, show the featured image.
+
+	/* section4.非静态首页的页面，有特性图则显示，无则显示默认图
 	 * Using get_queried_object_id() here since the $post global may not be set before a call to the_post().
 	 */
-	if (  is_single() || ( is_page() && ! jigim_is_frontpage() ) ):
+	//if (  is_single() || ( is_page() && ! jigim_is_frontpage() ) ):
+	if ( is_page() && ! jigim_is_frontpage() ):
         if( has_post_thumbnail( get_queried_object_id() ))  :
             echo '<div class="single-featured-image-header">';
             echo get_the_post_thumbnail( get_queried_object_id(), 'jigim-featured-image' );

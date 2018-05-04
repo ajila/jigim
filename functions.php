@@ -288,6 +288,9 @@ function jigim_scripts() {
     // 自定义样式main.css
     wp_enqueue_style( 'jigim-main-style', get_theme_file_uri( '/assets/css/main.css' ), array(),'1.0' );
 
+    //最终效果参考，开发时临时使用，todo：发布时删除
+	wp_enqueue_style( 'jigim-dev-style', get_theme_file_uri( '/assets/css/for_dev.css' ), array(),'1.0' );
+
     // Load the dark colorscheme.
     if ( 'dark' === get_theme_mod( 'colorscheme', 'light' ) || is_customize_preview() ) {
         wp_enqueue_style( 'jigim-colors-dark', get_theme_file_uri( '/assets/css/colors-dark.css' ), array( 'jigim-style' ), '1.0' );

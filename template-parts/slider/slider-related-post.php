@@ -51,9 +51,9 @@
                         echo '</a> </div><!-- .post-image-attachment -->';
                     }
                     echo '<div class="entry-content">';
-                        echo '<div class="posted-on">'.get_the_time('Y年n月j日').'</div>';
                         echo '<h5 class="entry-title"><a href="' .esc_url(get_permalink()) .'">'.get_the_title().'</a></h5>';
                         echo '<div class="entry-summary">'.get_the_excerpt().'</div>';
+	                    echo '<div class="posted-on">'.get_the_time('Y年n月j日').'</div>';
     	            echo '</div><!-- .entry-header -->';
 	            echo '</li> <!-- .related-post-item -->';
             endwhile;

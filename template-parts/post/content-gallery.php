@@ -76,25 +76,23 @@
         <span class="fa fa-thumb-tack"></span>
 	<?php endif; ?>
 
-	<?php   //文章meta信息和标题 ?>
+
+	<?php if( !is_single() ): //非单篇文章(文章列表)，显示文章meta信息和标题 ?>
 	<header class="entry-header">
-		<?php
+    <?php
         //section1: 文章分类
         jigim_entry_category();
 
         //section2: 文章标题
         jigim_entry_title();
-
-        //section3: meta（作者、日期）,文章post type为post且单篇文章时
-        if ( 'post' === get_post_type() && is_single() ) {
-            echo '<div class="entry-meta">';
-                jigim_posted_on();    //打印作者头像日期时间
-	            echo '<span class="entry-views">阅读次数 '.jigim_get_post_views(get_the_ID()).'</span>';
-                jigim_edit_link();    //打印编辑链接
-            echo '</div><!-- .entry-meta -->';
-        }
-		?>
+    ?>
 	</header><!-- .entry-header -->
+	<?php endif; ?>
+
+
+	<?php if( is_single()): //TODO：面包屑导航 ?>
+	<?php endif; ?>
+
 
 	<?php //if ( is_single() || (!get_post_gallery() &&  !get_the_post_thumbnail()) ):
 	    //若是单篇文章，或文章列表时既无画廊也无缩略图，则显示文章内容    ?>
@@ -106,6 +104,7 @@
                 __( 'Continue reading<span class="screen-reader-text"> "%s"</span>', 'twentyseventeen' ),
                 get_the_title()
             ) );
+
             //单文章分页时，显示分页链接
             wp_link_pages( array(
                 'before'      => '<div class="page-links">' . __( 'Pages:', 'twentyseventeen' ),
@@ -115,6 +114,7 @@
             ) );
 		    ?>
     	</div><!-- .entry-content -->
+
 
         <footer class="entry-footer">
             <?php jigim_entry_tag();    //输出tag列表 ?>

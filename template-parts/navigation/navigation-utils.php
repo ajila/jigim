@@ -11,34 +11,39 @@
 ?>
 
 
-<div class="nav-utils">
+<ul class="nav-utils">
 
-	<?php //todo:用户登录 ?>
-    <div class="nav-login">
+	<?php //用户登录按钮 ?>
+    <li class="nav-login">
         <a href="/wp-login.php" target="_blank">
             <span class="sr-only"><?php _e('user login button', 'twentyseventeen'); ?></span>
-            <span class="fa fa-user"></span>
+            <span class="fa fa-user fa-lg"></span>
         </a>
-    </div>
+    </li>
 
-    <?php //搜索框、搜索按钮 ?>
-    <div class="nav-search">
-        <input type="text" class="nav-search-input" name="nav-search" placeholder="<?php _e('Search...', 'twentyseventeen'); ?>">
-
-        <a type="button" href="#" class="nav-search-btn">
-            <span class="sr-only"><?php _e('navigation search button', 'twentyseventeen'); ?></span>
-            <span class="fa fa-search"></span>
-        </a>
-    </div>  <!-- /.nav-search -->
+    <?php //搜索按钮下拉搜索框 ?>
+    <li class="nav-search">
+        <div class="dropdown">
+            <a class="nav-search-btn" id="dropdown_search"
+               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">
+                <span class="sr-only"><?php _e('navigation search button', 'twentyseventeen'); ?></span>
+                <span class="fa fa-search fa-lg"></span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown_search" role="menu" >
+                <?php get_search_form();?>
+            </ul>
+        </div>
+    </li>  <!-- /.nav-search -->
 
 
     <?php //是首页则显示跳到内容的链接
     if ( ( jigim_is_frontpage() || ( is_home() && is_front_page() ) ) && has_custom_header() ) : ?>
-    <a href="#content" class="menu-scroll-down">
-        <?php //echo twentyseventeen_get_svg( array( 'icon' => 'arrow-right' ) ); ?>
-        <span class="fa fa-angle-double-down"></span>
-        <span class="screen-reader-text"><?php _e( 'Scroll down to content', 'twentyseventeen' ); ?></span>
-    </a>
+    <li>
+        <a href="#content" class="menu-scroll-down">
+            <span class="fa fa-angle-double-down"></span>
+            <span class="screen-reader-text"><?php _e( 'Scroll down to content', 'twentyseventeen' ); ?></span>
+        </a>
+    </li>
     <?php endif; ?>
-</div><!-- .nav-utils -->
+</ul><!-- .nav-utils -->
 

@@ -60,7 +60,7 @@ function jigim_custom_header_setup() {
 	) );
 }
 endif;
-add_action( 'after_setup_theme', 'jigim_custom_header_setup' );
+//add_action( 'after_setup_theme', 'jigim_custom_header_setup' );
 
 
 if ( ! function_exists( 'jigim_header_style' ) ) :

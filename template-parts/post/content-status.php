@@ -52,22 +52,14 @@
 		}
 	?>
 
-	<?php   //文章meta信息和标题 ?>
+	<?php if( !is_single() ): //非单篇文章(文章列表)，显示文章meta信息和标题 ?>
 	<header class="entry-header">
     <?php
         //section1: 文章分类
         jigim_entry_category();
-
-        //section2: meta（作者、日期）,文章post type为post且单篇文章时
-        if ( 'post' === get_post_type() && is_single() ) {
-            echo '<div class="entry-meta">';
-                jigim_posted_on();    //打印作者头像日期时间
-	            echo '<span class="entry-views">阅读次数 '.jigim_get_post_views(get_the_ID()).'</span>';
-                jigim_edit_link();    //打印编辑链接
-            echo '</div><!-- .entry-meta -->';
-        }
     ?>
 	</header><!-- .entry-header -->
+	<?php endif; ?>
 
 
 	<div class="entry-content">
@@ -79,6 +71,7 @@
 		) );
 		?>
 	</div><!-- .entry-content -->
+
 
 	<?php if ( is_single() ) : ?>
         <footer class="entry-footer">

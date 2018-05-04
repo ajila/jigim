@@ -40,18 +40,17 @@
                     <div class="carousel-caption">
                         <p class="slide-category"><?php the_category(' | ');?></p>
                         <h2 class="slide-title"><?php the_title();?></h2>
+                        <div class="slide-excerpt"><?php the_excerpt();?></div>
                         <div class="slide-meta">
                             <span class="slide-avatar">
                                 <a href="<?php echo esc_url(get_author_posts_url( $post->post_author ));?>">
                                     <?php echo get_avatar($post->post_author,64,'','');?>
                                 </a>
-                                <span class="badge"><?php the_author_posts(); ?></span>
                             </span>
                             <span class="slide-author">由<?php the_author();?></span>
                             <span class="slide-date">发表于<?php the_time('Y年n月j日');?></span>
                         </div>
-                        <div class="slide-excerpt"><?php the_excerpt();?></div>
-                        <a type="button" class="btn btn-primary" href="<?php the_permalink();  ?>">more</a>
+                        <a type="button" class="btn btn-primary pull-right" href="<?php the_permalink();  ?>">more</a>
                     </div> <!-- .carousel-caption-->
         <?php
                 echo '</div> <!-- .item -->';
@@ -63,7 +62,7 @@
 
     <!-- Indicators -->
     <ol class="carousel-indicators">
-        <?php for($i = 0; $i<$loop_cnt; $i++) {
+            <?php for($i = 0; $i<$loop_cnt; $i++) {
             if(0 === $i){
 	            echo '<li data-target="#carousel-front-page" data-slide-to="'.$i.'" class="active"></li>' ;
             }
@@ -75,11 +74,11 @@
 
     <!-- Controls -->
     <a class="left carousel-control" href="#carousel-front-page" role="button" data-slide="prev">
-        <span class="fa fa-arrow-left" aria-hidden="true"></span>
+        <span class="fa fa-angle-left" aria-hidden="true"></span>
         <span class="sr-only"><?php _e( 'Previous', 'twentyseventeen' ); ?></span>
     </a>
     <a class="right carousel-control" href="#carousel-front-page" role="button" data-slide="next">
-        <span class="fa fa-arrow-right" aria-hidden="true"></span>
+        <span class="fa fa-angle-right" aria-hidden="true"></span>
         <span class="sr-only"><?php _e( 'Next', 'twentyseventeen' ); ?></span>
     </a>
 
