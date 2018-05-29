@@ -24,22 +24,23 @@ get_header(); ?>
 <![endif]-->
 
 
-    <div class="container">
-        <div class="row">
+<!--<div class="container">-->
+        <!--<div class="row">-->
 
             <div id="primary" class="content-area">
-                <main id="main" class="site-main" role="main">
 
-	                <?php //section1: 标题 ?>
-	                <?php if ( is_home() && ! is_front_page() ) : //是主页但非首页，则显示页面标题?>
-                        <header class="page-header">
-                            <h1 class="page-title"><?php single_post_title(); ?></h1>
-                        </header>
-	                <?php else : //主页做首页，则显示字符串 ?>
-                        <header class="page-header">
-                            <h2 class="page-title"><?php _e( 'Posts', 'twentyseventeen' ); ?></h2>
-                        </header>
-	                <?php endif; ?>
+	            <?php //section1: 标题 ?>
+	            <?php if ( is_home() && ! is_front_page() ) : //是主页但非首页，则显示页面标题?>
+                    <header class="page-header">
+                        <h1 class="page-title"><?php single_post_title(); ?></h1>
+                    </header>
+	            <?php else : //主页做首页，则显示字符串 ?>
+                    <header class="page-header">
+                        <h2 class="page-title"><?php _e( 'Posts', 'twentyseventeen' ); ?></h2>
+                    </header>
+	            <?php endif; ?>
+
+                <main id="main" class="site-main" role="main">
 
                     <?php   //section2: 内容
                     if ( have_posts() ) :
@@ -75,7 +76,7 @@ get_header(); ?>
 
             <?php //section3: 侧边栏
             get_sidebar(); ?>
-        </div> <!-- .row -->
-    </div><!-- .container -->
+<!-- </div> -->
+<!-- </div>-->
 
 <?php get_footer();?>

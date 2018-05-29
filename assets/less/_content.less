@@ -1,25 +1,154 @@
-
-
 //
-// post list
-// -------------------------
+// 主内容区部分的样式，移动优先
+// --------------------------------------------------
+#primary {
+
+  @media (min-width: @screen-xs-min) and (max-width: @screen-xs-max) {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .page-header {
+    width: 100%;
+    height: @my-sidebar-header-height;
+    padding: @my-sidebar-header-padding;
+    border: 0;
+    margin: 0;
+    background-color: @mytheme-bg-heading;
+    color: @mytheme-text-heading;
+    .page-title {
+      padding: 4px 0 0 0;
+      margin: 0;
+      font-size: 24px;
+    }
+  }//.page-header
+
+
+  article {
+    margin-bottom: @my-article-margin;
+    @media (min-width: @screen-xs-min) and (max-width: @screen-xs-max) {
+      margin-bottom: 30px;
+    }
+
+    .post-thumbnail img,
+    .post-image-attachment img,
+    .entry-gallery img {
+      width: 100%;
+      height: auto;
+    }
+
+    .entry-header, .entry-content, .entry-footer {
+      padding: @my-article-padding @my-article-padding 5px @my-article-padding;
+      background-color: @mytheme-bg-module;
+    }
+
+    .entry-categories, .entry-tags {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      .clearfix();  //要只包含浮动元素又有高度，需令其清除浮动
+
+      li {
+        float: left;
+        margin: 0 @my-article-list-margin @my-article-list-margin 0;
+      }
+      a {
+        display: inline-block;
+        padding: @my-article-list-padding;
+        color: #fff;
+      }
+    }//.entry-categories, .entry-tags
+
+    .entry-categories {
+      a {
+        &:hover,
+        &:focus {
+          color: @mytheme-interf-btn;
+        }
+      }
+    }//.entry-categories
+
+    .entry-title {
+      margin-bottom: 0;
+      font-weight: bold;
+      a {
+        //color: @mytheme-text-title;
+      }
+    }//.entry-title
+
+    .entry-tags {
+      li {
+        border: 1px solid @mytheme-text-meta;
+      }
+      a {
+        color: @mytheme-text-meta;
+        &:hover,
+        &:focus {
+          color: #fff;
+          background-color: @mytheme-text-meta;
+        }
+      }
+    }//.entry-tags
+
+    .entry-posted-meta {
+      padding-top: @my-article-padding;
+      padding-bottom: @my-article-padding;
+      margin-top: @my-article-padding;
+      border-top: 1px solid @mytheme-text-meta;
+      img.avatar {
+        max-width: 48px;
+        height: auto;
+        &:hover,
+        &:focus {
+          opacity: 0.5;
+        }
+      }
+    }//.entry-posted-meta
+
+    &.sticky {
+
+      .sticky-icon {
+        float: left;
+        margin-right: 6px;
+      }
+
+      ul.entry-categories {
+        height: @my-article-list-padding + @line-height-computed + @my-article-list-padding + @my-article-list-margin;
+      }
+
+      @media (min-width: @screen-lg-min) {
+        .post-thumbnail, .post-image-attachment {
+          width: 50%;
+          float: left;
+        }
+        .entry-header, .entry-content, .entry-footer {
+          margin-left: 50%;
+        }
+      }
+
+    }//article.sticky
+
+
+  }
 
 
 
-//
-// post thumbnail image
-// -------------------------
-.post-thumbnail img,
-.post-image-attachment img,
-.entry-gallery img {
-  width: 100%;
-  height: auto;
-}
+  //
+  // pagination
+  // -------------------------
+  .pagination {
+    width: 100%;
+    text-align: center;
+  }
 
-//
-// post feature image
-// --------------------------
-.single-featured-image-header img {
-  width: 100%;
-  height: auto;
-}
+
+  //
+  // post feature image
+  // --------------------------
+  .single-featured-image-header img,
+  .featured-image-header img {
+    max-width: 100%;
+    height: auto;
+  }
+
+}//#primary

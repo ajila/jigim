@@ -1,22 +1,256 @@
+//
+// header部分的样式，移动优先
+// --------------------------------------------------
 
+header.site-header {
+  //header固顶
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: @zindex-navbar-fixed;
+  background: rgba(128,128,128, @my-navbar-opacity);
+  height: @my-header-height;
 
-// header image
-// -------------------------
-.has-header-image .custom-header .custom-header-media img {
-  width: 100%;
-  height: auto;
+  @media (min-width: @grid-float-breakpoint) {
+    position: relative;
+    background: transparent;
+  }
 }
 
+//== 1. Banner bar
+//
+//## 包含站点图标，登录、搜索按钮。中、大视图不显示。
 
-// navbar search input
-// -------------------------
-.nav-search-input {
-  width: 10%;//130px;
-  -webkit-transition: width 0.4s ease-in-out;
-  transition: width 0.4s ease-in-out;
-}
+.banner-bar {
 
-/* When the input field gets focus, change its width to 100% */
-.nav-search-input:focus {
-  width: 30%;
-}
+  position: relative;
+  @media (min-width: @screen-md-min) {
+    display: none;
+  }
+
+
+  > .custom-header {
+
+    .custom-header-media img {
+      width: 100%;
+      height: auto;
+    }
+
+    > .site-branding {
+      width: @my-site-branding-width;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: (@my-header-height - @my-branding-logo-height)/2; //垂直居中
+
+      > .custom-logo-link {
+        margin-left: 30%;
+        @media (min-width: @screen-xs-min) {
+          float: left;
+          margin: 0;
+        }
+      }
+
+      > .site-branding-text {
+        display: none;
+        @media (min-width: @screen-xs-min) {
+          display: block;
+          padding-top: 8px;
+          padding-left: 110px;
+          color: @mytheme-text-heading;
+
+          > .site-title {
+            margin-top: 0;
+            margin-bottom: 8px;
+            a {
+              color: inherit;
+            }
+          }
+
+          > .site-description {
+            padding-top: 8px;
+            border-top: 1px solid;
+            line-height: 1em;
+          }
+        }
+      }
+      //.site-branding-text
+    } //.site-branding
+  } //.custom-header
+
+
+  > .nav-utils {
+    position: absolute;
+    top: 0;
+    right: @my-header-padding-horizontal;
+    z-index: @zindex-navbar-fixed;
+    margin-top: @my-branding-utils-margin-top;
+    list-style: none;
+
+    > li {
+      float: left;
+      display: inline-block;
+      padding: 0 10px;
+      font-size: 2em;
+      color: @mytheme-text-heading;
+
+      a {
+        color: inherit;
+        padding: 9px 10px;
+        &:hover,
+        &:focus {
+          background-color: @navbar-default-toggle-hover-bg;
+        }
+      }
+
+      ul.dropdown-menu {
+        padding: 10px 20px;
+        border: 0;
+        background-color: @navbar-default-toggle-hover-bg;
+
+        .input-group {
+          width: @my-header-dropdown-input-width;
+        } //.input-group
+
+      } //ul.dropdown-menu
+    } //li
+
+    .nav-login {
+      display: none;
+      @media (min-width: @screen-xs-max) {
+        display: inline-block;
+      }
+    }
+
+  } //.nav-utils
+
+} //.banner-bar
+
+
+//== 2. Navbar
+//
+//## 顶部导航条。包含站点图标、菜单、登录/搜索按钮。小/超小视图折叠为按钮，中/大视图展开。
+
+.navigation-top {
+
+  position: absolute;
+  top: 0;
+  left: @my-header-padding-horizontal;
+  z-index: @zindex-navbar-fixed;
+
+  @media (min-width: @grid-float-breakpoint) {
+    position: relative;
+    left: 0;
+    //min-width: 1098px;
+    padding-top: (@my-header-height - @my-branding-logo-height)/2;
+  }
+
+  .navbar .container-fluid {
+    padding: 0;
+
+    @media (min-width: @grid-float-breakpoint) {
+      padding-left: floor((@grid-gutter-width / 2));  //恢复为grid的原定义
+      padding-right: ceil((@grid-gutter-width / 2));
+    }
+
+    .navbar-toggle {
+      margin-top: @my-branding-utils-margin-top;
+      .menu-toggle-btn-animation();
+    } //.navbar-toggle
+
+    .navbar-brand {
+
+      display: none;
+
+      @media (min-width: @grid-float-breakpoint) {
+        display: block;
+        padding-left: 30px;
+        height: 0;  //以使导航菜单能覆盖它
+      }
+
+    } //.navbar-brand
+
+    .navbar-collapse {
+
+      margin-top: 20px;
+      padding: 0;
+      &.in {
+        overflow: visible;
+      }
+
+      li {
+        //opacity: 0.6;
+        //filter: alpha(opacity=60);
+        border: 1px solid @mytheme-text-heading;
+        margin: 0 1em;
+        font-weight: bolder;
+      }                       //应用各分类的颜色定义
+      li:nth-child(1) {
+        background-color: @mytheme-category-1;
+        //background-color: rgba(138, 181, 216, @my-navbar-opacity);
+      }
+      li:nth-child(2) {
+        background-color: @mytheme-category-2;
+        //background-color: rgba(218, 106, 42, @my-navbar-opacity);
+      }
+      li:nth-child(3) {
+        background-color: @mytheme-category-3;
+        //background-color: rgba(83, 89, 27, @my-navbar-opacity);
+      }
+      li:nth-child(4) {
+        background-color: @mytheme-category-4;
+        //background-color: rgba(242, 197, 114, @my-navbar-opacity);
+      }
+
+    } //.navbar-collapse
+
+
+    ul.navbar-form {
+
+      display: none;
+
+      @media (min-width: @grid-float-breakpoint) {
+        display: block;
+        list-style: none;
+        margin-top: 30px;
+        padding: 0 (@grid-gutter-width/2) 0 0;
+
+        > li {
+          float: left;
+          display: inline-block;
+          margin: 0 (@grid-gutter-width/2);
+          font-size: 2em;
+          color: @mytheme-text-heading;
+
+          a {
+            color: inherit;
+            &:hover,
+            &:focus {
+              color: @navbar-default-link-hover-bg;
+            }
+          }
+
+          .input-group {
+
+            input {
+              width: @my-header-search-input-width;
+              .transition(width @my-transition-animation-duration ease-in-out);
+
+              /* When the input field gets focus, change its width */
+              &:focus {
+                width: @my-header-trans-input-width;
+              }
+            }
+
+          } //.input-group
+
+        } //li
+      }
+
+    } //ul.navbar-form
+
+  } //.navbar .container-fluid
+
+} //.navigation-top
+
+

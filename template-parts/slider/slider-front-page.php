@@ -9,77 +9,68 @@
  * @since 1.0
  */
 ?>
-<div id="carousel-front-page" class="carousel slide" data-ride="carousel">
+<div id="carousel-front-page" class="main-carousel">
 
-    <!-- Wrapper for slides -->
-    <div class="carousel-inner" role="listbox">
-        <?php
-        $args = array(
-	        'stickies_only'    => 0,
-	        'post_status'      => 'publish',
-	        'post_type'        => 'post',
-	        'orderby'          => 'date',
-	        'order'            => 'DESC',
-	        'posts_per_page'   => 5,
-	        'offset'           => 0,
-	        'suppress_filters' => false, // <- for language plugins
-	        'tag'           => 'recommend',  //显示tag为recommend的文章
-        );
+    <?php
+    $args = array(
+        'stickies_only'    => 0,
+        'post_status'      => 'publish',
+        'post_type'        => 'post',
+        'orderby'          => 'date',
+        'order'            => 'DESC',
+        'posts_per_page'   => 5,
+        'offset'           => 0,
+        'suppress_filters' => false, // <- for language plugins
+        'tag'           => 'recommend',  //显示tag为recommend的文章
+    );
 
-        $the_query = new WP_Query($args);
-        if($the_query->have_posts()):
-	        $loop_cnt = 0;
-            while ( $the_query->have_posts() ) :
-                $the_query->the_post();
-                echo '<div class="item ' . ( $loop_cnt ? '' : 'active' ) . '">';
+    $the_query = new WP_Query($args);
+    if($the_query->have_posts()):
 
-	            if(has_post_thumbnail( $post )) {
-		            echo get_the_post_thumbnail( $post, 'jigim-featured-image' );
-	            }
-        ?>
-                    <div class="carousel-caption">
-                        <p class="slide-category"><?php the_category(' | ');?></p>
-                        <h2 class="slide-title"><?php the_title();?></h2>
-                        <div class="slide-excerpt"><?php the_excerpt();?></div>
-                        <div class="slide-meta">
-                            <span class="slide-avatar">
-                                <a href="<?php echo esc_url(get_author_posts_url( $post->post_author ));?>">
-                                    <?php echo get_avatar($post->post_author,64,'','');?>
-                                </a>
-                            </span>
-                            <span class="slide-author">由<?php the_author();?></span>
-                            <span class="slide-date">发表于<?php the_time('Y年n月j日');?></span>
-                        </div>
-                        <a type="button" class="btn btn-primary pull-right" href="<?php the_permalink();  ?>">more</a>
-                    </div> <!-- .carousel-caption-->
-        <?php
-                echo '</div> <!-- .item -->';
-                $loop_cnt++;
-            endwhile;
-            wp_reset_postdata();
-        endif; ?>
-    </div> <!-- div.carousel-inner -->
+        while ( $the_query->have_posts() ) :
+            $the_query->the_post();
+            echo '<div class="carousel-cell">';
 
-    <!-- Indicators -->
-    <ol class="carousel-indicators">
-            <?php for($i = 0; $i<$loop_cnt; $i++) {
-            if(0 === $i){
-	            echo '<li data-target="#carousel-front-page" data-slide-to="'.$i.'" class="active"></li>' ;
+            if(has_post_thumbnail( $post )) {
+
+                jigim_echo_responsive_thumbnail( $post, 'slider-front-page' );
+
+            } else {
+             /*   echo '<img class="attachment-jigim-featured-image size-jigim-featured-image wp-post-image" data-src="'
+                     .get_stylesheet_directory_uri() . '/assets/images/default_feature.jpg'
+                     .'" data-src-small="' . get_stylesheet_directory_uri() . '/assets/images/default_feature_small.jpg'
+                     .'" data-src-middle="' . get_stylesheet_directory_uri() . '/assets/images/default_feature_middle.jpg'
+                     .'" alt="feature image">';
+             */
+	            echo '<span class="picture-fill" data-picture data-alt="carousel feature image">'
+	                 . '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/default_feature_small.jpg' . '"></span>'
+	                 . '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/default_feature_middle.jpg' . '" data-media="(min-width: 769px)"></span>'
+	                 . '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/default_feature.jpg' . '" data-media="(min-width: 1201px)"></span>'
+	                 . '<noscript><img src="' . get_stylesheet_directory_uri() . '/assets/images/default_feature_small.jpg' . '" alt="carousel feature image"></noscript>'
+	                 . '</span>';
             }
-            else{
-	            echo '<li data-target="#carousel-front-page" data-slide-to="'.$i.'" ></li>' ;
-            }
-        }?>
-    </ol>
+    ?>
+            <div class="carousel-content">
+                <!-- <p class="slide-category"><?php //the_category(' | ');?></p> -->
+                <?php jigim_entry_category(); ?>
+                <h2 class="slide-title"><?php the_title();?></h2>
+                <div class="slide-excerpt"><?php the_excerpt();?></div>
+                <div class="slide-meta">
+                    <span class="slide-avatar">
+                        <a href="<?php echo esc_url(get_author_posts_url( $post->post_author ));?>">
+                            <?php echo get_avatar($post->post_author,64,'','');?>
+                        </a>
+                    </span>
+                    <span class="slide-author"> <?php the_author();?></span>
+                    <span class="slide-date"> | <?php the_time('Y年n月j日');?></span>
+                    <a type="button" class="btn btn-primary pull-right" href="<?php the_permalink();  ?>">more</a>
+                </div>
+            </div> <!-- .carousel-content-->
+    <?php
+            echo '</div>';//.carousel-cell
 
-    <!-- Controls -->
-    <a class="left carousel-control" href="#carousel-front-page" role="button" data-slide="prev">
-        <span class="fa fa-angle-left" aria-hidden="true"></span>
-        <span class="sr-only"><?php _e( 'Previous', 'twentyseventeen' ); ?></span>
-    </a>
-    <a class="right carousel-control" href="#carousel-front-page" role="button" data-slide="next">
-        <span class="fa fa-angle-right" aria-hidden="true"></span>
-        <span class="sr-only"><?php _e( 'Next', 'twentyseventeen' ); ?></span>
-    </a>
+        endwhile;
+        wp_reset_postdata();
+    endif; ?>
 
-</div> <!-- div.carousel -->
+</div> <!-- div.main-carousel -->

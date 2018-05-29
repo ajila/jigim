@@ -54,10 +54,13 @@ function jigim_setup() {
 	 * @link https://developer.wordpress.org/themes/functionality/featured-images-post-thumbnails/
 	 */
 	add_theme_support( 'post-thumbnails' );
-	set_post_thumbnail_size(1280,720,true);
-	add_image_size( 'jigim-featured-image', 1280, 720, true );
-    add_image_size('jigim-thumbnail-image', 570, 640, true );
-	add_image_size( 'jigim-thumbnail-avatar', 160, 100, true );
+	//set_post_thumbnail_size(1280,720,true);
+    add_image_size('jigim-thumbnail-image', 570, 640, true );   //文章缩略图，用于文章列表
+	add_image_size( 'jigim-thumbnail-avatar', 640, 480, true ); //文章缩略图，用于相关文章
+	//文章特性图
+	add_image_size( 'jigim-featured-image', 1600, 800, true );
+	add_image_size( 'jigim-featured-md', 1280, 720, true );
+	add_image_size( 'jigim-featured-sm', 768, 960, true );
 
 	// Set the default content width.默认内容宽度
 	$GLOBALS['content_width'] = 525;
@@ -99,9 +102,10 @@ function jigim_setup() {
 
 	// Add theme support for Custom Logo. 自定义logo支持
 	add_theme_support( 'custom-logo', array(
-		'width'       => 250,
-		'height'      => 250,
+		'width'       => 300,
+		'height'      => 300,
 		'flex-width'  => true,
+		'flex-height'  => true,
 	) );
 
 	// Add theme support for selective refresh for widgets.
@@ -245,8 +249,9 @@ function jigim_widgets_init() {
         'description'   => __( 'Add widgets here to appear in your sidebar on blog posts and archive pages.', 'twentyseventeen' ),
         'before_widget' => '<section id="%1$s" class="widget %2$s">',
         'after_widget'  => '</section>',
-        'before_title'  => '<h2 class="widget-title">',
-        'after_title'   => '</h2>',
+        'before_title'  => '<header class="widget-header"><span class="btn widget-toggle">'.
+                      '<span class="fa fa-chevron-up"></span></span><h2 class="widget-title">',
+        'after_title'   => '</h2></header> ',
     ) );
 
     register_sidebar( array(
@@ -289,7 +294,7 @@ function jigim_scripts() {
     wp_enqueue_style( 'jigim-main-style', get_theme_file_uri( '/assets/css/main.css' ), array(),'1.0' );
 
     //最终效果参考，开发时临时使用，todo：发布时删除
-	wp_enqueue_style( 'jigim-dev-style', get_theme_file_uri( '/assets/css/for_dev.css' ), array(),'1.0' );
+	//wp_enqueue_style( 'jigim-dev-style', get_theme_file_uri( '/assets/css/for_dev.css' ), array(),'1.0' );
 
     // Load the dark colorscheme.
     if ( 'dark' === get_theme_mod( 'colorscheme', 'light' ) || is_customize_preview() ) {
@@ -301,6 +306,9 @@ function jigim_scripts() {
         wp_enqueue_style( 'jigim-ie9', get_theme_file_uri( '/assets/css/ie9.css' ), array( 'jigim-style' ), '1.0' );
         wp_style_add_data( 'jigim-ie9', 'conditional', 'IE 9' );
     }
+
+    //flickity for carousel
+	//wp_enqueue_style( 'jigim-flickity', get_theme_file_uri( '/assets/css/flickity.css' ), array( 'jigim-style' ), '2.0' );
 
     // Load the Internet Explorer 8 specific stylesheet.
     wp_enqueue_style( 'jigim-ie8', get_theme_file_uri( '/assets/css/ie8.css' ), array( 'jigim-style' ), '1.0' );
@@ -319,6 +327,10 @@ function jigim_scripts() {
     wp_script_add_data( 'html5', 'conditional', '(lt IE 9) & (!IEMobile)' );
     wp_script_add_data( 'respond', 'conditional', '(lt IE 9) & (!IEMobile)' );
 
+	//IE10 viewport hack for Surface/desktop Windows 8 bug
+	wp_enqueue_script( 'jig-ie10-viewport-bug-workaround', get_theme_file_uri( '/assets/js/vendor/ie10-viewport-bug-workaround.js' ), array(), '1.0', true );
+	wp_script_add_data( 'jig-ie10-viewport-bug-workaround', 'conditional', 'IE 10' );
+
     /*
     $jigim_l10n = array(
         'quote'          => '<span class="fa fa-quote-right"></span>',
@@ -336,7 +348,7 @@ function jigim_scripts() {
 	wp_localize_script( 'jigim-skip-link-focus-fix', 'twentyseventeenScreenReaderText', $jigim_l10n );
 	*/
 
-    wp_enqueue_script( 'jquery-scrollto', get_theme_file_uri( '/assets/js/vendor/jquery.scrollTo.js' ), array( 'jquery' ), '2.1.2', true );
+    //wp_enqueue_script( 'jquery-scrollto', get_theme_file_uri( '/assets/js/vendor/jquery.scrollTo.js' ), array( 'jquery' ), '2.1.2', true );
     //wp_enqueue_script( 'jigim-global', get_theme_file_uri( '/assets/js/global.js' ), array( 'jquery' ), '1.0', true );
 
     if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
@@ -346,12 +358,12 @@ function jigim_scripts() {
     //所有插件js
     wp_enqueue_script( 'jigim-plugins', get_theme_file_uri( '/assets/js/plugins.js' ), array( 'jquery' ), '1.0', true );
 
-    //自定义js
-    wp_enqueue_script( 'jigim-main-js', get_theme_file_uri( '/assets/js/main.js' ), array( 'jquery' ), '1.0', true );
+    //todo :后续uglify后放到plugins.js里
+	wp_enqueue_script( 'jigim-picturefill', get_theme_file_uri( '/assets/js/picturefill.js' ), array( 'jigim-plugins' ), '1.0', true );
 
-    //IE10 viewport hack for Surface/desktop Windows 8 bug
-    wp_enqueue_script( 'jig-ie10-viewport-bug-workaround', get_theme_file_uri( '/assets/js/vendor/ie10-viewport-bug-workaround.js' ), array(), '1.0', true );
-    wp_script_add_data( 'jig-ie10-viewport-bug-workaround', 'conditional', 'IE 10' );
+    //自定义js
+    wp_enqueue_script( 'jigim-main-js', get_theme_file_uri( '/assets/js/main.js' ), array( 'jigim-plugins' ), '1.0', true );
+
 }
 endif;
 add_action( 'wp_enqueue_scripts', 'jigim_scripts' );
@@ -588,7 +600,7 @@ if( ! function_exists('jigim_post_thumbnail_sizes_attr') ):
 function jigim_post_thumbnail_sizes_attr( $attr, $attachment, $size ) {
     if ( is_archive() || is_search() || is_home() ) {
         //文章列表时，各视口宽度下，缩略图的宽度
-        $attr['sizes'] = '(max-width: 767px) 89vw, (max-width: 1000px) 54vw, (max-width: 1071px) 543px, 580px';
+        //$attr['sizes'] = '(max-width: 767px) 89vw, (max-width: 1000px) 54vw, (max-width: 1071px) 543px, 580px';
     } else {
         //其他则全宽显示
         $attr['sizes'] = '100vw';
@@ -613,8 +625,8 @@ if( ! function_exists('jigim_header_image_tag') ):
  */
 function jigim_header_image_tag( $html, $header, $attr ) {
 	if ( isset( $attr['sizes'] ) ) {
-	    //header image sizes值改为全宽
-		$html = str_replace( $attr['sizes'], '100vw', $html );
+	    //header image sizes值改为全宽，最大显示1600px
+		$html = str_replace( $attr['sizes'], '(max-width: 1600px) 100vw, 1600px', $html );
 	}
 	return $html;
 }

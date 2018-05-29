@@ -1,27 +1,66 @@
-
-// layout
-// -------------------------
-.home-page #primary {
-  .make-sm-column(8);
-  //.pull-right;
-  overflow: hidden;
+//
+// 各页面基本组成部分的布局（md以上视图）
+// ---------------------------------------
+#page {
+  //超宽屏时，限制页面宽度并居中显示
+  max-width: 1600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.home-page #secondary {
-  .make-sm-column(4);
-  //.pull-left;
+.site-content-contain {
+  .container;
+
+  @media (min-width: @screen-md-min) {
+    margin-top: -@my-sidebar-header-height;
+  }
 }
 
-.home-page #main {
+.site-content {
   .make-row();
 }
 
-.home-page article.post {
-  .make-lg-column(6);
-  border: 1px solid #000000;
+.home-page,
+.archive,
+.single,
+.search {
+
+  @media (min-width: @screen-md-min) {
+    #primary {
+      .make-md-column(8);
+      overflow: hidden;
+    }
+
+    #secondary {
+      .make-md-column(4);
+      overflow: hidden;
+    }
+  }
+
 }
 
-.home-page article.sticky {
-  .make-lg-column(12);
-  border: 1px solid #000000;
+
+.home-page,
+.archive,
+.search {
+
+  #primary #main {
+    .make-row();
+
+    article.post {
+      .make-lg-column(6);
+    }
+
+    article.sticky {
+      .make-lg-column(12);
+    }
+  }
+
 }
+
+.site-footer {
+  .make-row();
+}
+
+
+

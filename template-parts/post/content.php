@@ -46,16 +46,14 @@
 	endif; ?>
 
 
-	<?php   //当前是博客主页（即文章列表）且是置顶文章，输出图标
-		if ( is_sticky() && is_home() ) {
-            echo '<span class="fa fa-thumb-tack"></span>';
-		}
-    ?>
-
-
 	<?php if( !is_single() ): //非单篇文章(文章列表)，显示文章meta信息和标题 ?>
     <header class="entry-header">
     <?php
+        //当前是博客主页且是置顶文章，输出图标
+        if ( is_sticky() && is_home() ) {
+            echo '<span class="fa fa-thumb-tack sticky-icon"></span>';
+        }
+
         //section1: 文章分类
         jigim_entry_category();
 
@@ -102,7 +100,9 @@
 	    <?php
         jigim_entry_tag();    //输出tag列表
         if( !is_single()) {
+            echo '<div class="entry-posted-meta">';
 	        jigim_posted_on();    //打印作者头像日期时间
+            echo '</div>';
         }
         ?>
     </footer>

@@ -20,7 +20,7 @@ if ( ! is_active_sidebar( 'sidebar-1' ) ) {
 
     <?php //侧边栏作弹出菜单时，标题和按钮 ?>
     <div class="sidenav-header">
-        <button type="button" id="sidenav-close-btn" class="navbar-toggle sidenav-close" onclick="side_nav_close(this);">
+        <button type="button" id="sidenav-close-btn" class="navbar-toggle sidenav-close">
             <span class="sr-only">close side navigation</span>
             <span class="icon-bar bar1"></span>
             <span class="icon-bar bar2"></span>
@@ -32,6 +32,8 @@ if ( ! is_active_sidebar( 'sidebar-1' ) ) {
 	<?php
     //关于我模块
 	get_template_part( 'template-parts/sidebar/widget', 'about-me' );
+
+	//todo:推荐阅读或专题模块
 
     //后台设置的widget
     dynamic_sidebar( 'sidebar-1' );

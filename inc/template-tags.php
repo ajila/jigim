@@ -25,9 +25,10 @@ function jigim_posted_on() {
 	);
 
 	// Finally, let's write all of this to the page.作者信息+文章日期
-	echo '<span class="post-avatar">' .get_avatar($ID,64,'',''). '</span>'
-	     .'<span class="byline"> ' . $byline . '</span>'
-	     .'<span class="posted-on">' . jigim_time_link() . '</span>';
+	echo '<span class="post-avatar"><a href="' . esc_url( get_author_posts_url( $ID ) ) . '">'
+	     . get_avatar($ID,64,'','') . '</a></span>'
+	     . '<span class="byline"> ' . $byline . '</span>'
+	     . '<span class="posted-on">' . jigim_time_link() . '</span>';
 }
 endif;
 
@@ -116,7 +117,8 @@ function jigim_entry_category(){
 			echo '<ul class="entry-categories">';
 			foreach ( $categories as $cat) {
 				echo '<li class="category-' . $cat->slug . '"><a href="' . get_category_link($cat)
-				     . '" rel="category tag">' . $cat->name . '</a></li>';
+				     . '" rel="category tag" style="background-color:'
+					. jigim_category_feature_color($cat->slug) .'">' . $cat->name . '</a></li>';
 			}
 			echo '</ul>';
 		}
@@ -480,5 +482,110 @@ function jigim_archive_meta_header(){
 			echo '<div class="meta-taxonomy-description">'.get_the_archive_description().'</div>';
 		echo '</div>';  //.meta-container
 	echo '</header>';   //.meta-header
+}
+endif;
+
+if ( ! function_exists( 'jigim_carousel_img_lazyload' ) ) :
+/**
+ * flickity幻灯片图片支持lazyload
+ * 添加class，src属性改为data-flickity-lazyload属性，
+ * 并输出html标签
+ * @param string       $html img标签html
+ * @return string       返回修改后的img标签html
+ */
+function jigim_carousel_img_lazyload( $html ) {
+	if ( ! $html ) {
+		return null;
+	}
+
+	$html = str_replace( 'src=', 'data-flickity-lazyload=', $html );
+	$html = str_replace( 'class="', 'class="carousel-cell-image ', $html );
+	return $html;
+}
+endif;
+
+
+if ( ! function_exists( 'jigim_echo_responsive_thumbnail' ) ) :
+/**
+ * 修改首页幻灯片、文章列表缩略图、文章特性图
+ * 等图片的srcset、sizes响应式属性，
+ * 并输出html标签
+ * @param int|WP_Post  $post Post ID or WP_Post object.  Default is global `$post`.
+ * @param string       $thumb_pos 输出哪个位置的缩略图
+ *
+ */
+function jigim_echo_responsive_thumbnail( $post, $thumb_pos ){
+	if ( ! $post ) {
+		return;
+	}
+
+	$html = null;
+	if('slider-front-page' === $thumb_pos) {
+/*
+		add_filter( 'wp_calculate_image_sizes', 'jigim_content_image_sizes_attr', 10, 2 );
+		$html = get_the_post_thumbnail( $post, 'jigim-featured-image' );
+		//flickity幻灯片图片lazyload
+		$html = jigim_carousel_img_lazyload($html);
+*/
+
+		//使用blazy.js方案，实现响应式+懒加载图片
+		/*
+		$meta_data = wp_get_attachment_metadata( get_post_thumbnail_id($post), false);
+		$img_loc = dirname($meta_data["file"]);
+		$img_lg = get_bloginfo('url') . '/wp-content/uploads/' . $img_loc . '/' . $meta_data["sizes"]["jigim-featured-image"]["file"];
+		$img_md = get_bloginfo('url') . '/wp-content/uploads/' . $img_loc . '/' . $meta_data["sizes"]["jigim-featured-md"]["file"];
+		$img_sm = get_bloginfo('url') . '/wp-content/uploads/' . $img_loc . '/' . $meta_data["sizes"]["jigim-featured-sm"]["file"];
+		$html = '<img class="attachment-jigim-featured-image size-jigim-featured-image wp-post-image b-lazy" '
+		        //. ' src="' . get_stylesheet_directory_uri() . '/assets/images/default_feature.jpg"'
+		        . ' src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== '
+				. ' data-src="' . $img_lg
+		        . '" data-src-small="' . $img_sm
+		        . '" data-src-middle="' . $img_md
+		        . '" alt="feature image">';
+		*/
+
+		//使用jQuery.lazyload方案实现响应式+懒加载图片
+		/*
+		$meta_data = wp_get_attachment_metadata( get_post_thumbnail_id($post), false);
+		$img_loc = dirname($meta_data["file"]);
+		$img_lg = get_bloginfo('url') . '/wp-content/uploads/' . $img_loc . '/' . $meta_data["sizes"]["jigim-featured-image"]["file"];
+		$img_md = get_bloginfo('url') . '/wp-content/uploads/' . $img_loc . '/' . $meta_data["sizes"]["jigim-featured-md"]["file"];
+		$img_sm = get_bloginfo('url') . '/wp-content/uploads/' . $img_loc . '/' . $meta_data["sizes"]["jigim-featured-sm"]["file"];
+		$html = '<img class="attachment-jigim-featured-image size-jigim-featured-image wp-post-image lazyload" '
+		        //. ' src="' . get_stylesheet_directory_uri() . '/assets/images/default_feature.jpg"'
+		        . ' src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" '
+		        . ' data-src="' . $img_sm
+		        . '" data-srcset="' . $img_sm . ' 768w, ' . $img_md . ' 1200w, ' . $img_lg . '" alt="feature image">';
+		*/
+
+		//使用picturefill.js实现响应式图片+jQuery.lazyload实现懒加载
+		$meta_data = wp_get_attachment_metadata( get_post_thumbnail_id($post), false);
+		$img_loc = dirname($meta_data["file"]);
+		$img_lg = get_bloginfo('url') . '/wp-content/uploads/' . $img_loc . '/' . $meta_data["sizes"]["jigim-featured-image"]["file"];
+		$img_md = get_bloginfo('url') . '/wp-content/uploads/' . $img_loc . '/' . $meta_data["sizes"]["jigim-featured-md"]["file"];
+		$img_sm = get_bloginfo('url') . '/wp-content/uploads/' . $img_loc . '/' . $meta_data["sizes"]["jigim-featured-sm"]["file"];
+		//$html = '<span class="picture-fill" data-picture data-lazy-load data-alt="carousel feature image">'
+		$html = '<span class="picture-fill" data-picture data-alt="carousel feature image">'
+		        . '<span data-src="' . $img_sm . '"></span>'
+		        . '<span data-src="' . $img_md . '" data-media="(min-width: 769px)"></span>'
+		        . '<span data-src="' . $img_lg . '" data-media="(min-width: 1201px)"></span>'
+		        //. '<!--[if (lt IE 9) & (!IEMobile)]><span data-src="' . $img_lg . '"></span><![endif]-->' //已通过respond.js支持media query
+		        . '<noscript><img src="' . $img_lg . '" alt="carousel feature image"></noscript>'
+		        . '</span>';
+
+	} else if ('slider-related-post' === $thumb_pos) {
+
+		//使用flickity方案，懒加载图片
+		$html = get_the_post_thumbnail( $post, 'jigim-thumbnail-avatar' );
+		$html = jigim_carousel_img_lazyload($html);
+
+	} else if( 'slider-gallery' === $thumb_pos ) {
+
+
+	}
+
+
+
+	echo $html;
 }
 endif;

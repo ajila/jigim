@@ -12,3 +12,36 @@
   .img-circle;
 }
 
+
+
+//== customize mixin
+//
+//## 自定义的mixin（暂时放在此）
+.menu-toggle-btn-animation() {
+
+  //.transition(all @my-transition-animation-duration);
+  .icon-bar {
+    .transition(all @my-transition-animation-duration);
+  }
+
+  /* Rotate first bar */
+  &.change {
+    .bar1 { //逆时针旋转45度
+      -webkit-transform: rotate(-45deg) translate(-9px, 6px);
+      -ms-transform: rotate(-45deg) translate(-9px, 6px);
+      transform: rotate(-45deg) translate(-9px, 6px);
+    }
+
+    /* Fade out the second bar */
+    .bar2 { //变透明
+      opacity: 0;
+    }
+
+    /* Rotate last bar */
+    .bar3 { //顺时针旋转45度
+      -webkit-transform: rotate(45deg) translate(-8px, -8px);
+      -ms-transform: rotate(45deg) translate(-8px, -8px);
+      transform: rotate(45deg) translate(-8px, -8px);
+    }
+  }
+}

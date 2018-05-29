@@ -23,6 +23,7 @@
     > a > img {
       &:extend(.img-responsive);
       line-height: 1;
+      min-width: 100%;    //ljj added 20180511
     }
 
     // WebKit CSS3 transforms for supported devices
@@ -92,11 +93,13 @@
 
 .carousel-control {
   position: absolute;
-  top: 0;
+  //top: 0;
+  top: 50%;   //ljj modified 20180511
   left: 0;
   bottom: 0;
   width: @carousel-control-width;
-  .opacity(@carousel-control-opacity);
+  height: @carousel-control-height;   //ljj added 20180511
+  //.opacity(@carousel-control-opacity);  //ljj modified 20180511
   font-size: @carousel-control-font-size;
   color: @carousel-control-color;
   text-align: center;
@@ -106,14 +109,16 @@
   // animation if you trip this while in the middle of another animation.
 
   // Set gradients for backgrounds
+  //ljj modified 20180511
   &.left {
-    #gradient > .horizontal(@start-color: rgba(0,0,0,.5); @end-color: rgba(0,0,0,.0001));
+    //#gradient > .horizontal(@start-color: rgba(0,0,0,.5); @end-color: rgba(0,0,0,.0001));
   }
   &.right {
     left: auto;
     right: 0;
-    #gradient > .horizontal(@start-color: rgba(0,0,0,.0001); @end-color: rgba(0,0,0,.5));
+    //#gradient > .horizontal(@start-color: rgba(0,0,0,.0001); @end-color: rgba(0,0,0,.5));
   }
+
 
   // Hover/focus state
   &:hover,
@@ -121,28 +126,36 @@
     outline: 0;
     color: @carousel-control-color;
     text-decoration: none;
-    .opacity(.9);
+    //.opacity(.9);
+    .opacity(.6);   //ljj modified 20180511
+    background-color: @my-carousel-control-bg-hover;  //ljj added 20180511
   }
 
   // Toggles
   .icon-prev,
   .icon-next,
   .glyphicon-chevron-left,
-  .glyphicon-chevron-right {
+  .glyphicon-chevron-right,
+  .icon { //ljj added 20180511
     position: absolute;
     top: 50%;
     margin-top: -10px;
     z-index: 5;
     display: inline-block;
+    color: @my-carousel-control-icon-color;  //ljj added 20180511
   }
   .icon-prev,
-  .glyphicon-chevron-left {
-    left: 50%;
+  .glyphicon-chevron-left,
+  &.left .icon { //ljj added 20180511
+    //left: 50%;
+    left: 60%;  //ljj modified 20180511
     margin-left: -10px;
   }
   .icon-next,
-  .glyphicon-chevron-right {
-    right: 50%;
+  .glyphicon-chevron-right,
+  &.right .icon { //ljj added 20180511
+    //right: 50%;
+    right: 60%;   //ljj modified 20180511
     margin-right: -10px;
   }
   .icon-prev,

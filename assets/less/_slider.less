@@ -1,0 +1,210 @@
+//
+// slider 幻灯片部分的样式
+// --------------------------------------------------
+
+//== 1. 首页slider
+//
+#carousel-front-page {
+
+  @media (max-width: @screen-xs-min) {
+    margin-top: @my-header-height;
+  }
+  @media (min-width: @screen-md-min) {
+    margin-top: -@my-header-height;
+  }
+  @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+    margin-top: @my-header-height;
+  }
+
+  //由于其内部的元素都是绝对定位，没有高度，可用padding占位
+  padding-bottom: 125%;  //高度设置为宽度的百分比，图片高宽比例要与此相同
+  @media (min-width: @screen-sm-min) {  //对应响应式图片方案中data-media的值
+    padding-bottom: 56%;  //高度设置为宽度的百分比
+  }
+  @media (min-width: (@screen-lg-min + 1)) {
+    padding-bottom: 50%;  //高度设置为宽度的百分比
+  }
+
+
+  .flickity-viewport {
+    //令其绝对定位，则它和它的内部绝对定位的子元素都继承相对定位的父元素.carousel
+    position: absolute;
+    width: 100%;
+  }
+
+
+  .carousel-cell {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: url('../images/loader.gif') center center no-repeat;
+
+    //> img.b-loaded,
+    //> a > img.b-loaded {
+    img.responsive-img,
+    a > img.responsive-img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .carousel-content {
+      position: absolute;
+      bottom: @my-carousel-content-bottom;
+      left: @my-carousel-content-left;
+      right: @my-carousel-content-right;
+      z-index: 10;
+
+      width: @my-carousel-content-width;
+      padding: 0;
+      color: #fff;
+      //text-align: center;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+      background-color: rgba(35, 39, 42, @my-carousel-content-opacity);//@mytheme-bg-mask;
+
+      @media (min-width: @screen-md-min) {
+        left: 10%;
+        width: 50%;
+        bottom: 15%;
+      }
+      @media (min-width: @screen-xs-max) {
+        padding: 20px;
+      }
+
+      .entry-categories {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        .clearfix();  //要只包含浮动元素又有高度，需令其清除浮动
+        @media (min-width: @screen-xs-max) {
+          padding: 10px;
+        }
+
+        li {
+          float: left;
+        }
+        a {
+          display: inline-block;
+          padding: 6px;
+          color: #fff;
+          @media (min-width: @screen-xs-max) {
+            padding: 6px 10px;
+          }
+        }
+      }//.entry-categories
+
+      .slide-title {
+        margin-top: 10px;
+        padding: 0 10px;
+        text-align: center;
+      }
+      .slide-excerpt {
+        padding: 0 10px;
+      }
+      .slide-meta {
+        padding: 0 0 0 10px;
+        position: relative;
+        @media (min-width: @screen-xs-max) {
+          padding: 10px;
+        }
+
+        img.avatar {
+          width: 10%;
+          max-width: 48px;
+          height: auto;
+          @media (min-width: @screen-xs-max) {
+            margin-right: 10px;
+          }
+        }
+        a.btn {
+          @media (min-width: @screen-xs-max) {
+            width: 120px;
+            line-height: 28px;
+            //垂直居中
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            .translate(0,-50%);
+            //transform: translateY(-50%);
+          }
+        }
+      }//.slide-meta
+
+    }//.carousel-content
+
+  }//.carousel-cell
+
+
+  /* flickity的lazyload图片fade in效果 */
+  .carousel-cell-image {
+    opacity: 0;
+    .transition(opacity 0.4s);
+  }
+
+  .carousel-cell-image.flickity-lazyloaded,
+  .carousel-cell-image.flickity-lazyerror {
+    opacity: 1;
+  }
+
+
+  /* 前/后导航按钮 */
+  .flickity-button {
+    background: transparent;
+    color: #fff;
+    @media ( min-width: @screen-sm-min ) {
+      background: hsla(0, 0%, 100%, 0.75);
+      color: #333;
+      &:hover {
+        background: white;
+      }
+    }
+  }//.flickity-button
+
+  .flickity-button-icon {
+    fill: #fff;
+    @media ( min-width: @screen-sm-min ) {
+      fill: #333;
+    }
+  }
+
+  .flickity-prev-next-button {
+    top: 60%;
+  }
+
+
+  /* 指示器 */
+  .flickity-page-dots {
+    bottom: 20px;
+    z-index: 2;
+
+    @media (max-width: @screen-xs-min) {
+      bottom: -40px;
+    }
+  }
+
+  .flickity-page-dots .dot {
+    width: 20px;
+    height: 20px;
+    border: 1px solid #ffffff;
+    opacity: 0.5;
+  }
+
+  .flickity-page-dots .dot.is-selected {
+    background: #ffffff;
+    opacity: 1;
+  }
+
+}
+
+
+//== 2. 相关文章slider
+//
+.related-post-panel {
+  >ul {
+    list-style: none;
+  }
+
+  .carousel-cell {
+    width: 50%;
+    height: 300px;
+  }
+}

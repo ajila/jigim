@@ -18,42 +18,7 @@
         <?php if ( get_post_gallery() ): //有画廊，则以slider的方式，显示画廊图片 ?>
             <?php $ID = get_the_ID(); ?>
 		    <div class="entry-gallery">
-                <div id="carousel-post-gallery-<?php echo $ID; ?>" class="carousel slide" data-ride="carousel">
-                    <div class="carousel-inner" role="listbox"> <!-- Wrapper for slides -->
-                        <?php
-                        $gallery_image_num = 0;
-                        $gallery_img = get_post_gallery_images(); //获取画廊的所有图片
-                        foreach( $gallery_img as $image ){
-                            echo '<div class="item '. ($gallery_image_num ? '': 'active') . '"><img src="'
-                                 . $image . '" class="post-gallery-image"></div>';
-                            $gallery_image_num++;
-                        }
-                        ?>
-                    </div> <!-- .carousel-inner -->
-
-                    <ol class="carousel-indicators">    <!-- Indicators -->
-                        <?php
-                        for($i = 0; $i < $gallery_image_num; $i++) {
-                            echo '<li data-target="#carousel-post-gallery-'
-                            . $ID
-                            . '" data-slide-to="'
-                            . $i
-                            . '" class="'
-                            . ($i ? '' : 'active')
-                            . '"></li>';
-                            }
-                        ?>
-                    </ol> <!-- .carousel-indicators -->
-
-                    <a class="left carousel-control" href="#carousel-post-gallery-<?php echo $ID ?>" role="button" data-slide="prev">
-                        <span class="fa fa-chevron-left" aria-hidden="true"></span>
-                        <span class="sr-only"><?php _e( 'Previous', 'twentyseventeen' ); ?></span>
-                    </a>
-                    <a class="right carousel-control" href="#carousel-post-gallery-<?php echo $ID ?>" role="button" data-slide="next">
-                        <span class="fa fa-chevron-right" aria-hidden="true"></span>
-                        <span class="sr-only"><?php _e( 'Next', 'twentyseventeen' ); ?></span>
-                    </a>
-                </div>  <!-- .carousel -->
+                <?php get_template_part('template-parts/slider/slider', 'gallery'); ?>
             </div>  <!-- .entry-gallery -->
 
         <?php elseif('' !== get_the_post_thumbnail() ) : //无画廊有缩略图，则显示缩略图 ?>
@@ -72,14 +37,14 @@
     <?php endif; ?>
 
 
-	<?php if ( is_sticky() && is_home() ) : //当前是主页（文章列表）且是置顶文章，输出图标 ?>
-        <span class="fa fa-thumb-tack"></span>
-	<?php endif; ?>
-
-
 	<?php if( !is_single() ): //非单篇文章(文章列表)，显示文章meta信息和标题 ?>
 	<header class="entry-header">
     <?php
+        //当前是博客主页且是置顶文章，输出图标
+        if ( is_sticky() && is_home() ) {
+            echo '<span class="fa fa-thumb-tack sticky-icon"></span>';
+        }
+
         //section1: 文章分类
         jigim_entry_category();
 
@@ -121,7 +86,12 @@
         </footer>
 	<?php else: ?>
         <footer class="entry-footer">
-			<?php jigim_posted_on(); //文章列表时，作者日期时间显示在底部 ?>
+			<?php
+			jigim_entry_tag();  //输出tag列表
+			echo '<div class="entry-posted-meta">';
+            jigim_posted_on();  //文章列表时，作者日期时间显示在底部
+			echo '</div>';
+            ?>
         </footer>
 	<?php endif; ?>
 

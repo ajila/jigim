@@ -1,0 +1,324 @@
+//
+// sidebar侧边栏部分的样式，移动优先
+// --------------------------------------------------
+
+#secondary {
+
+  //默认移动视图下，作侧边弹出栏
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: @zindex-sidenav;
+  overflow-x: hidden;
+
+  height: 100%;
+  width: 0;       //初始宽度为0，令其不显示，点击按钮后通过js改变宽度来令其显示
+  .transition(width @my-transition-animation-duration ease-in-out);
+  background-color: @my-sidenav-bg-color;
+
+  @media (min-width: @screen-md-min) {
+    background-color: @my-sidebar-bg-color;
+  }
+
+
+  .sidenav-header {
+    position: relative;
+    width: @my-sidenav-width; //设定宽度，令sidenav收缩时能维持宽度
+    height: @my-header-height;
+    padding-top: @my-branding-utils-margin-top;
+    padding-left: 15px;
+
+    @media (min-width: @screen-md-min) {
+      display: none;
+    }
+
+    .sidenav-close {
+      .menu-toggle-btn-animation();
+
+      //copy .navbar-default .bavbar-toggle中的样式
+      border-color: @navbar-default-toggle-border-color;
+      &:hover,
+      &:focus {
+        background-color: @navbar-default-toggle-hover-bg;
+      }
+      .icon-bar {
+        background-color: @navbar-default-toggle-icon-bar-bg;
+      }
+    } //.sidenav-close
+
+    .sidenav-title {
+      margin: 0;
+      color: @my-sidenav-title-color;
+    }//.sidenav-title
+
+  } //.sidenav-header
+
+
+  .widget {
+    display: none;  //移动视图下只显示指定的widget
+    width: @my-sidenav-width; //设定宽度，令sidenav收缩时能维持宽度
+    padding: 0 @my-sidenav-widget-padding @my-sidenav-widget-padding @my-sidenav-widget-padding;
+    color: @my-sidenav-widget-color;
+
+    @media (min-width: @screen-md-min) {
+      display: block;
+      width: auto;
+      padding: 0;
+      color: @my-sidebar-widget-color;
+      background-color: @my-sidebar-widget-bg;
+    }
+
+
+    .widget-header {
+
+      width: 80%;
+      padding-top: @my-sidenav-widget-header-padding;
+      cursor: pointer;
+      &:hover,
+      &:focus {
+        background-color: @my-sidenav-widget-header-hover-bg;
+      }
+
+      @media (min-width: @screen-md-min) {
+        width: 100%;
+        height: @my-sidebar-header-height;
+        padding: @my-sidebar-header-padding;
+        background-color: @my-sidebar-widget-header-bg;
+        color: @my-sidebar-widget-header-color;
+      }
+
+
+      .widget-toggle {
+        float: left;
+        .transition(all @my-transition-animation-duration);
+
+        @media (min-width: @screen-md-min) {
+          padding: 6px;
+        }
+      }//.widget-toggle
+
+
+      .widget-title {
+        width: 100%;
+        padding-bottom: @my-sidenav-widget-title-bottom;
+        border-bottom: 1px solid;
+        margin: 0 0 @my-sidenav-widget-title-margin 0;
+
+        @media (min-width: @screen-md-min) {
+          width: auto;
+          padding: 4px 0 0 0;
+          border: 0;
+          margin: 0;
+          font-size: 24px;
+        }
+      }//.widget-title
+
+    }//.widget-header
+
+
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+
+      @media (min-width: @screen-md-min) {
+        padding: @my-sidebar-widget-padding-vertical @my-sidebar-widget-padding-horizontal;
+      }
+
+      li {
+        width: 80%;
+        margin-bottom: 10px;
+        font-size: @my-sidenav-widget-font-size;
+
+        @media (min-width: @screen-md-min) {
+          width: 100%;
+          font-size: @my-sidebar-widget-font-size;
+        }
+
+        a {
+          display: inline-block;
+          width: 100%;
+          margin-right: -4em;
+          padding: 1em 3em 1em 1em;
+          border: 1px solid transparent;
+          background-color: @my-sidenav-widget-link-bg;
+          color: inherit;
+          &:hover,
+          &:focus {
+            border-color: @my-sidenav-widget-link-border-hover;
+            background-color: @my-sidenav-widget-link-bg-hover;
+          }
+
+          @media (min-width: @screen-md-min) {
+            margin-right: -60px;
+            padding: 0;
+            border: 0;
+            background-color: @my-sidebar-widget-link-bg;
+            &:hover,
+            &:focus {
+              color: @my-sidebar-widget-link-bg-hover;
+            }
+          }//@media (min-width: @screen-md-min)
+
+        }//li a
+
+        ul {  //嵌套列表
+          margin-top: 10px;
+          margin-left: 20px;
+          li {
+            width: 100%;
+            font-size: 0.8em;
+          };
+          @media (min-width: @screen-md-min) {
+            padding: 0;
+            li {
+              font-size: 1em;
+            }
+          }
+        }//li ul
+
+        .tag-link-count {
+          float: right;
+        }
+
+      }//.widget ul li
+
+    }//.widget ul
+
+
+    @media (min-width: @screen-md-min) {
+      .social-navigation {
+        float: right;
+        ul {
+          padding: 0;
+          li {
+            float: left;
+            width: auto;
+            margin: 0 0 0 8px;
+            color: @my-social-navigation-item;
+            a {
+              padding: 0;
+              margin: 0;
+              border: 0;
+              background-color: @my-social-navigation-link-bg;
+              font-size: 1.5em;
+              &:hover,
+              &:focus {
+                color: @my-social-navigation-item-hover;
+              }
+            }//.social-navigation ul li a
+          }//.social-navigation ul li
+        }//.social-navigation ul
+      }//.social-navigation
+
+      .about-me-img img {
+        width: 100%;
+        height: auto;
+      }
+
+      .search-form {
+        padding: @my-sidebar-widget-padding-vertical @my-sidebar-widget-padding-horizontal;
+      }
+
+      .tagcloud .wp-tag-cloud {
+        li {
+          float: left;
+          width: auto;
+          margin-right: 10px;
+          a {
+            width: auto;
+            padding: 6px 6px;
+            margin: 0;
+            color: @my-sidebar-tagcloud-link;
+            background-color: @my-sidebar-tagcloud-link-bg;
+            &:hover,
+            &:focus {
+              color: @my-sidebar-tagcloud-link-hover;
+              background-color: @my-sidebar-tagcloud-link-bg-hover;
+            }
+            .tag-link-count {
+              float: none;
+            }
+          }//li a
+        }//li
+
+        //容器中若只包含浮动元素，则其不具有高度
+        //可令最后一个元素清除浮动
+        li:last-child {
+          float: none;
+          clear: both;
+        }//li:last-child
+
+        //.clearfix(); //或为容器的:after伪元素添加空内容，并应用清除浮动
+        //overflow: auto; //或容器设置overflow
+
+      }//.tagcloud .wp-tag-cloud
+
+    }//@media (min-width: @screen-md-min)
+
+  }//.widget
+
+
+  //移动视图下显示指定的widget
+  .widget_categories, .widget_tag_cloud, .widget_archive, .widget_meta {
+    display: block;
+  }
+  .widget_categories {
+    li:nth-child(1) a {
+      background-color: @mytheme-category-1;
+      //background-color: rgba(138, 181, 216, @my-navbar-opacity);
+    }
+    li:nth-child(2) a {
+      background-color: @mytheme-category-2;
+      //background-color: rgba(218, 106, 42, @my-navbar-opacity);
+    }
+    li:nth-child(3) a {
+      background-color: @mytheme-category-3;
+      //background-color: rgba(83, 89, 27, @my-navbar-opacity);
+    }
+    li:nth-child(4) a {
+      background-color: @mytheme-category-4;
+      //background-color: rgba(242, 197, 114, @my-navbar-opacity);
+    }
+
+    @media (min-width: @screen-md-min) {
+      li a {
+        background-color: transparent !important;
+      }
+      li:nth-child(1) a {
+        color: @mytheme-category-1;
+      }
+      li:nth-child(2) a {
+        color: @mytheme-category-2;
+      }
+      li:nth-child(3) a {
+        color: @mytheme-category-3;
+      }
+      li:nth-child(4) a {
+        color: @mytheme-category-4;
+      }
+    }//@media (min-width: @screen-md-min)
+  }//.widget_categories
+
+} //#secondary
+
+
+//侧边弹出栏动画
+.sidenav-display {
+  width: @my-sidenav-width !important;
+}
+.main-push-right {
+  margin-left: @my-sidenav-width !important;
+}
+#page {
+  .transition(margin-left @my-transition-animation-duration ease-in-out);
+}
+.navbar-toggle-transition {
+  z-index: @zindex-sidenav;
+  margin-left: @my-sidenav-width !important;
+  background-color: @mytheme-bg-heading !important;
+}
+//widget按钮动画
+.widget-toggle-rotate {
+  .rotate(180deg);
+}

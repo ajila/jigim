@@ -17,14 +17,14 @@
         <?php //品牌标志和折叠开关 Brand and toggle get grouped for better mobile display ?>
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" id="sidenav-open-btn"
-                    data-target="#navbar-collapse-top" aria-expanded="false" onclick="side_nav_open(this);">
+                    data-target="#navbar-collapse-top" aria-expanded="false">
                 <span class="sr-only"><?php _e('Toggle navigation', 'twentyseventeen'); ?></span>
                 <span class="icon-bar bar1"></span>
                 <span class="icon-bar bar2"></span>
                 <span class="icon-bar bar3"></span>
             </button>
             <a href="<?php bloginfo('url'); ?>" class="navbar-brand" rel="home" itemprop="url">
-                <img src="<?php echo get_stylesheet_directory_uri().'/assets/images/logo_full.png'?>" alt="logo" itemprop="url">
+                <img width="250" src="<?php echo get_stylesheet_directory_uri().'/assets/images/logo_full.png'?>" alt="logo" itemprop="url">
             </a>
         </div>  <!-- /.navbar-header -->
 

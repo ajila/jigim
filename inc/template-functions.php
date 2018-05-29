@@ -280,3 +280,28 @@ function jigim_get_post_views ($post_id) {
 	return number_format_i18n($count);
 }
 endif;
+
+
+if ( ! function_exists( 'jigim_category_feature_color' ) ) :
+/**
+ * 获取分类特征颜色
+ * @param  string  $cat_slug   分类的slug
+ * @return string   $feature_color     分类特征色
+ */
+function jigim_category_feature_color ($cat_slug) {
+	//根据实际情况初始化这里的键值，后续可由后台设置
+	$cat_colors = array(
+		"other"         =>  "#8ab5d8",
+		"featured"      =>  "#da6a2a",
+		"post-formats"  =>  "#53591b",
+		"sticky"        =>  "#f2c572",
+		"default"       =>  "#bfa72b",
+	);
+
+	if( array_key_exists($cat_slug, $cat_colors) ) {
+		return $cat_colors[$cat_slug];
+	} else {
+		return $cat_colors["default"];
+	}
+}
+endif;
