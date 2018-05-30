@@ -21,9 +21,11 @@ get_header(); ?>
         <div class="row">
             <?php //section2: 内容 ?>
             <div id="primary" class="content-area">
+
+	            <?php //TODO：面包屑导航 ?>
+
                 <main id="main" class="site-main" role="main">
                     <?php
-                    //todo：面包屑导航
 
                     //1. 用指定文章格式的内容模板，显示文章内容
                     get_template_part( 'template-parts/post/content', get_post_format() );

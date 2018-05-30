@@ -91,7 +91,7 @@
         <footer class="entry-footer">
 			<?php
 			jigim_entry_tag();  //输出tag列表
-			echo '<div class="entry-posted-meta">';
+			echo '<div class="entry-meta">';
             jigim_posted_on();  //文章列表时，作者日期时间显示在底部
 			echo '</div>';
             ?>

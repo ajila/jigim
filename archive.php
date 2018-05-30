@@ -21,10 +21,12 @@ endif; ?>
         <div class="row">
             <?php //section2: 内容 ?>
             <div id="primary" class="content-area">
+
+	            <?php //TODO：面包屑导航 ?>
+
                 <main id="main" class="site-main" role="main">
 
                 <?php
-                //todo：面包屑导航
 
                 if ( have_posts() ) :
 

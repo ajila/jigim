@@ -16,6 +16,7 @@
 
 	<?php if( !is_single()) : //非单篇文章(文章列表)
 
+        //文章缩略图
 		if ( '' !== get_the_post_thumbnail() ) { //有缩略图，则显示缩略图
 			echo '<div class="post-thumbnail"><a href="' . esc_url(get_permalink()) . '">';
 			    //the_post_thumbnail( 'jigim-thumbnail-horizontal' );
@@ -45,22 +46,12 @@
 			    echo '<img data-src = "'. $img . '" class="lazyload" alt="post image attachment">';
 			echo '</a> </div><!-- .post-image-attachment -->';
 		}
+
+		//文章meta信息和标题
+		echo '<div class="post-outline">';
+		jigim_entry_header();
+
 	endif; ?>
-
-
-	<?php if( !is_single() ): //非单篇文章(文章列表)，显示文章meta信息和标题 ?>
-	<header class="entry-header">
-    <?php
-        //当前是博客主页且是置顶文章，输出图标
-        if ( is_sticky() && is_home() ) {
-        echo '<span class="fa fa-thumb-tack sticky-icon"></span>';
-        }
-
-        //section1: 文章分类
-        jigim_entry_category();
-    ?>
-	</header><!-- .entry-header -->
-	<?php endif; ?>
 
 
 	<div class="entry-content">
@@ -74,19 +65,12 @@
 	</div><!-- .entry-content -->
 
 
-	<?php if ( is_single() ) : ?>
-        <footer class="entry-footer">
-            <?php jigim_entry_tag();    //输出tag列表 ?>
-        </footer>
-    <?php else : ?>
-        <footer class="entry-footer">
-			<?php
-			jigim_entry_tag();  //输出tag列表
-			echo '<div class="entry-posted-meta">';
-			jigim_posted_on();  //文章列表时，作者日期时间显示在底部
-			echo '</div>';
-            ?>
-        </footer>
-    <?php endif; ?>
+	<?php
+	jigim_entry_footer();
+
+	if( !is_single()) {
+		echo '</div><!-- .post-outline -->';
+	}
+	?>
 
 </article><!-- #post-## -->

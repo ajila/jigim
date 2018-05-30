@@ -198,13 +198,52 @@ function jigim_entry_tag_2() {
 */
 endif;
 
+if ( ! function_exists( 'jigim_entry_header' ) ) :
+/**
+ * 显示文章的分类/标题等meta信息的html
+ * Prints HTML with meta information for the categories, title.
+ */
+function jigim_entry_header() {
+	echo '<header class="entry-header">';
+
+	//section1：当前是博客主页且是置顶文章，输出图标
+	if ( is_sticky() && is_home() ) {
+		echo '<span class="fa fa-thumb-tack sticky-icon"></span>';
+	}
+
+	//section2：文章分类
+	jigim_entry_category();
+
+	//section3：文章标题
+	jigim_entry_title();
+
+	echo '</header>';
+}
+endif;
 
 if ( ! function_exists( 'jigim_entry_footer' ) ) :
+/**
+ * 显示tag/作者/发表时间等meta信息的html
+ * Prints HTML with meta information for the categories, tags and comments.
+ */
+function jigim_entry_footer() {
+	echo '<footer class="entry-footer">';
+
+    jigim_entry_tag();    //输出tag列表
+    if( !is_single()) {
+        echo '<div class="entry-meta">';
+        jigim_posted_on();    //显示作者头像日期时间
+        echo '</div>';
+    }
+
+	echo '</footer>';
+}
+
 /**
  * 显示分类/tag/编辑链接等meta信息的html
  * Prints HTML with meta information for the categories, tags and comments.
  */
-function jigim_entry_footer() {
+function jigim_entry_footer_2017() {
 	/* translators: used between list items, there is a space after the comma */
 	$separate_meta = __( ', ', 'twentyseventeen' );
 

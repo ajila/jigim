@@ -16,6 +16,7 @@
 
 	<?php if( !is_single()) : //非单篇文章(文章列表)
 
+        //文章缩略图
 		if ( '' !== get_the_post_thumbnail() ) { //有缩略图，则显示缩略图
 			echo '<div class="post-thumbnail"><a href="' . esc_url(get_permalink()) . '">';
 			    //the_post_thumbnail( 'jigim-thumbnail-horizontal' );
@@ -45,29 +46,12 @@
 			    echo '<img data-src = "'. $img . '" class="lazyload" alt="post image attachment">';
 			echo '</a> </div><!-- .post-image-attachment -->';
 		}
+
+		//文章meta信息和标题
+		echo '<div class="post-outline">';
+		jigim_entry_header();
+
 	endif; ?>
-
-
-	<?php if( !is_single() ): //非单篇文章(文章列表)，显示文章meta信息和标题 ?>
-    <header class="entry-header">
-    <?php
-        //当前是博客主页且是置顶文章，输出图标
-        if ( is_sticky() && is_home() ) {
-            echo '<span class="fa fa-thumb-tack sticky-icon"></span>';
-        }
-
-        //section1: 文章分类
-        jigim_entry_category();
-
-        //section2: 文章标题
-        jigim_entry_title();
-    ?>
-    </header><!-- .entry-header -->
-    <?php endif; ?>
-
-
-	<?php if( is_single()): //TODO：面包屑导航 ?>
-	<?php endif; ?>
 
 
     <?php if( is_single() && has_excerpt() ): //单篇文章显示摘要段落?>
@@ -85,7 +69,7 @@
 			get_the_title()
 		) );
 
-		if(is_single()) {
+		if( is_single() ) {
 			//文章内部分页时，显示分页数字链接
 			wp_link_pages( array(
 				'before'      => '<div class="page-links">' . __( 'Pages:', 'twentyseventeen' ),
@@ -98,15 +82,12 @@
 	</div><!-- .entry-content -->
 
 
-    <footer class="entry-footer">
-	    <?php
-        jigim_entry_tag();    //输出tag列表
-        if( !is_single()) {
-            echo '<div class="entry-posted-meta">';
-	        jigim_posted_on();    //打印作者头像日期时间
-            echo '</div>';
-        }
-        ?>
-    </footer>
+    <?php
+    jigim_entry_footer();
+
+    if( !is_single()) {
+	    echo '</div><!-- .post-outline -->';
+    }
+    ?>
 
 </article><!-- #post-## -->
