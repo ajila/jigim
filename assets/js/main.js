@@ -58,7 +58,7 @@
 */
 
         //jQuery.lazyload initialize
-        //lazyload();   //转移到picturefill.js中，图片标签准备好后调用
+        lazyload();   //picturefill.js中，图片标签准备好会重新调用
 
 
         //侧边弹出菜单的打开/关闭动画及按钮动画

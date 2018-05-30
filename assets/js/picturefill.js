@@ -71,10 +71,8 @@ A Responsive Images approach that you can use today that mimics the [proposed pi
 				}
 				
 				matchedEl.appendChild( picImg );
-				//picImg.removeAttribute("width");
-				//picImg.removeAttribute("height");
-				picImg.setAttribute("width","1600");	
-				picImg.setAttribute("height","800");				
+				picImg.removeAttribute("width");
+				picImg.removeAttribute("height");			
 				
 			}
 			else if( picImg ){

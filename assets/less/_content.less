@@ -25,16 +25,22 @@
 
 
   article {
+    overflow: hidden;
     margin-bottom: @my-article-margin;
     @media (min-width: @screen-xs-min) and (max-width: @screen-xs-max) {
       margin-bottom: 30px;
     }
 
-    .post-thumbnail img,
-    .post-image-attachment img,
-    .entry-gallery img {
+    .post-thumbnail,
+    .post-image-attachment,
+    .entry-gallery {
       width: 100%;
-      height: auto;
+      background: url('../images/loader.gif') center center no-repeat;
+
+      img {
+        width: 100%;
+        height: auto;
+      }
     }
 
     .entry-header, .entry-content, .entry-footer {
@@ -58,6 +64,11 @@
         color: #fff;
       }
     }//.entry-categories, .entry-tags
+
+    .sticky-icon {
+      float: left;
+      margin-right: 6px;
+    }
 
     .entry-categories {
       a {
@@ -105,25 +116,35 @@
       }
     }//.entry-posted-meta
 
+    .entry-video iframe {
+      width: 100%;
+    }
+
+
     &.sticky {
 
-      .sticky-icon {
-        float: left;
-        margin-right: 6px;
-      }
-
-      ul.entry-categories {
-        height: @my-article-list-padding + @line-height-computed + @my-article-list-padding + @my-article-list-margin;
-      }
-
       @media (min-width: @screen-lg-min) {
+
+        max-height: @my-article-sticy-height;
+        overflow: hidden;
+        background-color: @mytheme-bg-module;
+
         .post-thumbnail, .post-image-attachment {
           width: 50%;
+          overflow: hidden;
           float: left;
+          img {
+            max-height: @my-article-sticy-height;
+            width: auto;
+          }
         }
         .entry-header, .entry-content, .entry-footer {
           margin-left: 50%;
         }
+        ul.entry-categories {
+          height: @my-article-list-padding + @line-height-computed + @my-article-list-padding + @my-article-list-margin;
+        }
+
       }
 
     }//article.sticky
@@ -139,7 +160,30 @@
   .pagination {
     width: 100%;
     text-align: center;
-  }
+
+    .page-numbers {
+      padding: @padding-base-vertical @padding-base-horizontal;
+      border: 1px solid @mytheme-interf-btn;
+      line-height: @line-height-base;
+      color: @mytheme-interf-btn;
+
+      &.current {
+        background-color: @mytheme-interf-btn;
+        color: #fff;
+      }
+
+      &.dots {
+        border-color: transparent;
+      }
+    }//.page-numbers
+
+    a:hover,
+    a:focus {
+      background-color: @mytheme-interf-btn;
+      color: #fff;
+    }
+  }//.pagination
+
 
 
   //

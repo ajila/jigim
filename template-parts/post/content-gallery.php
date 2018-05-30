@@ -24,14 +24,17 @@
         <?php elseif('' !== get_the_post_thumbnail() ) : //无画廊有缩略图，则显示缩略图 ?>
             <div class="post-thumbnail">
                 <a href="<?php the_permalink(); ?>">
-				    <?php the_post_thumbnail( 'jigim-thumbnail-image' ); ?>
+				    <?php
+                    //the_post_thumbnail( 'jigim-thumbnail-horizontal' );
+				    jigim_echo_responsive_thumbnail( $post, 'post-list' );
+                    ?>
                 </a>
             </div><!-- .post-thumbnail -->
 
         <?php else: //也无缩略图，则显示文章中第一张图片 ?>
             <?php $img = jigim_get_post_first_img( get_the_content() ); ?>
             <div class="post-image-attachment"><a href="<?php the_permalink(); ?>">
-                <img src = "<?php jigim_get_post_first_img( get_the_content() );?>" alt="post image attachment">
+                <img data-src = "<?php jigim_get_post_first_img( get_the_content() );?>" class="lazyload" alt="post image attachment">
             </a> </div><!-- .post-image-attachment -->
         <?php endif; ?>
     <?php endif; ?>

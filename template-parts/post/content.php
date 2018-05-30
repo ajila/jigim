@@ -18,7 +18,8 @@
 
 		if ( '' !== get_the_post_thumbnail() ) { //有缩略图，则显示缩略图
 			echo '<div class="post-thumbnail"><a href="' . esc_url(get_permalink()) . '">';
-			    the_post_thumbnail( 'jigim-thumbnail-image' );
+			    //the_post_thumbnail( 'jigim-thumbnail-horizontal' );
+			    jigim_echo_responsive_thumbnail( $post, 'post-list' );
 			echo '</a></div><!-- .post-thumbnail -->';
 		}
 		else{   //无缩略图，则显示第一张图片附件
@@ -34,13 +35,14 @@
 
 			if( $attachments ) {
 				echo '<div class="post-image-attachment"><a href="' . esc_url(get_permalink()) . '">';
-				    echo wp_get_attachment_image( $attachments[0]->ID, 'jigim-thumbnail-image' );
+				    echo wp_get_attachment_image( $attachments[0]->ID, 'jigim-thumbnail-horizontal' );
 				echo '</a> </div><!-- .post-image-attachment -->';
 			}
             */
 			$img = jigim_get_post_first_img( get_the_content() );
 			echo '<div class="post-image-attachment"><a href="' . esc_url(get_permalink()) . '">';
-			    echo '<img src = "'. $img . '" alt="post image attachment">';
+			    //echo '<img src = "'. $img . '" alt="post image attachment">';
+			    echo '<img data-src = "'. $img . '" class="lazyload" alt="post image attachment">';
 			echo '</a> </div><!-- .post-image-attachment -->';
 		}
 	endif; ?>

@@ -568,7 +568,7 @@ function jigim_echo_responsive_thumbnail( $post, $thumb_pos ){
 		$html = '<span class="picture-fill" data-picture data-alt="carousel feature image">'
 		        . '<span data-src="' . $img_sm . '"></span>'
 		        . '<span data-src="' . $img_md . '" data-media="(min-width: 769px)"></span>'
-		        . '<span data-src="' . $img_lg . '" data-media="(min-width: 1201px)"></span>'
+		        . '<span data-src="' . $img_lg . '" data-media="(min-width: 1200px)"></span>'
 		        //. '<!--[if (lt IE 9) & (!IEMobile)]><span data-src="' . $img_lg . '"></span><![endif]-->' //已通过respond.js支持media query
 		        . '<noscript><img src="' . $img_lg . '" alt="carousel feature image"></noscript>'
 		        . '</span>';
@@ -576,14 +576,28 @@ function jigim_echo_responsive_thumbnail( $post, $thumb_pos ){
 	} else if ('slider-related-post' === $thumb_pos) {
 
 		//使用flickity方案，懒加载图片
-		$html = get_the_post_thumbnail( $post, 'jigim-thumbnail-avatar' );
+		$html = get_the_post_thumbnail( $post, 'jigim-thumbnail-vertical' );
 		$html = jigim_carousel_img_lazyload($html);
 
 	} else if( 'slider-gallery' === $thumb_pos ) {
 
+		$html = null;
+
+	} else if( 'post-list' === $thumb_pos ) {
+
+		//使用picturefill.js实现响应式图片+jQuery.lazyload实现懒加载
+		$meta_data = wp_get_attachment_metadata( get_post_thumbnail_id($post), false);
+		$img_loc = dirname($meta_data["file"]);
+		$img_vt = get_bloginfo('url') . '/wp-content/uploads/' . $img_loc . '/' . $meta_data["sizes"]["jigim-thumbnail-vertical"]["file"];
+		$img_hz = get_bloginfo('url') . '/wp-content/uploads/' . $img_loc . '/' . $meta_data["sizes"]["jigim-thumbnail-horizontal"]["file"];
+		$html = '<span class="picture-fill" data-picture data-lazy-load data-alt="post thumbnail image">'
+		        . '<span data-src="' . $img_hz . '"></span>'
+		        . '<span data-src="' . $img_vt . '" data-media="(min-width: 1200px)"></span>'
+		        //. '<!--[if (lt IE 9) & (!IEMobile)]><span data-src="' . $img_lg . '"></span><![endif]-->' //已通过respond.js支持media query
+		        . '<noscript><img src="' . $img_hz . '" alt="post thumbnail image"></noscript>'
+		        . '</span>';
 
 	}
-
 
 
 	echo $html;

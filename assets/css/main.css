@@ -8694,7 +8694,7 @@ header.site-header {
     padding-bottom: 56%;
   }
 }
-@media (min-width: 1201px) {
+@media (min-width: 1200px) {
   #carousel-front-page {
     padding-bottom: 50%;
   }
@@ -9332,12 +9332,19 @@ header.site-header {
   font-size: 24px;
 }
 #primary article {
+  overflow: hidden;
   margin-bottom: 20px;
 }
 @media (min-width: 480px) and (max-width: 768px) {
   #primary article {
     margin-bottom: 30px;
   }
+}
+#primary article .post-thumbnail,
+#primary article .post-image-attachment,
+#primary article .entry-gallery {
+  width: 100%;
+  background: url('../images/loader.gif') center center no-repeat;
 }
 #primary article .post-thumbnail img,
 #primary article .post-image-attachment img,
@@ -9390,6 +9397,10 @@ header.site-header {
   padding: 6px;
   color: #fff;
 }
+#primary article .sticky-icon {
+  float: left;
+  margin-right: 6px;
+}
 #primary article .entry-categories a:hover,
 #primary article .entry-categories a:focus {
   color: #4f698e;
@@ -9423,28 +9434,56 @@ header.site-header {
 #primary article .entry-posted-meta img.avatar:focus {
   opacity: 0.5;
 }
-#primary article.sticky .sticky-icon {
-  float: left;
-  margin-right: 6px;
-}
-#primary article.sticky ul.entry-categories {
-  height: 38px;
+#primary article .entry-video iframe {
+  width: 100%;
 }
 @media (min-width: 1200px) {
+  #primary article.sticky {
+    max-height: 480px;
+    overflow: hidden;
+    background-color: #e1e8ee;
+  }
   #primary article.sticky .post-thumbnail,
   #primary article.sticky .post-image-attachment {
     width: 50%;
+    overflow: hidden;
     float: left;
+  }
+  #primary article.sticky .post-thumbnail img,
+  #primary article.sticky .post-image-attachment img {
+    max-height: 480px;
+    width: auto;
   }
   #primary article.sticky .entry-header,
   #primary article.sticky .entry-content,
   #primary article.sticky .entry-footer {
     margin-left: 50%;
   }
+  #primary article.sticky ul.entry-categories {
+    height: 38px;
+  }
 }
 #primary .pagination {
   width: 100%;
   text-align: center;
+}
+#primary .pagination .page-numbers {
+  padding: 6px 12px;
+  border: 1px solid #4f698e;
+  line-height: 1.42857143;
+  color: #4f698e;
+}
+#primary .pagination .page-numbers.current {
+  background-color: #4f698e;
+  color: #fff;
+}
+#primary .pagination .page-numbers.dots {
+  border-color: transparent;
+}
+#primary .pagination a:hover,
+#primary .pagination a:focus {
+  background-color: #4f698e;
+  color: #fff;
 }
 #primary .single-featured-image-header img,
 #primary .featured-image-header img {
