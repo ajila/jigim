@@ -9352,10 +9352,17 @@ header.site-header {
   width: 100%;
   height: auto;
 }
+#primary article .post-outline {
+  padding-left: 15px;
+  padding-right: 15px;
+  background-color: #e1e8ee;
+}
 #primary article .entry-header,
 #primary article .entry-content,
-#primary article .entry-footer {
-  padding: 15px 15px 5px 15px;
+#primary article .entry-footer,
+#primary article .entry-summary {
+  padding-top: 15px;
+  padding-bottom: 5px;
   background-color: #e1e8ee;
 }
 #primary article .entry-categories,
@@ -9420,18 +9427,18 @@ header.site-header {
   color: #fff;
   background-color: #78858d;
 }
-#primary article .entry-posted-meta {
+#primary article .entry-meta {
   padding-top: 15px;
   padding-bottom: 15px;
   margin-top: 15px;
   border-top: 1px solid #78858d;
 }
-#primary article .entry-posted-meta img.avatar {
+#primary article .entry-meta img.avatar {
   max-width: 48px;
   height: auto;
 }
-#primary article .entry-posted-meta img.avatar:hover,
-#primary article .entry-posted-meta img.avatar:focus {
+#primary article .entry-meta img.avatar:hover,
+#primary article .entry-meta img.avatar:focus {
   opacity: 0.5;
 }
 #primary article .entry-video iframe {
@@ -9439,28 +9446,27 @@ header.site-header {
 }
 @media (min-width: 1200px) {
   #primary article.sticky {
-    max-height: 480px;
+    height: 480px;
     overflow: hidden;
-    background-color: #e1e8ee;
   }
   #primary article.sticky .post-thumbnail,
   #primary article.sticky .post-image-attachment {
+    float: left;
     width: 50%;
     overflow: hidden;
-    float: left;
   }
   #primary article.sticky .post-thumbnail img,
   #primary article.sticky .post-image-attachment img {
-    max-height: 480px;
+    height: 480px;
     width: auto;
   }
-  #primary article.sticky .entry-header,
-  #primary article.sticky .entry-content,
-  #primary article.sticky .entry-footer {
+  #primary article.sticky .post-outline {
+    width: 50%;
+    height: 480px;
     margin-left: 50%;
   }
-  #primary article.sticky ul.entry-categories {
-    height: 38px;
+  #primary article.sticky .post-outline ul.entry-categories {
+    display: table;
   }
 }
 #primary .pagination {
