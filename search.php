@@ -13,7 +13,7 @@
 get_header(); ?>
 
 
-<?php //section1: 标题 ?>
+<?php //标题 ?>
 <header class="page-header">
     <?php if ( have_posts() ) : global $wp_query; ?>
         <div class="featured-image-header">
@@ -31,14 +31,20 @@ get_header(); ?>
 
 <div class="container">
     <div class="row">
-        <?php //section2: 内容 ?>
+
+	    <?php //主内容区 ?>
         <div id="primary" class="content-area">
-            <main id="main" class="site-main" role="main">
+
+	        <?php //TODO：section1: 面包屑导航 <header> ?>
+
+
+
 
             <?php //若搜索有结果，则显示搜索到的文章
-            if ( have_posts() ) :
+            if ( have_posts() ) : ?>
 
-                /* 主循环 */
+                <main id="main" class="site-main" role="main">
+                <?php //section2: 文章列表
                 while ( have_posts() ) : the_post();
 
                     /** 显示摘要
@@ -48,28 +54,35 @@ get_header(); ?>
                      */
                     get_template_part( 'template-parts/post/content', 'excerpt' );
 
-                endwhile; // End of the loop.
+                endwhile; ?>
+                </main><!-- #main -->
 
-                /* 文章分页导航 */
+                <footer class="site-main-pagination">
+                <?php //section3：文章分页导航
                 the_posts_pagination( array(
                     'prev_text' => '<span class="fa fa-chevron-left"></span><span class="screen-reader-text">' . __( 'Previous page', 'twentyseventeen' ) . '</span>',
                     'next_text' => '<span class="screen-reader-text">' . __( 'Next page', 'twentyseventeen' ) . '</span><span class="fa fa-chevron-right"></span>',
                     'before_page_number' => '<span class="meta-nav screen-reader-text">' . __( 'Page', 'twentyseventeen' ) . ' </span>',
-                ) );
+                ) );?>
+                </footer>
 
-            else : //搜索无结果，则显示提示消息和搜索框 ?>
+            <?php else : //搜索无结果，则显示提示消息和搜索框 ?>
 
+                <main id="main" class="site-main" role="main">
                 <p><?php _e( 'Sorry, but nothing matched your search terms. Please try again with some different keywords.', 'twentyseventeen' ); ?></p>
-                <?php
-                    get_search_form();
-            endif;
-            ?>
-            </main><!-- #main -->
+                <?php get_search_form(); ?>
+                </main><!-- #main -->
+
+            <?php endif; ?>
+
         </div><!-- #primary -->
 
-        <?php //section3: 侧边栏 ?>
+
+        <?php //侧边栏 ?>
         <?php get_sidebar(); ?>
+
     </div><!-- .row -->
 </div><!-- .container -->
+
 
 <?php get_footer();

@@ -524,6 +524,7 @@ function jigim_archive_meta_header(){
 }
 endif;
 
+
 if ( ! function_exists( 'jigim_carousel_img_lazyload' ) ) :
 /**
  * flickity幻灯片图片支持lazyload
