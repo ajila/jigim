@@ -606,7 +606,7 @@ function jigim_echo_responsive_thumbnail( $post, $thumb_pos ){
 		$img_lg = get_the_post_thumbnail_url( $post, 'jigim-featured-image');
 		$img_md = get_the_post_thumbnail_url( $post, 'jigim-featured-md');
 		$img_sm = get_the_post_thumbnail_url( $post, 'jigim-featured-sm');
-		//使用响应式要加.picture-fill，使用响应式同时lazyload要加data-lazy-load
+		//使用响应式要加.picture-fill，使用响应式同时lazyload要加data-lazy-load（picturefill.js会据此为图片添加.lazyload）
 		//$html = '<span class="picture-fill" data-picture data-lazy-load data-alt="carousel feature image">'
 		$html = '<span class="picture-fill" data-picture data-alt="carousel feature image">'
 		        . '<span data-src="' . $img_sm . '"></span>'

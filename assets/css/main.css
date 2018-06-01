@@ -8783,6 +8783,10 @@ header.site-header {
     padding: 6px 10px;
   }
 }
+#carousel-front-page .carousel-cell .carousel-content .entry-categories a:hover,
+#carousel-front-page .carousel-cell .carousel-content .entry-categories a:focus {
+  color: #23527c;
+}
 #carousel-front-page .carousel-cell .carousel-content .slide-title {
   margin-top: 10px;
   padding: 0 10px;
@@ -8809,6 +8813,10 @@ header.site-header {
   #carousel-front-page .carousel-cell .carousel-content .slide-meta img.avatar {
     margin-right: 10px;
   }
+}
+#carousel-front-page .carousel-cell .carousel-content .slide-meta img.avatar:hover,
+#carousel-front-page .carousel-cell .carousel-content .slide-meta img.avatar:focus {
+  opacity: 0.5;
 }
 @media (min-width: 768px) {
   #carousel-front-page .carousel-cell .carousel-content .slide-meta a.btn {
@@ -9382,7 +9390,7 @@ header.site-header {
 #primary article .post-image-attachment {
   width: 100%;
   min-height: 200px;
-  background: url('../images/loader.gif') center center no-repeat;
+  background: #e1e8ee url('../images/loader.gif') center center no-repeat;
 }
 #primary article .post-thumbnail img,
 #primary article .post-image-attachment img {
@@ -9410,16 +9418,6 @@ header.site-header {
 #primary article .entry-content figure {
   max-width: 100%;
   height: auto;
-}
-@media (min-width: 1200px) {
-  #primary article .entry-header {
-    position: absolute;
-    top: 15px;
-  }
-  #primary article .entry-header .entry-title a {
-    color: #fff;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
-  }
 }
 #primary article .sticky-icon {
   float: left;
@@ -9498,31 +9496,17 @@ header.site-header {
   opacity: 0.5;
 }
 @media (min-width: 1200px) {
-  #primary article.sticky {
-    height: 480px;
-    overflow: hidden;
+  #primary article.format-standard:not(.sticky) .entry-header,
+  #primary article.format-image:not(.sticky) .entry-header,
+  #primary article.format-aside:not(.sticky) .entry-header {
+    position: absolute;
+    top: 15px;
   }
-  #primary article.sticky .post-thumbnail,
-  #primary article.sticky .post-image-attachment {
-    float: left;
-    width: 50%;
-    overflow: hidden;
-  }
-  #primary article.sticky .post-thumbnail img,
-  #primary article.sticky .post-image-attachment img {
-    height: 480px;
-    width: auto;
-  }
-  #primary article.sticky .post-outline {
-    width: 50%;
-    height: 480px;
-    margin-left: 50%;
-  }
-  #primary article.sticky .post-outline .entry-header {
-    position: relative;
-  }
-  #primary article.sticky .post-outline ul.entry-categories {
-    display: table;
+  #primary article.format-standard:not(.sticky) .entry-header .entry-title a,
+  #primary article.format-image:not(.sticky) .entry-header .entry-title a,
+  #primary article.format-aside:not(.sticky) .entry-header .entry-title a {
+    color: #fff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
   }
 }
 #primary article.format-gallery .entry-header,
@@ -9559,11 +9543,36 @@ header.site-header {
 #primary article.format-gallery .entry-footer .entry-tags a:focus {
   color: #fff;
 }
-#primary article.format-video .entry-header {
-  position: relative;
+@media (min-width: 1200px) {
+  #primary article.sticky {
+    height: 480px;
+    overflow: hidden;
+  }
+  #primary article.sticky .post-thumbnail,
+  #primary article.sticky .post-image-attachment {
+    float: left;
+    width: 50%;
+    overflow: hidden;
+  }
+  #primary article.sticky .post-thumbnail img,
+  #primary article.sticky .post-image-attachment img {
+    height: 480px;
+    width: auto;
+  }
+  #primary article.sticky .post-outline {
+    width: 50%;
+    height: 480px;
+    margin-left: 50%;
+  }
+  #primary article.sticky .post-outline ul.entry-categories {
+    display: table;
+  }
 }
-#primary article.format-audio .entry-header {
-  position: relative;
+@media (min-width: 1200px) and (min-width: 1200px) {
+  #primary article.sticky .post-outline .entry-header {
+    position: relative;
+    top: 0;
+  }
 }
 #primary .pagination {
   width: 100%;

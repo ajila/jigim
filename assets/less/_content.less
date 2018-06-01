@@ -42,7 +42,7 @@
     .post-image-attachment {
       width: 100%;
       min-height: 200px;
-      background: url('../images/loader.gif') center center no-repeat;
+      background: @mytheme-bg-module url('../images/loader.gif') center center no-repeat;
       img {
         width: 100%;
         height: auto;
@@ -70,16 +70,6 @@
     .entry-content figure {
       max-width: 100%;
       height: auto;
-    }
-    .entry-header {
-      @media (min-width: @screen-lg-min) { //定位到特色图内
-        position: absolute;
-        top: @my-article-padding;
-        .entry-title a {
-          color: #fff;
-          text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6)
-        }
-      }
     }
 
     //** 置顶图标
@@ -156,38 +146,21 @@
     }//.entry-meta
 
 
-    //** 置顶文章特定样式
-    &.sticky {
-
-      @media (min-width: @screen-lg-min) {
-        height: @my-article-sticy-height;
-        overflow: hidden;
-
-        .post-thumbnail, .post-image-attachment {
-          float: left;
-          width: 50%;
-          overflow: hidden;
-          img {
-            height: @my-article-sticy-height;
-            width: auto;
+    //** 标题块定位到特色图内
+    &.format-standard:not(.sticky),
+    &.format-image:not(.sticky),
+    &.format-aside:not(.sticky) {
+      .entry-header {
+        @media (min-width: @screen-lg-min) {
+          position: absolute;
+          top: @my-article-padding;
+          .entry-title a {
+            color: #fff;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6)
           }
         }
-        .post-outline {
-          width: 50%;
-          height: @my-article-sticy-height;
-          margin-left: 50%;
-
-          .entry-header {
-            position: relative; //覆盖lg断点下的绝对定位
-          }
-          ul.entry-categories {
-            display: table;
-          }
-        }//.post-outline
-
-      }
-
-    }//article.sticky
+      }//.entry-header
+    }
 
 
     //** gallery文章特定样式
@@ -231,20 +204,42 @@
     }
 
 
-    //** video文章特定样式
-    &.format-video {
-      .entry-header {
-        position: relative;
-      }
-    }
+    //** 置顶文章特定样式
+    &.sticky {
 
+      @media (min-width: @screen-lg-min) {
+        height: @my-article-sticy-height;
+        overflow: hidden;
 
-    //** audio文章特定样式
-    &.format-audio {
-      .entry-header {
-        position: relative;
+        .post-thumbnail, .post-image-attachment {
+          float: left;
+          width: 50%;
+          overflow: hidden;
+          img {
+            height: @my-article-sticy-height;
+            width: auto;
+          }
+        }
+        .post-outline {
+          width: 50%;
+          height: @my-article-sticy-height;
+          margin-left: 50%;
+
+          .entry-header {
+            @media (min-width: @screen-lg-min) {
+              position: relative; //覆盖lg断点下的绝对定位
+              top: 0;
+            }
+          }
+          ul.entry-categories {
+            display: table;
+          }
+        }//.post-outline
+
       }
-    }
+
+    }//article.sticky
+
 
   }//article
 
