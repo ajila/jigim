@@ -598,11 +598,15 @@ function jigim_echo_responsive_thumbnail( $post, $thumb_pos ){
 		*/
 
 		//使用picturefill.js实现响应式图片+jQuery.lazyload实现懒加载
-		$meta_data = wp_get_attachment_metadata( get_post_thumbnail_id($post), false);
-		$img_loc = dirname($meta_data["file"]);
-		$img_lg = get_bloginfo('url') . '/wp-content/uploads/' . $img_loc . '/' . $meta_data["sizes"]["jigim-featured-image"]["file"];
-		$img_md = get_bloginfo('url') . '/wp-content/uploads/' . $img_loc . '/' . $meta_data["sizes"]["jigim-featured-md"]["file"];
-		$img_sm = get_bloginfo('url') . '/wp-content/uploads/' . $img_loc . '/' . $meta_data["sizes"]["jigim-featured-sm"]["file"];
+		//$meta_data = wp_get_attachment_metadata( get_post_thumbnail_id($post), false);
+		//$img_loc = dirname($meta_data["file"]);
+		//$img_lg = get_bloginfo('url') . '/wp-content/uploads/' . $img_loc . '/' . $meta_data["sizes"]["jigim-featured-image"]["file"];
+		//$img_md = get_bloginfo('url') . '/wp-content/uploads/' . $img_loc . '/' . $meta_data["sizes"]["jigim-featured-md"]["file"];
+		//$img_sm = get_bloginfo('url') . '/wp-content/uploads/' . $img_loc . '/' . $meta_data["sizes"]["jigim-featured-sm"]["file"];
+		$img_lg = get_the_post_thumbnail_url( $post, 'jigim-featured-image');
+		$img_md = get_the_post_thumbnail_url( $post, 'jigim-featured-md');
+		$img_sm = get_the_post_thumbnail_url( $post, 'jigim-featured-sm');
+		//使用响应式要加.picture-fill，使用响应式同时lazyload要加data-lazy-load
 		//$html = '<span class="picture-fill" data-picture data-lazy-load data-alt="carousel feature image">'
 		$html = '<span class="picture-fill" data-picture data-alt="carousel feature image">'
 		        . '<span data-src="' . $img_sm . '"></span>'
@@ -625,10 +629,13 @@ function jigim_echo_responsive_thumbnail( $post, $thumb_pos ){
 	} else if( 'post-list' === $thumb_pos ) {
 
 		//使用picturefill.js实现响应式图片+jQuery.lazyload实现懒加载
-		$meta_data = wp_get_attachment_metadata( get_post_thumbnail_id($post), false);
-		$img_loc = dirname($meta_data["file"]);
-		$img_vt = get_bloginfo('url') . '/wp-content/uploads/' . $img_loc . '/' . $meta_data["sizes"]["jigim-thumbnail-vertical"]["file"];
-		$img_hz = get_bloginfo('url') . '/wp-content/uploads/' . $img_loc . '/' . $meta_data["sizes"]["jigim-thumbnail-horizontal"]["file"];
+		//$meta_data = wp_get_attachment_metadata( get_post_thumbnail_id($post), false);
+		//$img_loc = dirname($meta_data["file"]);
+		//$img_vt = get_bloginfo('url') . '/wp-content/uploads/' . $img_loc . '/' . $meta_data["sizes"]["jigim-thumbnail-vertical"]["file"];
+		//$img_hz = get_bloginfo('url') . '/wp-content/uploads/' . $img_loc . '/' . $meta_data["sizes"]["jigim-thumbnail-horizontal"]["file"];
+		$img_vt = get_the_post_thumbnail_url( $post, 'jigim-thumbnail-vertical');
+		$img_hz = get_the_post_thumbnail_url( $post, 'jigim-thumbnail-horizontal');
+		//使用响应式要加.picture-fill，使用响应式同时lazyload要加data-lazy-load
 		$html = '<span class="picture-fill" data-picture data-lazy-load data-alt="post thumbnail image">'
 		        . '<span data-src="' . $img_hz . '"></span>'
 		        . '<span data-src="' . $img_vt . '" data-media="(min-width: 1200px)"></span>'
