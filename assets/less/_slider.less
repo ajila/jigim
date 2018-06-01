@@ -2,7 +2,21 @@
 // slider 幻灯片部分的样式
 // --------------------------------------------------
 
-//== 1. 首页slider
+
+//== flickity的lazyload图片fade in效果
+//
+.carousel-cell-image {
+  opacity: 0;
+  .transition(opacity 0.4s);
+}
+
+.carousel-cell-image.flickity-lazyloaded,
+.carousel-cell-image.flickity-lazyerror {
+  opacity: 1;
+}
+
+
+//== 1. 首页页头carousel
 //
 #carousel-front-page {
 
@@ -32,13 +46,14 @@
     width: 100%;
   }
 
-
+  //** 幻灯片单元
   .carousel-cell {
     width: 100%;
     height: 100%;
     overflow: hidden;
     background: url('../images/loader.gif') center center no-repeat;
 
+    //** 幻灯片图片
     //> img.b-loaded,
     //> a > img.b-loaded {
     img.responsive-img,
@@ -47,6 +62,7 @@
       height: auto;
     }
 
+    //** 幻灯片文章内容和信息
     .carousel-content {
       position: absolute;
       bottom: @my-carousel-content-bottom;
@@ -70,6 +86,7 @@
         padding: 20px;
       }
 
+      //** 文章分类
       .entry-categories {
         list-style: none;
         margin: 0;
@@ -92,14 +109,17 @@
         }
       }//.entry-categories
 
+      //** 文章标题
       .slide-title {
         margin-top: 10px;
         padding: 0 10px;
         text-align: center;
       }
+      //** 文章摘要
       .slide-excerpt {
         padding: 0 10px;
       }
+      //** 文章作者日期等
       .slide-meta {
         padding: 0 0 0 10px;
         position: relative;
@@ -134,19 +154,7 @@
   }//.carousel-cell
 
 
-  /* flickity的lazyload图片fade in效果 */
-  .carousel-cell-image {
-    opacity: 0;
-    .transition(opacity 0.4s);
-  }
-
-  .carousel-cell-image.flickity-lazyloaded,
-  .carousel-cell-image.flickity-lazyerror {
-    opacity: 1;
-  }
-
-
-  /* 前/后导航按钮 */
+  //** 前/后导航按钮
   .flickity-button {
     background: transparent;
     color: #fff;
@@ -171,7 +179,7 @@
   }
 
 
-  /* 指示器 */
+  //** 指示器
   .flickity-page-dots {
     bottom: 20px;
     z-index: 2;
@@ -193,10 +201,62 @@
     opacity: 1;
   }
 
+}//#carousel-front-page
+
+
+//== 2. 文章列表中gallery carousel
+//
+.gallery-carousel {
+
+  //由于其内部的元素都是绝对定位，没有高度，可用padding占位
+  padding-bottom: 125%;  //高度设置为宽度的百分比，图片高宽比例要与此相同
+  @media (min-width: @screen-lg-min) {
+    padding-bottom: 140%; //拉伸幅度不大，图片可不变，只需令height:100%
+  }
+
+  .flickity-viewport {
+    //令其绝对定位，则它和它的内部绝对定位的子元素都继承相对定位的父元素.carousel
+    position: absolute;
+    width: 100%;
+  }
+
+  //** 幻灯片单元
+  .carousel-cell {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: url('../images/loader.gif') center center no-repeat;
+
+    img {
+      max-width: 100%;
+      height: auto;
+      @media (min-width: @screen-lg-min) {
+        height: 100%; //对应padding-bottom拉伸幅度不大，图片可不变
+      }
+    }
+  }
+
+  //** 指示器
+  .flickity-page-dots {
+    bottom: 20px;
+    z-index: 2;
+  }
+
+  .flickity-page-dots .dot {
+    width: 20px;
+    height: 20px;
+    border: 1px solid #ffffff;
+    opacity: 0.5;
+  }
+
+  .flickity-page-dots .dot.is-selected {
+    background: #ffffff;
+    opacity: 1;
+  }
+
 }
 
-
-//== 2. 相关文章slider
+//== 3. 相关文章slider
 //
 .related-post-panel {
   >ul {
@@ -208,3 +268,5 @@
     height: 300px;
   }
 }
+
+

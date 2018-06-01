@@ -13,11 +13,22 @@
 
 	<?php
 	$gallery_img = get_post_gallery_images(); //获取画廊的所有图片
+
 	foreach( $gallery_img as $image ){
+	    //获取画廊图片的对应分辨率的图片
+	    $ext = '.' . pathinfo( $image, PATHINFO_EXTENSION );
+	    $basename = basename( $image, $ext) . '-768x960' . $ext;
+		$image_show = dirname( $image ) . '/' . $basename;
 
-		echo '<div class="carousel-cell"><img data-flickity-lazyload="'
-		     . $image . '" class="post-gallery-image carousel-cell-image"></div>';
+        /* 在linux下判断指定分辨率图片存在否，不存在则用原始图片
+		$loc = str_replace( get_bloginfo('url'), '', $image_show );
+		if ( !file_exists($loc) ) {
+			$image_show = $image;
+		}
+        */
 
+        echo '<div class="carousel-cell"><img data-flickity-lazyload="'
+             . $image_show . '" class="carousel-cell-image"></div>';
 	}
 	?>
 

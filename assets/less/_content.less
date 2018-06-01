@@ -1,6 +1,7 @@
 //
 // 主内容区部分的样式，移动优先
 // --------------------------------------------------
+
 #primary {
 
   @media (min-width: @screen-xs-min) and (max-width: @screen-xs-max) {
@@ -8,6 +9,8 @@
     padding-right: 20px;
   }
 
+  //== 1.主内容区标题
+  //
   .page-header {
     width: 100%;
     height: @my-sidebar-header-height;
@@ -24,25 +27,35 @@
   }//.page-header
 
 
+  //== 2.文章模块
+  //
   article {
+    position: relative;
     overflow: hidden;
     margin-bottom: @my-article-margin;
     @media (min-width: @screen-xs-min) and (max-width: @screen-xs-max) {
       margin-bottom: 30px;
     }
 
+    //** 文章特色图
     .post-thumbnail,
-    .post-image-attachment,
-    .entry-gallery {
+    .post-image-attachment {
       width: 100%;
+      min-height: 200px;
       background: url('../images/loader.gif') center center no-repeat;
-
       img {
         width: 100%;
         height: auto;
       }
     }
 
+    .entry-gallery,
+    .entry-video iframe {
+      width: 100%;
+      background-color: @mytheme-bg-module;
+    }
+
+    //** 文章内容块
     .post-outline {
       padding-left: @my-article-padding;
       padding-right: @my-article-padding;
@@ -51,9 +64,31 @@
     .entry-header, .entry-content, .entry-footer, .entry-summary {
       padding-top: @my-article-padding;
       padding-bottom: 5px;
-      background-color: @mytheme-bg-module;
+      //background-color: @mytheme-bg-module;
+    }
+    .entry-content img,
+    .entry-content figure {
+      max-width: 100%;
+      height: auto;
+    }
+    .entry-header {
+      @media (min-width: @screen-lg-min) { //定位到特色图内
+        position: absolute;
+        top: @my-article-padding;
+        .entry-title a {
+          color: #fff;
+          text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6)
+        }
+      }
     }
 
+    //** 置顶图标
+    .sticky-icon {
+      float: left;
+      margin-right: 6px;
+    }
+
+    //** 文章分类/tag
     .entry-categories, .entry-tags {
       list-style: none;
       padding: 0;
@@ -71,20 +106,16 @@
       }
     }//.entry-categories, .entry-tags
 
-    .sticky-icon {
-      float: left;
-      margin-right: 6px;
-    }
-
     .entry-categories {
       a {
         &:hover,
         &:focus {
-          color: @mytheme-interf-btn;
+          color: @link-hover-color;
         }
       }
     }//.entry-categories
 
+    //** 文章标题
     .entry-title {
       margin-bottom: 0;
       font-weight: bold;
@@ -93,6 +124,7 @@
       }
     }//.entry-title
 
+    //** 文章tag
     .entry-tags {
       li {
         border: 1px solid @mytheme-text-meta;
@@ -107,6 +139,7 @@
       }
     }//.entry-tags
 
+    //** 文章作者日期等
     .entry-meta {
       padding-top: @my-article-padding;
       padding-bottom: @my-article-padding;
@@ -122,11 +155,8 @@
       }
     }//.entry-meta
 
-    .entry-video iframe {
-      width: 100%;
-    }
 
-
+    //** 置顶文章特定样式
     &.sticky {
 
       @media (min-width: @screen-lg-min) {
@@ -147,6 +177,9 @@
           height: @my-article-sticy-height;
           margin-left: 50%;
 
+          .entry-header {
+            position: relative; //覆盖lg断点下的绝对定位
+          }
           ul.entry-categories {
             display: table;
           }
@@ -157,13 +190,68 @@
     }//article.sticky
 
 
+    //** gallery文章特定样式
+    &.format-gallery {
+
+      .entry-header,
+      .entry-footer {
+        position: absolute;
+        color: #fff;
+        a {
+          color: #fff;
+          &:hover,
+          &:focus {
+            color: @link-hover-color;
+          }
+        }
+      }
+
+      .entry-header {
+        top: 4%;
+        left: 10%;
+
+        .entry-title {
+          text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+        }
+      }//.entry-header
+
+      .entry-footer {
+        bottom: 4%;
+        left: 10%;
+        .entry-tags li,
+        .entry-meta {
+          border-color: #fff;
+        }
+        .entry-tags a:hover,
+        .entry-tags a:focus {
+          color: #fff;
+        }
+      }//.entry-footer
+
+    }
+
+
+    //** video文章特定样式
+    &.format-video {
+      .entry-header {
+        position: relative;
+      }
+    }
+
+
+    //** audio文章特定样式
+    &.format-audio {
+      .entry-header {
+        position: relative;
+      }
+    }
+
   }//article
 
 
 
+  //== 3.分页导航按钮
   //
-  // pagination
-  // -------------------------
   .pagination {
     width: 100%;
     text-align: center;
@@ -189,13 +277,13 @@
       background-color: @mytheme-interf-btn;
       color: #fff;
     }
+
   }//.pagination
 
 
 
+  //== 4.single文章特色图
   //
-  // post feature image
-  // --------------------------
   .single-featured-image-header img,
   .featured-image-header img {
     max-width: 100%;

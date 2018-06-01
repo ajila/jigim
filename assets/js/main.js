@@ -32,6 +32,8 @@
             cellAlign: 'center',
             contain: true,
             wrapAround: true,
+            dragThreshold: 10,
+            setGallerySize: false,   //用CSS设置幻灯片的大小，而不是使用单元格的大小
             lazyLoad: true
         });
 

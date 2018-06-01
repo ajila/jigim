@@ -582,7 +582,7 @@ function jigim_content_image_sizes_attr( $sizes, $size ) {
 	return $sizes;
 }
 endif;
-add_filter( 'wp_calculate_image_sizes', 'jigim_content_image_sizes_attr', 10, 2 );
+//add_filter( 'wp_calculate_image_sizes', 'jigim_content_image_sizes_attr', 10, 2 );
 
 
 if( ! function_exists('jigim_post_thumbnail_sizes_attr') ):
