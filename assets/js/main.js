@@ -3,12 +3,13 @@
 
     $( document ).ready(function() {
 
-        //将传送带的间隔时间初始化为 8000 毫秒
+        //** 将传送带的间隔时间初始化为 8000 毫秒
         //$('#carousel-front-page').carousel({
             //interval: 8000
         //});
 
-        //flickity initialize
+
+        //** flickity initialize
         $('.main-carousel').flickity({
             // options
             cellAlign: 'center',
@@ -37,8 +38,10 @@
             lazyLoad: true
         });
 
-        //blazy initialize
-     /*   var bLazy = new Blazy({
+
+        //** blazy initialize
+        /*
+        var bLazy = new Blazy({
             breakpoints: [{
                 width: 768 // Max-width
                 , src: 'data-src-small'
@@ -57,24 +60,73 @@
                 }, 200);
             }
         });
-*/
+        */
 
-        //jQuery.lazyload initialize
-        lazyload();   //picturefill.js中，图片标签准备好会重新调用
+
+        //** jQuery.lazyload initialize
+        //lazyload();   //picturefill.js中，图片标签准备好会重新调用
+        $("img.lazyload").lazyload({
+            effect:"fadeIn",
+            failurelimit:40,
+            data_attribute: "src",  //1.x默认data-original，兼容1.x和2.x版本
+            placeholder: null,
+            load:f_masonry,
+        });
+
+
+        //** Infinite Scroll Initialize
+        /*
+        $('#main').infiniteScroll({
+            //path: '.next',
+            path: '/page/{{#}}',//下一页链接的选择器，或路径
+            append: '.post',    //从加载的下一页中，选择添加入容器的元素
+            checkLastPage: '.next',
+            history: false,
+            debug: true
+        });
+        */
+
+
+        //** Masonry Initialize
+        $('.site-main').masonry({
+            itemSelector: '.post',
+            columnWidth: '.masonry-layout-column-width',
+            percentPosition: true
+        });
+/*
+        $grid.imagesLoaded().progress( function() {
+            $grid.masonry('layout');
+        });
+*/
+        /*
+        var $cnt = 0;
+        $('.site-main').imagesLoaded().progress( function( instance, image ) {
+           // $grid.masonry('layout');
+            $cnt+=1;
+            var result = image.isLoaded ? 'loaded' : 'broken';
+            if ('loaded' === result) {
+                console.log('image is ' + result + ' for ' + image.img.src);
+            }else {
+                console.log('image is ' + result + ' for ' + image.img.getAttribute("data-src"));
+            }
+            console.log("imagesload cnt: %d", $cnt);
+        });
+        */
+
 
 
         //侧边弹出菜单的打开/关闭动画及按钮动画
         $('.navbar-header .navbar-toggle').bind("click", function(){
-            side_nav_open(this);
+          side_nav_open(this);
         });
         $('.sidenav-header .navbar-toggle').bind("click", function(){
-            side_nav_close(this);
+          side_nav_close(this);
         });
 
         /*  todo:用jquery的方法
         $('.widget .widget-header').bind("click", function(){
-            //widget_toggle_btn(this.children(".widget-toggle"));
-            this.next().slideToggle();
+          //widget_toggle_btn(this.children(".widget-toggle"));
+          this.next().slideToggle();
         } );
         */
 

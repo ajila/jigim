@@ -9,12 +9,44 @@ A Responsive Images approach that you can use today that mimics the [proposed pi
 * License: MIT/GPLv2
 */
 
+
+
+/*
+$(function(){
+    $.fn.lazyload=function(){
+        console.log("in img lazyload");
+        $("img.lazyload").lazyload({
+            effect:"fadeIn",
+            failurelimit:40,
+            load:f_masonry,
+        });
+    }
+});
+*/
+
+
+function f_masonry(){
+	console.log("masonry layout cnt");
+    var jq = jQuery.noConflict();
+    /*
+    jq('.site-main').masonry({
+		itemSelector: '.post',
+		columnWidth: '.masonry-layout-column-width',
+		percentPosition: true
+	});*/
+    jq('.site-main').masonry('layout');
+}
+
+
+
 (function( w ){
 
 	// Enable strict mode
 	"use strict";
 
+
 	w.picturefill = function() {
+
 		//var ps = w.document.getElementsByTagName( "span" );
 		var ps = w.document.getElementsByClassName( "picture-fill" );	//modified by jig
 		
@@ -53,26 +85,31 @@ A Responsive Images approach that you can use today that mimics the [proposed pi
 					picImg.src =  matchedEl.getAttribute( "data-src" );	
 				}
 				//added by jig
-				else{	//元素含有data-lazy-load属性,则按jQuery.lazyload的格式处理元素		
-					var picSrc = matchedEl.getAttribute( "data-src" );	
-					//将img的src属性改为data-src
-					picImg.removeAttribute("src");
-					picImg.setAttribute("data-src",picSrc);			
-					//为img添加class
-					picImg.className = "responsive-img lazyload ";
-					lazyload();
+				else{	//元素含有data-lazy-load属性,则按jQuery.lazyload的格式处理元素
 
-					/* for lazyload 1.x
-					picImg.setAttribute("data-original",picSrc);	
-					 $("img.lazyload").lazyload({
-						 threshold : 200
-					 });
-					 */
-				}
+                    //为img添加class
+                    picImg.className = "responsive-img lazyload";
+
+                    //将img的src属性改为data-src
+					var picSrc = matchedEl.getAttribute( "data-src" );
+					picImg.removeAttribute("src");
+
+					picImg.setAttribute("data-src",picSrc);
+					//lazyload();					//for lazyload 2.x
+                    var jq = jQuery.noConflict();	//注意：WordPress中调用jquery方法需此
+                    jq("img.lazyload").lazyload({
+                        effect: "fadeIn",
+                        failurelimit: 40,
+                        data_attribute: "src",	//1.x默认data-original，兼容1.x和2.x版本
+                        placeholder: null,
+                        load: f_masonry
+                    });
+
+                }
 				
 				matchedEl.appendChild( picImg );
 				picImg.removeAttribute("width");
-				picImg.removeAttribute("height");			
+				picImg.removeAttribute("height");
 				
 			}
 			else if( picImg ){

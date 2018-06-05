@@ -32,6 +32,7 @@
   article {
     position: relative;
     overflow: hidden;
+    width: 100%;  //just for masonry layout,默认全宽显示
     margin-bottom: @my-article-margin;
     @media (min-width: @screen-xs-min) and (max-width: @screen-xs-max) {
       margin-bottom: 30px;
@@ -50,6 +51,7 @@
     }
 
     .entry-gallery,
+    .entry-video,
     .entry-video iframe {
       width: 100%;
       background-color: @mytheme-bg-module;
@@ -205,6 +207,7 @@
 
 
     //** 置顶文章特定样式
+
     &.sticky {
 
       @media (min-width: @screen-lg-min) {
@@ -284,5 +287,6 @@
     max-width: 100%;
     height: auto;
   }
+
 
 }//#primary

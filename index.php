@@ -43,6 +43,7 @@ get_header(); ?>
 
         <main id="main" class="site-main" role="main">
 
+            <div class="masonry-layout-column-width" aria-label="used for masonry layout"></div>
             <?php  //section2: 文章列表
             while ( have_posts() ) : the_post();
 

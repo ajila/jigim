@@ -47,8 +47,13 @@
   #primary #main {
     .make-row();
 
+    .masonry-layout-column-width, //just for masonry layout
     article.post {
       .make-lg-column(6);
+    }
+
+    .masonry-layout-column-width {
+      display: none;
     }
 
     article.sticky {
