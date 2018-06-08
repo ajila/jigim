@@ -58,7 +58,7 @@ function jigim_setup() {
 	//文章缩略图，用于文章列表、相关文章等
     add_image_size('jigim-thumbnail-horizontal', 768, 480, true );
 	add_image_size( 'jigim-thumbnail-vertical', 576, 640, true );
-	//文章特性图
+	//文章特色图
 	add_image_size( 'jigim-featured-image', 1600, 800, true );
 	add_image_size( 'jigim-featured-md', 1280, 720, true );
 	add_image_size( 'jigim-featured-sm', 768, 960, true );

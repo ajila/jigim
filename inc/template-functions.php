@@ -233,7 +233,7 @@ function jigim_get_post_first_img( $post_content ){
 	$first_img = $matches [1] [0];
 	//如果文章无图片，获取自定义图片
 	if( empty( $first_img ) ){
-		$first_img = get_stylesheet_directory_uri() . '/assets/images/default_thumb.jpg';
+		$first_img = get_stylesheet_directory_uri() . '/assets/images/thumb_default.jpg';
 	}
 	ob_end_clean();
 	return $first_img;

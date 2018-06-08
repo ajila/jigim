@@ -11,7 +11,6 @@
  */
 
 ?>
-
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
 	<?php if( !is_single()) : //非单篇文章(文章列表)

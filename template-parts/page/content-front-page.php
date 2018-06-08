@@ -13,13 +13,13 @@
 
 	<?php if ( has_post_thumbnail() ) :
 
-        //获取附件图像（特性图）的src数组
+        //获取附件图像（特色图）的src数组
 		$thumbnail = wp_get_attachment_image_src( get_post_thumbnail_id(), 'jigim-featured-image' );
 		// Calculate aspect ratio计算高宽比: 高h / 宽w * 100%.
 		$ratio = $thumbnail[2] / $thumbnail[1] * 100;
 		?>
 
-        <!-- section1.显示特性图作固定背景 -->
+        <!-- section1.显示特色图作固定背景 -->
 		<div class="panel-image" style="background-image: url(<?php echo esc_url( $thumbnail[0] ); ?>);">
             <!-- 用此作占位。在非宽屏时将其设为不可见，则不显示固定背景， -->
 			<div class="panel-image-prop" style="padding-top: <?php echo esc_attr( $ratio ); ?>%"></div>
