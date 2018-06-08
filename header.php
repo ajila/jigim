@@ -51,6 +51,7 @@
 	</header><!-- #masthead -->
 
 
+    <div class="content-wrap">
 	<?php   //首页显示 幻灯片轮播
     if( is_front_page() && is_home() ) :
 		get_template_part('template-parts/slider/slider','front-page');
@@ -73,12 +74,21 @@
         endif;
 		echo '</div>';
 
+    elseif ( is_single() ):
+        //single文章内容页：特色图、标题、分类日期作者等信息
+        if ( have_posts() ) :
+            the_post();
+            //section1: 特色图、分类、标题、作者、日期等信息
+            jigim_single_meta_header( $post );
+	        rewind_posts(); //后面主内容区也对同一个query对象执行the_post()，因此在两次执行之间加上rewind_posts()
+        endif;
+
 	elseif ( is_archive() ):
 		//archive页：特色图、标题、文章数、简介等信息
 		jigim_archive_meta_header();
 
     elseif ( is_search() ):
-        //搜索结果页：显示图片和结果提示信息
+        //搜索结果页：显示图片
 	    jigim_search_meta_header();
 
     elseif ( is_404() ):

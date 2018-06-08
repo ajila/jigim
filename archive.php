@@ -22,7 +22,10 @@ endif; ?>
 <?php //主内容区 ?>
 <div id="primary" class="content-area">
 
-    <?php //TODO：section1: 面包屑导航 <header> ?>
+    <?php //TODO：section1: 面包屑导航 ?>
+    <header class="page-header">
+        <h2 class="page-title">面包屑导航</h2>
+    </header>
 
 
     <?php if ( have_posts() ) : ?>

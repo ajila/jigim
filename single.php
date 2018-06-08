@@ -13,16 +13,15 @@
 get_header(); ?>
 
 
-<?php if ( have_posts() ) : the_post();
-	//section1: 特色图、分类、标题、作者、日期等信息
-	jigim_single_meta_header( $post );
-	?>
+<?php if ( have_posts() ) : the_post();	?>
 
-
-	<?php //section2: 内容 ?>
+	<?php //主内容区 ?>
     <div id="primary" class="content-area">
 
 		<?php //TODO：面包屑导航 ?>
+        <header class="page-header">
+            <h2 class="page-title">面包屑导航</h2>
+        </header>
 
         <main id="main" class="site-main" role="main">
 			<?php

@@ -406,37 +406,35 @@ if ( ! function_exists( 'jigim_archive_meta_header' ) ) :
 * Prints HTML with meta information for the single
 */
 function jigim_single_meta_header( $post ){
-	echo '<header class="featured-header">';
 
-		//1.特色图
-		echo '<div class="featured-image-header">';
-		if ( has_post_thumbnail() ) { //有特色图，则显示特色图
-			//the_post_thumbnail( 'jigim-featured-image' );
-			jigim_echo_responsive_thumbnail($post, 'single-feature-image');
-		}
-		else {   //无特色图，则显示默认特色图
-			//echo '<img src="' . get_stylesheet_directory_uri() . '/assets/images/feature_default.jpg" alt="feature image">';
-			jigim_echo_responsive_thumbnail($post, 'default');
-		}
-		echo '</div><!-- .featured-image-header -->';
+	//1.特色图
+	echo '<div class="featured-image-header">';
+	if ( has_post_thumbnail() ) { //有特色图，则显示特色图
+		//the_post_thumbnail( 'jigim-featured-image' );
+		jigim_echo_responsive_thumbnail($post, 'single-feature-image');
+	}
+	else {   //无特色图，则显示默认特色图
+		//echo '<img src="' . get_stylesheet_directory_uri() . '/assets/images/feature_default.jpg" alt="feature image">';
+		jigim_echo_responsive_thumbnail($post, 'default');
+	}
+	echo '</div><!-- .featured-image-header -->';
 
-		echo '<div class="meta-content">';
+	echo '<div class="meta-content">';
 
-			//2.文章分类
-			jigim_entry_category();
+		//2.文章分类
+		jigim_entry_category();
 
-			//3: 文章标题
-			jigim_entry_title();
+		//3: 文章标题
+		jigim_entry_title();
 
-			//4: 作者、日期
-			echo '<div class="entry-meta">';
-				jigim_posted_on();    //打印作者头像日期时间
-				echo '<span class="entry-views">阅读次数 '.jigim_get_post_views(get_the_ID()).'</span>';
-				jigim_edit_link();  //打印编辑链接
-			echo '</div>';  //.entry-meta
-		echo '</div>';  //.meta-content
+		//4: 作者、日期
+		echo '<div class="entry-meta">';
+			jigim_posted_on();    //打印作者头像日期时间
+			echo '<span class="entry-views">阅读次数 '.jigim_get_post_views(get_the_ID()).'</span>';
+			jigim_edit_link();  //打印编辑链接
+		echo '</div>';  //.entry-meta
+	echo '</div>';  //.meta-content
 
-	echo '</header>';   //.featured-header
 }
 endif;
 
@@ -450,11 +448,11 @@ if ( ! function_exists( 'jigim_archive_meta_header' ) ) :
 function jigim_archive_meta_header(){
 
 	global  $wp_query;
-	$arch_obj = get_queried_object();
 	$post_num = $wp_query->found_posts; //由全局查询对象获取匹配结果数量
 
 	if ( is_category() ) {
 
+		$arch_obj = get_queried_object();
 		$label_string = '<span class="fa fa-folder-open-o icon"></span>'.__('category','twentyseventeen');
 		$title = single_cat_title( '', false );
 		$title_string = sprintf( __( '%1$s Category: %2$s','twentyseventeen' ),

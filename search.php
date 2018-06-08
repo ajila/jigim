@@ -17,7 +17,10 @@ get_header(); ?>
     <?php //主内容区 ?>
     <div id="primary" class="content-area">
 
-        <?php //TODO：section1: 面包屑导航 <header> ?>
+        <?php //TODO：section1: 面包屑导航 ?>
+        <header class="page-header">
+            <h2 class="page-title">面包屑导航</h2>
+        </header>
 
 
         <main id="main" class="site-main masonry-layout" role="main">
@@ -62,13 +65,13 @@ get_header(); ?>
     <div id="primary" class="content-area">
         <main id="main" class="site-main" role="main">
             <section class="not-found">
-                <h1 class="search-title">
+                <h1>
                     <?php printf(__( 'Nothing Found: %s', 'twentyseventeen' ),
 		                '<span class="search-string">' .get_search_query() .'</span>' ); ?>
                 </h1>
-                <h3><?php
+                <p><?php
                     _e( 'Sorry, but nothing matched your search terms. Please try again with some different keywords.','twentyseventeen' ); ?>
-                </h3>
+                </p>
                 <?php get_search_form(); ?>
             </section>
         </main><!-- #main -->
