@@ -233,6 +233,8 @@ function jigim_entry_footer() {
     if( !is_single()) {
         echo '<div class="entry-meta">';
         jigim_posted_on();    //显示作者头像日期时间
+	    //echo '<span class="entry-views">阅读次数 '.jigim_get_post_views(get_the_ID()).'</span>';
+	    jigim_edit_link();  //登录状态下打印编辑链接
         echo '</div>';
     }
 
@@ -400,23 +402,26 @@ add_action( 'save_post',     'jigim_category_transient_flusher' );
 if ( ! function_exists( 'jigim_archive_meta_header' ) ) :
 /**
 * 显示单篇文章页single的
-* header部分（特性图、分类、标题、作者、日期等信息）
+* header部分（特色图、分类、标题、作者、日期等信息）
 * Prints HTML with meta information for the single
 */
-function jigim_single_meta_header(){
-	echo '<header class="meta-header">';
+function jigim_single_meta_header( $post ){
+	echo '<header class="featured-header">';
 
-		//1.特性图
+		//1.特色图
 		echo '<div class="featured-image-header">';
-		if ( '' !== get_the_post_thumbnail() ) { //有特性图，则显示特性图
-			the_post_thumbnail( 'jigim-featured-image' );
+		if ( has_post_thumbnail() ) { //有特色图，则显示特色图
+			//the_post_thumbnail( 'jigim-featured-image' );
+			jigim_echo_responsive_thumbnail($post, 'single-feature-image');
 		}
-		else {   //无特性图，则显示默认特性图
-			echo '<img src="' . get_stylesheet_directory_uri() . '/assets/images/default_feature.jpg" alt="feature image">';
+		else {   //无特色图，则显示默认特色图
+			//echo '<img src="' . get_stylesheet_directory_uri() . '/assets/images/feature_default.jpg" alt="feature image">';
+			jigim_echo_responsive_thumbnail($post, 'default');
 		}
 		echo '</div><!-- .featured-image-header -->';
 
-		echo '<div class="meta-container">';
+		echo '<div class="meta-content">';
+
 			//2.文章分类
 			jigim_entry_category();
 
@@ -429,9 +434,9 @@ function jigim_single_meta_header(){
 				echo '<span class="entry-views">阅读次数 '.jigim_get_post_views(get_the_ID()).'</span>';
 				jigim_edit_link();  //打印编辑链接
 			echo '</div>';  //.entry-meta
-		echo '</div>';  //.meta-container
+		echo '</div>';  //.meta-content
 
-	echo '</header>';   //.meta-header
+	echo '</header>';   //.featured-header
 }
 endif;
 
@@ -439,7 +444,7 @@ endif;
 if ( ! function_exists( 'jigim_archive_meta_header' ) ) :
 /**
  * 显示存档页archive（category、tag、date、author等）的
- * header部分（特性图、标题、简介、文章数等信息）
+ * header部分（特色图、标题、简介、文章数等信息）
  * Prints HTML with meta information for the archive
  */
 function jigim_archive_meta_header(){
@@ -450,77 +455,144 @@ function jigim_archive_meta_header(){
 
 	if ( is_category() ) {
 
-		$label_string = '<span class="fa fa-folder-open-o">'.__('category','twentyseventeen').'</span>';
+		$label_string = '<span class="fa fa-folder-open-o icon"></span>'.__('category','twentyseventeen');
 		$title = single_cat_title( '', false );
 		$title_string = sprintf( __( '%1$s Category: %2$s','twentyseventeen' ),
 			'<span class="sr-only">','</span>'.$title );
-		$feature_image = get_stylesheet_directory_uri() . '/assets/images/feature_category-'.$arch_obj->slug.'.jpg';
+		//$feature_image = get_stylesheet_directory_uri() . '/assets/images/feature_category-' . $arch_obj->slug . '.jpg';
+		$feature_image = '<span class="picture-fill" data-picture data-alt="category feature image">'
+		                 . '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_category-' . $arch_obj->slug . '_small.jpg' . '"></span>'
+		                 . '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_category-' . $arch_obj->slug . '_middle.jpg' . '" data-media="(min-width: 769px)"></span>'
+		                 . '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_category-' . $arch_obj->slug . '.jpg' . '" data-media="(min-width: 1200px)"></span>'
+		                 . '<noscript><img src="' . get_stylesheet_directory_uri() . '/assets/images/feature_category-' . $arch_obj->slug . '_small.jpg' . '" alt="category feature image"></noscript>'
+		                 . '</span>';
 
 	} elseif ( is_tag() ) {
 
-		$label_string = '<span class="fa fa-tag">'.__('tags','twentyseventeen').'</span>';
+		$label_string = '<span class="fa fa-tag icon"></span>'.__('tags','twentyseventeen');
 		$title = single_tag_title( '', false );
 		$title_string = sprintf( __( '%1$s Tag: %2$s','twentyseventeen' ),
 			'<span class="sr-only">','</span>'.$title );
-		$feature_image = get_stylesheet_directory_uri() . '/assets/images/feature_tag-'.$arch_obj->slug.'.jpg';
+		//$feature_image = get_stylesheet_directory_uri() . '/assets/images/feature_tag-'.$arch_obj->slug.'.jpg';
+		//所有tags先暂时使用同一图片
+		$feature_image = '<span class="picture-fill" data-picture data-alt="tag feature image">'
+		                 . '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_tag_small.jpg' . '"></span>'
+		                 . '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_tag_middle.jpg' . '" data-media="(min-width: 769px)"></span>'
+		                 . '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_tag.jpg' . '" data-media="(min-width: 1200px)"></span>'
+		                 . '<noscript><img src="' . get_stylesheet_directory_uri() . '/assets/images/feature_tag_small.jpg' . '" alt="tag feature image"></noscript>'
+		                 . '</span>';
 
 	} elseif ( is_author() ) {
 
-		$label_string = '<span class="fa fa-user-circle">'.__('author','twentyseventeen').'</span>';
+		$label_string = '<span class="fa fa-user-circle icon"></span>'.__('author','twentyseventeen');
 		$title = get_the_author();
 		$title_string = sprintf( __( '%1$s Author: %2$s','twentyseventeen' ),
 			'<span class="sr-only">','</span><span class="vcard">' .$title . '</span>' );
-		$feature_image = get_stylesheet_directory_uri() . '/assets/images/feature_author-'.$title.'.jpg';
+		//$feature_image = get_stylesheet_directory_uri() . '/assets/images/feature_author-'.$title.'.jpg';
+		//所有author先暂时使用同一图片
+		$feature_image = '<span class="picture-fill" data-picture data-alt="author feature image">'
+		                 . '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_author_small.jpg' . '"></span>'
+		                 . '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_author_middle.jpg' . '" data-media="(min-width: 769px)"></span>'
+		                 . '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_author.jpg' . '" data-media="(min-width: 1200px)"></span>'
+		                 . '<noscript><img src="' . get_stylesheet_directory_uri() . '/assets/images/feature_author_small.jpg' . '" alt="author feature image"></noscript>'
+		                 . '</span>';
 		$avatar = get_avatar(get_the_author_meta( 'ID' ),64,'','');
 		//$post_num = get_the_author_posts();
 
 	} elseif ( is_year() ) {
 
-		$label_string = '<span class="fa fa-calendar">'.__('year','twentyseventeen').'</span>';
-		$feature_image = get_stylesheet_directory_uri() . '/assets/images/feature_year.jpg';
+		$label_string = '<span class="fa fa-calendar icon"></span>'.__('year','twentyseventeen');
+		//$feature_image = get_stylesheet_directory_uri() . '/assets/images/feature_year.jpg';
+		$feature_image = '<span class="picture-fill" data-picture data-alt="year feature image">'
+		                 . '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_day_small.jpg' . '"></span>'
+		                 . '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_day_middle.jpg' . '" data-media="(min-width: 769px)"></span>'
+		                 . '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_day.jpg' . '" data-media="(min-width: 1200px)"></span>'
+		                 . '<noscript><img src="' . get_stylesheet_directory_uri() . '/assets/images/feature_day_small.jpg' . '" alt="year feature image"></noscript>'
+		                 . '</span>';
 		$title_string = sprintf( __( '%1$s Year: %2$s','twentyseventeen' ),
 			'<span class="sr-only">', '</span>'.get_the_date( _x( 'Y', 'yearly archives date format' ) ) );
 
 	} elseif ( is_month() ) {
 
-		$label_string = '<span class="fa fa-calendar">'.__('month','twentyseventeen').'</span>';
-		$feature_image = get_stylesheet_directory_uri() . '/assets/images/feature_month.jpg';
+		$label_string = '<span class="fa fa-calendar icon"></span>'.__('month','twentyseventeen');
+		//$feature_image = get_stylesheet_directory_uri() . '/assets/images/feature_month.jpg';
+		$feature_image = '<span class="picture-fill" data-picture data-alt="month feature image">'
+		                 . '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_day_small.jpg' . '"></span>'
+		                 . '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_day_middle.jpg' . '" data-media="(min-width: 769px)"></span>'
+		                 . '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_day.jpg' . '" data-media="(min-width: 1200px)"></span>'
+		                 . '<noscript><img src="' . get_stylesheet_directory_uri() . '/assets/images/feature_day_small.jpg' . '" alt="month feature image"></noscript>'
+		                 . '</span>';
 		$title_string = sprintf( __( '%1$s Month: %2$s','twentyseventeen' ),
 			'<span class="sr-only">', '</span>'.get_the_date( _x( 'F Y', 'monthly archives date format' ) ) );
 
 	} elseif ( is_day() ) {
 
-		$label_string = '<span class="fa fa-calendar">'.__('day','twentyseventeen').'</span>';
-		$feature_image = get_stylesheet_directory_uri() . '/assets/images/feature_day.jpg';
+		$label_string = '<span class="fa fa-calendar icon"></span>'.__('day','twentyseventeen');
+		//$feature_image = get_stylesheet_directory_uri() . '/assets/images/feature_day.jpg';
+		$feature_image = '<span class="picture-fill" data-picture data-alt="day feature image">'
+		                 . '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_day_small.jpg' . '"></span>'
+		                 . '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_day_middle.jpg' . '" data-media="(min-width: 769px)"></span>'
+		                 . '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_day.jpg' . '" data-media="(min-width: 1200px)"></span>'
+		                 . '<noscript><img src="' . get_stylesheet_directory_uri() . '/assets/images/feature_day_small.jpg' . '" alt="day feature image"></noscript>'
+		                 . '</span>';
 		$title_string = sprintf( __( '%1$s Day: %2$s','twentyseventeen' ),
 			'<span class="sr-only">', '</span>'.get_the_date( _x( 'F j, Y', 'daily archives date format' ) ) );
 
 	} else {
 
-		$label_string = '<span class="fa fa-file-archive-o">'.__('archive','twentyseventeen').'</span>';
-		$feature_image = get_stylesheet_directory_uri() . '/assets/images/default_feature.jpg';
+		$label_string = '<span class="fa fa-file-archive-o icon"></span>'.__('archive','twentyseventeen');
+		//$feature_image = get_stylesheet_directory_uri() . '/assets/images/feature_default.jpg';
+		$feature_image = '<span class="picture-fill" data-picture data-alt="archive feature image">'
+		                 . '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_default_small.jpg' . '"></span>'
+		                 . '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_default_middle.jpg' . '" data-media="(min-width: 769px)"></span>'
+		                 . '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_default.jpg' . '" data-media="(min-width: 1200px)"></span>'
+		                 . '<noscript><img src="' . get_stylesheet_directory_uri() . '/assets/images/feature_default_small.jpg' . '" alt="archive feature image"></noscript>'
+		                 . '</span>';
 		$title_string = __( 'Archives','twentyseventeen' );
 		$post_num = 0;
 
 	}
 
-	//$feature_image = '<div class="single-featured-image-header"><img src="'.$feature_image.'" alt="feature image"></div>';
-	//$title_string = '<h1 class="page-title">'.$title_string.'</h1>';
-	//$post_num_string = '';//'<span class="archive-post-num">'.$post_num.'篇文章</span>';
-	//$description_string = '<div class="taxonomy-description">'.get_the_archive_description().'</div>';
 
-	echo '<header class="meta-header">';
-		echo '<div class="featured-image-header"><img src="'.$feature_image.'" alt="feature image"></div>';
-		echo '<div class="meta-container">';
-			echo '<div class="meta-label">'.$label_string.'</div>';
-			if( is_author() ){
-				echo '<span class="meta-avatar">' .$avatar. '</span>';
-			}
-			echo '<h1 class="meta-title">'.$title_string.'</h1>';
-			echo '<span class="meta-post-num">'.$post_num.'篇文章</span>';
-			echo '<div class="meta-taxonomy-description">'.get_the_archive_description().'</div>';
-		echo '</div>';  //.meta-container
-	echo '</header>';   //.meta-header
+	//echo '<div class="featured-image-header"><img src="'.$feature_image.'" alt="feature image"></div>';
+	echo '<div class="featured-image-header">' . $feature_image . '</div>';
+	echo '<div class="meta-content">';
+		echo '<div class="meta-label">'.$label_string.'</div>';
+		echo '<h1 class="meta-title">';
+		if( is_author() ){
+			echo '<span class="meta-avatar">' .$avatar. '</span>';
+		}
+		echo $title_string.'</h1>';
+		echo '<span class="meta-post-num">'.$post_num.'篇文章</span>';
+		echo '<div class="meta-taxonomy-description">'.get_the_archive_description().'</div>';
+	echo '</div>';  //.meta-content
+
+}
+endif;
+
+
+if ( ! function_exists( 'jigim_search_meta_header' ) ) :
+/**
+ * 显示搜索结果也search的
+ * header部分（特色图、结果提示信息）
+ * Prints HTML with meta information for the search
+ */
+function jigim_search_meta_header(){
+	if ( have_posts() ) : global $wp_query;
+		echo '<div class="featured-image-header">';
+		jigim_echo_responsive_thumbnail( null, 'search-result');
+		echo '</div>';
+
+		echo '<div class="meta-content"><h1 class="search-title">';
+		printf( __( '%1$s Search Results for: %2$s', 'twentyseventeen' ),
+			$wp_query->found_posts,'<span class="search-string">' . get_search_query() . '</span>' );
+		echo '</h1></div>';
+	else :
+
+		echo '<div class="featured-image-header">';
+		jigim_echo_responsive_thumbnail( null, 'search-none');
+		echo '</div>';
+	endif;
 }
 endif;
 
@@ -547,7 +619,7 @@ endif;
 
 if ( ! function_exists( 'jigim_echo_responsive_thumbnail' ) ) :
 /**
- * 修改首页幻灯片、文章列表缩略图、文章特性图
+ * 修改首页幻灯片、文章列表缩略图、文章特色图
  * 等图片的srcset、sizes响应式属性，
  * 并输出html标签
  * @param int|WP_Post  $post Post ID or WP_Post object.  Default is global `$post`.
@@ -555,12 +627,15 @@ if ( ! function_exists( 'jigim_echo_responsive_thumbnail' ) ) :
  *
  */
 function jigim_echo_responsive_thumbnail( $post, $thumb_pos ){
-	if ( ! $post ) {
-		return;
-	}
+	//if ( ! $post ) {
+		//return;
+	//}
 
 	$html = null;
-	if('slider-front-page' === $thumb_pos) {
+	switch( $thumb_pos ) {
+		case 'slider-front-page':
+		case 'single-feature-image':
+		case 'page-feature-image':
 /*
 		add_filter( 'wp_calculate_image_sizes', 'jigim_content_image_sizes_attr', 10, 2 );
 		$html = get_the_post_thumbnail( $post, 'jigim-featured-image' );
@@ -576,7 +651,7 @@ function jigim_echo_responsive_thumbnail( $post, $thumb_pos ){
 		$img_md = get_bloginfo('url') . '/wp-content/uploads/' . $img_loc . '/' . $meta_data["sizes"]["jigim-featured-md"]["file"];
 		$img_sm = get_bloginfo('url') . '/wp-content/uploads/' . $img_loc . '/' . $meta_data["sizes"]["jigim-featured-sm"]["file"];
 		$html = '<img class="attachment-jigim-featured-image size-jigim-featured-image wp-post-image b-lazy" '
-		        //. ' src="' . get_stylesheet_directory_uri() . '/assets/images/default_feature.jpg"'
+		        //. ' src="' . get_stylesheet_directory_uri() . '/assets/images/feature_default.jpg"'
 		        . ' src=data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw== '
 				. ' data-src="' . $img_lg
 		        . '" data-src-small="' . $img_sm
@@ -592,7 +667,7 @@ function jigim_echo_responsive_thumbnail( $post, $thumb_pos ){
 		$img_md = get_bloginfo('url') . '/wp-content/uploads/' . $img_loc . '/' . $meta_data["sizes"]["jigim-featured-md"]["file"];
 		$img_sm = get_bloginfo('url') . '/wp-content/uploads/' . $img_loc . '/' . $meta_data["sizes"]["jigim-featured-sm"]["file"];
 		$html = '<img class="attachment-jigim-featured-image size-jigim-featured-image wp-post-image lazyload" '
-		        //. ' src="' . get_stylesheet_directory_uri() . '/assets/images/default_feature.jpg"'
+		        //. ' src="' . get_stylesheet_directory_uri() . '/assets/images/feature_default.jpg"'
 		        . ' src="data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" '
 		        . ' data-src="' . $img_sm
 		        . '" data-srcset="' . $img_sm . ' 768w, ' . $img_md . ' 1200w, ' . $img_lg . '" alt="feature image">';
@@ -608,26 +683,30 @@ function jigim_echo_responsive_thumbnail( $post, $thumb_pos ){
 		$img_md = get_the_post_thumbnail_url( $post, 'jigim-featured-md');
 		$img_sm = get_the_post_thumbnail_url( $post, 'jigim-featured-sm');
 		//使用响应式要加.picture-fill，使用响应式同时lazyload要加data-lazy-load（picturefill.js会据此为图片添加.lazyload）
-		//$html = '<span class="picture-fill" data-picture data-lazy-load data-alt="carousel feature image">'
-		$html = '<span class="picture-fill" data-picture data-alt="carousel feature image">'
+		//$html = '<span class="picture-fill" data-picture data-lazy-load data-alt="feature image">'
+		$html = '<span class="picture-fill" data-picture data-alt="feature image">'
 		        . '<span data-src="' . $img_sm . '"></span>'
 		        . '<span data-src="' . $img_md . '" data-media="(min-width: 769px)"></span>'
 		        . '<span data-src="' . $img_lg . '" data-media="(min-width: 1200px)"></span>'
 		        //. '<!--[if (lt IE 9) & (!IEMobile)]><span data-src="' . $img_lg . '"></span><![endif]-->' //已通过respond.js支持media query
-		        . '<noscript><img src="' . $img_lg . '" alt="carousel feature image"></noscript>'
+		        . '<noscript><img src="' . $img_lg . '" alt="feature image"></noscript>'
 		        . '</span>';
 
-	} else if ('slider-related-post' === $thumb_pos) {
+		break;
+
+		case 'slider-related-post':
 
 		//使用flickity方案，懒加载图片
 		$html = get_the_post_thumbnail( $post, 'jigim-thumbnail-vertical' );
 		$html = jigim_carousel_img_lazyload($html);
+		break;
 
-	} else if( 'slider-gallery' === $thumb_pos ) {
+		case 'slider-gallery':
 
 		$html = null;
+		break;
 
-	} else if( 'post-list' === $thumb_pos ) {
+		case 'post-list':
 
 		//使用picturefill.js实现响应式图片+jQuery.lazyload实现懒加载
 		//$meta_data = wp_get_attachment_metadata( get_post_thumbnail_id($post), false);
@@ -643,9 +722,43 @@ function jigim_echo_responsive_thumbnail( $post, $thumb_pos ){
 		        //. '<!--[if (lt IE 9) & (!IEMobile)]><span data-src="' . $img_lg . '"></span><![endif]-->' //已通过respond.js支持media query
 		        . '<noscript><img src="' . $img_hz . '" alt="post thumbnail image"></noscript>'
 		        . '</span>';
+		break;
 
+		case '404-feature-image':
+			$html = '<span class="picture-fill" data-picture data-alt="feature image">'
+			        . '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_404_small.jpg' . '"></span>'
+			        . '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_404_middle.jpg' . '" data-media="(min-width: 769px)"></span>'
+			        . '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_404.jpg' . '" data-media="(min-width: 1200px)"></span>'
+			        . '<noscript><img src="' . get_stylesheet_directory_uri() . '/assets/images/feature_404_small.jpg' . '" alt="feature image"></noscript>'
+			        . '</span>';
+			break;
+
+		case 'search-result':
+			$html = '<span class="picture-fill" data-picture data-alt="feature image">'
+			        . '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_search_small.jpg' . '"></span>'
+			        . '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_search_middle.jpg' . '" data-media="(min-width: 769px)"></span>'
+			        . '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_search.jpg' . '" data-media="(min-width: 1200px)"></span>'
+			        . '<noscript><img src="' . get_stylesheet_directory_uri() . '/assets/images/feature_search_small.jpg' . '" alt="feature image"></noscript>'
+			        . '</span>';
+			break;
+		case 'search-none':
+			$html = '<span class="picture-fill" data-picture data-alt="feature image">'
+			        . '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_search_none_small.jpg' . '"></span>'
+			        . '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_search_none_middle.jpg' . '" data-media="(min-width: 769px)"></span>'
+			        . '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_search_none.jpg' . '" data-media="(min-width: 1200px)"></span>'
+			        . '<noscript><img src="' . get_stylesheet_directory_uri() . '/assets/images/feature_search_none_small.jpg' . '" alt="feature image"></noscript>'
+			        . '</span>';
+			break;
+
+		default:
+			$html = '<span class="picture-fill" data-picture data-alt="feature image">'
+			. '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_default_small.jpg' . '"></span>'
+			. '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_default_middle.jpg' . '" data-media="(min-width: 769px)"></span>'
+			. '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_default.jpg' . '" data-media="(min-width: 1200px)"></span>'
+			. '<noscript><img src="' . get_stylesheet_directory_uri() . '/assets/images/feature_default_small.jpg' . '" alt="feature image"></noscript>'
+			. '</span>';
+			break;
 	}
-
 
 	echo $html;
 }

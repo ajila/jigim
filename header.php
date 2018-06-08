@@ -51,29 +51,54 @@
 	</header><!-- #masthead -->
 
 
-	<?php
-    //section3. 是首页才显示 幻灯片轮播
+	<?php   //首页显示 幻灯片轮播
     if( is_front_page() && is_home() ) :
 		get_template_part('template-parts/slider/slider','front-page');
-    endif;
 
+    else: //其他页显示 特色图页头区 ?>
 
-	/* section4.非静态首页的页面，有特性图则显示，无则显示默认图
+	    <div class="featured-header">
+    <?php   //section4.
+	/* 非静态首页的页面：有特色图则显示，无则显示默认图
 	 * Using get_queried_object_id() here since the $post global may not be set before a call to the_post().
 	 */
-	//if (  is_single() || ( is_page() && ! jigim_is_frontpage() ) ):
 	if ( is_page() && ! jigim_is_frontpage() ):
+		echo '<div class="featured-image-header">';
         if( has_post_thumbnail( get_queried_object_id() ))  :
-            echo '<div class="single-featured-image-header">';
-            echo get_the_post_thumbnail( get_queried_object_id(), 'jigim-featured-image' );
-            echo '</div><!-- .single-featured-image-header -->';
+            //echo get_the_post_thumbnail( get_queried_object_id(), 'jigim-featured-image' );
+	        jigim_echo_responsive_thumbnail( get_queried_object(), 'page-feature-image');
         else:
-            echo '<div class="single-featured-image-header"><img src="'
-                .get_stylesheet_directory_uri() . '/assets/images/default_feature.jpg'
-                .'" alt="feature image"></div>';
+            //echo '<img src="' .get_stylesheet_directory_uri() . '/assets/images/feature_default.jpg' .'" alt="feature image">';
+	        jigim_echo_responsive_thumbnail( null, 'default');
         endif;
-	endif;
+		echo '</div>';
+
+	elseif ( is_archive() ):
+		//archive页：特色图、标题、文章数、简介等信息
+		jigim_archive_meta_header();
+
+    elseif ( is_search() ):
+        //搜索结果页：显示图片和结果提示信息
+	    jigim_search_meta_header();
+
+    elseif ( is_404() ):
+        //404页：显示图片
+	    echo '<div class="featured-image-header">';
+	    jigim_echo_responsive_thumbnail( null, '404-feature-image');
+	    echo '</div>';
+    endif;
 	?>
+    </div> <!-- .featured-header -->
+
+    <?php endif; ?>
+
 
 	<div class="site-content-contain">
 		<div id="content" class="site-content">
+
+            <!--[if lt IE 8]>
+            <div class="browserupgrade">
+            <p>You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/" style="text-decoration:underline">upgrade your browser</a> to improve your experience.</p>
+            <p>你使用的浏览器版本<strong>已经过时</strong>. 为了获得更好的体验，请<a href="http://browsehappy.com/" style="text-decoration:underline">升级你的浏览器</a>.</p>
+            </div>
+            <![endif]-->

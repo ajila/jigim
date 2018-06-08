@@ -12,10 +12,6 @@
 
 get_header(); ?>
 
-<div class="featured-image-header">
-    <img src="<?php echo get_stylesheet_directory_uri().'/assets/images/feature_404.jpg' ?>" alt="feature image">
-</div><!-- .featured-image-header -->
-
 
 <div id="primary" class="content-area container">
     <main id="main" class="site-main" role="main">
