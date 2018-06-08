@@ -16,6 +16,12 @@
   }
 }
 
+.error404 .site-content-contain,
+.search-no-results .site-content-contain {
+    position: absolute;
+    top: 60%;
+}
+
 .site-content {
   .make-row();
 }
@@ -23,7 +29,7 @@
 .home-page,
 .archive,
 .single,
-.search {
+.search:not(.search-no-results) {
 
   @media (min-width: @screen-md-min) {
     #primary {
@@ -48,7 +54,8 @@
     .make-row();
 
     .masonry-layout-column-width, //just for masonry layout
-    article.post {
+    article.post,
+    article.page {
       .make-lg-column(6);
     }
 
@@ -64,7 +71,7 @@
 }
 
 .site-footer {
-  .make-row();
+  //.make-row();
 }
 
 

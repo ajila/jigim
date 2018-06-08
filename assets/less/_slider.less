@@ -23,14 +23,14 @@
   @media (max-width: @screen-xs-min) {
     margin-top: @my-header-height;
   }
+  @media (min-width: @screen-sm-min) {
+    margin-top: @my-header-height;
+  }
   @media (min-width: @screen-md-min) {
     margin-top: -@my-header-height;
   }
-  @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
-    margin-top: @my-header-height;
-  }
 
-  //由于其内部的元素都是绝对定位，没有高度，可用padding占位
+  //由于使用flickity后，其内部的元素都是绝对定位，没有高度，可用padding占位
   padding-bottom: 125%;  //高度设置为宽度的百分比，图片高宽比例要与此相同
   @media (min-width: @screen-sm-min) {  //对应响应式图片方案中data-media的值
     padding-bottom: 56%;  //高度设置为宽度的百分比

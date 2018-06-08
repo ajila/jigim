@@ -1,0 +1,86 @@
+//
+// featured header特色图页头部分的样式，移动优先
+// --------------------------------------------------
+
+.featured-header {
+
+  position: relative;
+  width: 100%;
+  //内部的meta-content绝对定位，无featured image时，设置最小高度
+  min-height: 420px;//@my-header-height * 3;
+  overflow: hidden;
+  background: url('../images/loader.gif') center center no-repeat;
+
+  @media (max-width: @screen-xs-min) {
+    margin-top: @my-header-height;
+  }
+  @media (min-width: @screen-sm-min) {
+    margin-top: @my-header-height;
+  }
+  @media (min-width: @screen-md-min) {
+    margin-top: -@my-header-height;
+  }
+
+
+  //== 1. 特色图
+  //
+  .featured-image-header img {
+    max-width: 100%;
+    height: auto;
+  }
+
+
+  //== 2. 文章/archive等的meta信息
+  //
+  .meta-content {
+    position: absolute;
+    bottom: @my-featured-content-bottom;
+    left: @my-featured-content-left;
+    right: @my-featured-content-right;
+    z-index: 10;
+
+    width: @my-featured-content-width;
+    padding: 15px;
+    color: #fff;
+    //text-align: center;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+    background-color: rgba(35, 39, 42, @my-featured-content-opacity);//@mytheme-bg-mask;
+
+    @media (min-width: @screen-md-min) {
+      bottom: 20%;
+      left: 10%;
+      width: 50%;
+    }
+    @media (min-width: @screen-xs-max) {
+      padding: 20px;
+    }
+
+    .meta-label {
+      padding: 6px 10px;
+      display: inline-block;
+      background-color: @mytheme-category-3;
+
+      .icon {
+        margin-right: 6px;
+      }
+    }//.meta-label
+
+    .meta-avatar {
+      margin-right: 10px;
+    }
+
+    .search-title {
+      min-height: 2em;
+      .search-string {
+        border-bottom: 1px dotted;
+      }
+    }
+
+    .meta-taxonomy-description {
+      margin-top: 10px;
+    }
+
+  }//.meta-content
+
+}//.featured-header
+
