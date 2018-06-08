@@ -26,15 +26,15 @@ $(function(){
 
 
 function f_masonry(){
-	console.log("masonry layout cnt");
+	//console.log("masonry layout cnt");
     var jq = jQuery.noConflict();
     /*
-    jq('.site-main').masonry({
-		itemSelector: '.post',
+    jq('.masonry-layout').masonry({
+		itemSelector: 'article',//'.post',
 		columnWidth: '.masonry-layout-column-width',
 		percentPosition: true
 	});*/
-    jq('.site-main').masonry('layout');
+    jq('.masonry-layout').masonry('layout');
 }
 
 

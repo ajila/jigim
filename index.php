@@ -18,12 +18,6 @@
 get_header(); ?>
 
 
-<!--[if lt IE 8]>
-<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/" style="text-decoration:underline">upgrade your browser</a> to improve your experience.</p>
-<p class="browserupgrade">你使用的浏览器版本<strong>已经过时</strong>. 为了获得更好的体验，请<a href="http://browsehappy.com/" style="text-decoration:underline">升级你的浏览器</a>.</p>
-<![endif]-->
-
-
 <?php //主内容区 ?>
 <div id="primary" class="content-area">
 
@@ -41,7 +35,7 @@ get_header(); ?>
 
     <?php if ( have_posts() ) : ?>
 
-        <main id="main" class="site-main" role="main">
+        <main id="main" class="site-main masonry-layout" role="main">
 
             <div class="masonry-layout-column-width" aria-label="used for masonry layout"></div>
             <?php  //section2: 文章列表

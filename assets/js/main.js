@@ -88,8 +88,8 @@
 
 
         //** Masonry Initialize
-        $('.site-main').masonry({
-            itemSelector: '.post',
+        $('.masonry-layout').masonry({
+            itemSelector: 'article',//'.post',
             columnWidth: '.masonry-layout-column-width',
             percentPosition: true
         });
@@ -100,7 +100,7 @@
 */
         /*
         var $cnt = 0;
-        $('.site-main').imagesLoaded().progress( function( instance, image ) {
+        $('.masonry-layout').imagesLoaded().progress( function( instance, image ) {
            // $grid.masonry('layout');
             $cnt+=1;
             var result = image.isLoaded ? 'loaded' : 'broken';
