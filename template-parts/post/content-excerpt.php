@@ -29,11 +29,15 @@
 	        //echo '<img src = "'. $img . '" alt="post image attachment">';
 	        echo '<img data-src = "'. $img . '" class="lazyload" alt="post image attachment">';
 	    echo '</a> </div><!-- .post-image-attachment -->';
+    } ?>
+
+
+
+    <div class="post-outline">
+    <?php
+    if ( 'page' === get_post_type() ) {
+        echo '<div class="page-label"><span class="fa fa-file icon"></span>页面</div>';
     }
-
-
-    //文章meta信息和标题
-    echo '<div class="post-outline">';
     jigim_entry_header();
     ?>
 
@@ -43,25 +47,16 @@
 	</div><!-- .entry-summary -->
 
 
-    <footer class="entry-footer">
-		<?php jigim_entry_tag();    //输出tag列表
+	<?php 	if ( 'post' === get_post_type() ) {     //post type为文章
+		jigim_entry_footer();
+	}                                               //post type为页面
+    elseif ( 'page' === get_post_type() && get_edit_post_link() ) {
+		echo '<footer class="entry-footer"><div class="entry-meta">';
+		jigim_edit_link(); //只打印编辑链接
+		echo '</div></footer>';
+	}
+	?>
 
-        //meta（作者、日期）
-        if ( 'post' === get_post_type() ) {     //文章post type为post
-        echo '<div class="entry-meta">';
-            jigim_posted_on();    //打印作者头像日期时间
-            //echo '<span class="entry-views">阅读次数 '.jigim_get_post_views(get_the_ID()).'</span>';
-            jigim_edit_link();  //打印编辑链接
-            echo '</div><!-- .entry-meta -->';
-        }                                       //文章post type为page
-        elseif ( 'page' === get_post_type() && get_edit_post_link() ) {
-        echo '<div class="entry-meta">';
-            jigim_edit_link(); //只打印编辑链接
-            echo '</div>';
-        }
-		?>
-    </footer>
-
-    <?php echo '</div><!-- .post-outline -->'; ?>
+    </div><!-- .post-outline -->
 
 </article><!-- #post-## -->
