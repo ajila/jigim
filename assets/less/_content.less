@@ -93,11 +93,11 @@ article {
 
     li {
       float: left;
-      margin: 0 @my-article-list-margin @my-article-list-margin 0;
+      margin: 0 @my-article-li-margin @my-article-li-margin 0;
     }
     a {
       display: inline-block;
-      padding: @my-article-list-padding;
+      padding: @my-article-li-padding;
       color: #fff;
     }
   }//.entry-categories, .entry-tags
@@ -307,6 +307,13 @@ article.sticky {
 }
 
 
+//** single文章详细内容页样式
+.single article {
+  padding: @my-article-padding;
+  background-color: @mytheme-bg-module; 
+}
+
+
 //== 4.分页导航按钮
 //
 .pagination {
@@ -338,15 +345,20 @@ article.sticky {
 }//.pagination
 
 
-//** 404、search结果页提示信息
-.not-found {
+//== 5. 404、search结果页提示信息，排除content-none页
+//
+.not-found:not(.no-results) {
   width: 70%;
   margin: 0 auto;
   padding: 20px;
   color: #fff;
-  background-color: @mytheme-bg-heading;
+  background-color: transparent;//@mytheme-bg-heading;//rgba(125, 165, 217, 0.8);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
   text-align: center;
 
+  h1{
+    margin-bottom: 20px;
+  }
   .search-string {
     border-bottom: 1px dotted;
   }
@@ -363,12 +375,13 @@ article.sticky {
   }
 }
 
-//== 5.single文章特色图
-//
-.featured-image-header img,
-.image-header img {
-  max-width: 100%;
-  height: auto;
+.page-content {
+  padding: @my-sidebar-header-padding;
+  background-color: @mytheme-bg-module;
+
+  form {
+    margin: 20px 0;
+  }
 }
 
 

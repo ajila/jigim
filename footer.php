@@ -18,6 +18,8 @@
 
 	</div><!-- .site-content-contain -->
 
+</div><!-- .content-wrap -->
+
     <footer id="colophon" class="site-footer" role="contentinfo">
     <div class="container">
         <div class="row">

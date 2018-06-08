@@ -8,6 +8,10 @@
   margin-right: auto;
 }
 
+.content-wrap {
+  position: relative;
+}
+
 .site-content-contain {
   .container;
 
@@ -18,8 +22,9 @@
 
 .error404 .site-content-contain,
 .search-no-results .site-content-contain {
-    position: absolute;
-    top: 60%;
+  position: absolute;
+  bottom: 10%;
+  width: 100%;
 }
 
 .site-content {
@@ -48,7 +53,7 @@
 
 .home-page,
 .archive,
-.search {
+.search:not(.search-no-results) {
 
   #primary #main {
     .make-row();
