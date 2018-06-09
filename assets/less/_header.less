@@ -20,7 +20,8 @@ header.site-header {
 
 //== 1. Banner bar
 //
-//## 包含站点图标，登录、搜索按钮。中、大视图不显示。
+//## 包含站点图标，登录、搜索按钮。
+//## 在中、大视图不显示。
 
 .banner-bar {
 
@@ -38,13 +39,15 @@ header.site-header {
     }
 
     > .site-branding {
-      width: @my-site-branding-width;
+      width: @my-branding-logo-height;  //xs以下只显示logo
       margin-left: auto;
       margin-right: auto;
       margin-top: (@my-header-height - @my-branding-logo-height)/2; //垂直居中
+      @media (min-width: @screen-xs-min) {
+        width: @my-site-branding-width; //xs及以上才显示site-branding-text
+      }
 
       > .custom-logo-link {
-        margin-left: 30%;
         @media (min-width: @screen-xs-min) {
           float: left;
           margin: 0;
@@ -73,9 +76,10 @@ header.site-header {
             line-height: 1em;
           }
         }
-      }
-      //.site-branding-text
+      } //.site-branding-text
+
     } //.site-branding
+
   } //.custom-header
 
 
@@ -129,7 +133,8 @@ header.site-header {
 
 //== 2. Navbar
 //
-//## 顶部导航条。包含站点图标、菜单、登录/搜索按钮。小/超小视图折叠为按钮，中/大视图展开。
+//## 顶部导航条。包含站点图标、菜单、登录/搜索按钮。
+//## 小/超小视图折叠为按钮，中/大视图展开。
 
 .navigation-top {
 

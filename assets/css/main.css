@@ -8622,13 +8622,15 @@ header.site-header {
   height: auto;
 }
 .banner-bar > .custom-header > .site-branding {
-  width: 260px;
+  width: 100px;
   margin-left: auto;
   margin-right: auto;
   margin-top: 30px;
 }
-.banner-bar > .custom-header > .site-branding > .custom-logo-link {
-  margin-left: 30%;
+@media (min-width: 480px) {
+  .banner-bar > .custom-header > .site-branding {
+    width: 260px;
+  }
 }
 @media (min-width: 480px) {
   .banner-bar > .custom-header > .site-branding > .custom-logo-link {
