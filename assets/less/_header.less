@@ -11,6 +11,7 @@ header.site-header {
   z-index: @zindex-navbar-fixed;
   background: rgba(128,128,128, @my-navbar-opacity);
   height: @my-header-height;
+  width: 100%;
 
   @media (min-width: @grid-float-breakpoint) {
     position: relative;
@@ -42,7 +43,7 @@ header.site-header {
       width: @my-branding-logo-height;  //xs以下只显示logo
       margin-left: auto;
       margin-right: auto;
-      margin-top: (@my-header-height - @my-branding-logo-height)/2; //垂直居中
+      padding-top: (@my-header-height - @my-branding-logo-height)/2; //垂直居中
       @media (min-width: @screen-xs-min) {
         width: @my-site-branding-width; //xs及以上才显示site-branding-text
       }

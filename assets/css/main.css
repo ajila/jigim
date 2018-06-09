@@ -8441,6 +8441,7 @@ https://flickity.metafizzy.co
   max-width: 1600px;
   margin-left: auto;
   margin-right: auto;
+  position: relative;
 }
 .content-wrap {
   position: relative;
@@ -8602,6 +8603,7 @@ header.site-header {
   z-index: 1030;
   background: rgba(128, 128, 128, 0.6);
   height: 160px;
+  width: 100%;
 }
 @media (min-width: 992px) {
   header.site-header {
@@ -8625,7 +8627,7 @@ header.site-header {
   width: 100px;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 30px;
+  padding-top: 30px;
 }
 @media (min-width: 480px) {
   .banner-bar > .custom-header > .site-branding {
