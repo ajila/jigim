@@ -55,6 +55,7 @@
       padding: 20px;
     }
 
+    //** archive页的部分
     .meta-label {
       padding: 6px 10px;
       display: inline-block;
@@ -79,6 +80,73 @@
     .meta-taxonomy-description {
       margin-top: 10px;
     }
+
+    //** single页的部分
+    //** 文章分类
+    .entry-categories {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      .clearfix();  //要只包含浮动元素又有高度，需令其清除浮动
+
+      li {
+        float: left;
+      }
+      a {
+        display: inline-block;
+        padding: 6px;
+        color: #fff;
+        @media (min-width: @screen-xs-max) {
+          padding: 6px 10px;
+        }
+        &:hover, &:focus {
+          color: @link-hover-color;
+        }
+      }
+    }//.entry-categories
+
+    //** 阅读次数
+    .entry-views {
+      float: right;
+      margin: 0;
+      @media (min-width: @screen-xs-max) {
+        margin-top: 20px;
+        margin-right: 20%;
+      }
+    }//.entry-views
+
+    //** 作者、日期等
+    .entry-meta {
+      padding-top: 10px;
+
+      img.avatar {
+        width: 10%;
+        max-width: 48px;
+        height: auto;
+        @media (min-width: @screen-xs-max) {
+          margin-right: 10px;
+        }
+        &:hover, &:focus {
+          opacity: 0.5;
+        }
+      }
+
+      .byline, .posted-time-text {
+        margin-right: 10px;
+      }
+      .posted-time-text, .updated-time-text {
+        @media (max-width: @screen-xs-min) {
+          display: block;
+        }
+      }
+
+      a {
+        color: #fff;
+        &:hover, &:focus {
+          color: @link-hover-color;
+        }
+      }
+    }//.entry-meta
 
   }//.meta-content
 

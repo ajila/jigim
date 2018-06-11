@@ -20,7 +20,7 @@ function jigim_posted_on() {
 	$ID = get_the_author_meta( 'ID' );
 	$byline = sprintf(
 		/* translators: %s: post author */
-		__( 'by %s', 'twentyseventeen' ),
+		__( 'by %s ', 'twentyseventeen' ),
 		'<span class="author vcard"><a class="url fn n" href="' . esc_url( get_author_posts_url( $ID ) ) . '">' . get_the_author() . '</a></span>'
 	);
 
@@ -68,7 +68,7 @@ function jigim_time_link() {
 	if( is_single() && ( get_the_time( 'U' ) !== get_the_modified_time( 'U' ) )){
 		$time_string = sprintf(
 		/* translators: %s: post date */
-			__( '<span class="posted-time-text">Posted on %1$s</span><span class="updated-time-text">Updated on %2$s</span> ','twentyseventeen' ),
+			__( '<span class="posted-time-text">Posted on %1$s </span><span class="updated-time-text">Updated on %2$s </span> ','twentyseventeen' ),
 			'<a href="' . esc_url( get_day_link($year,$month,$day) ) . '" rel="bookmark">' . $time_string . '</a>',
 			'<a href="' . esc_url( get_day_link($modified_year,$modified_month,$modified_day) ) . '" rel="bookmark">' . $time_string_updated . '</a>'
 		);
@@ -76,7 +76,7 @@ function jigim_time_link() {
 	else{
 		$time_string = sprintf(
 		/* translators: %s: post date */
-			__( '<span class="posted-time-text">Posted on %s</span>', 'twentyseventeen' ),
+			__( '<span class="posted-time-text">Posted on %s </span>', 'twentyseventeen' ),
 			'<a href="' . esc_url( get_day_link($year,$month,$day) ) . '" rel="bookmark">' . $time_string . '</a>'
 		);
 	}
@@ -423,6 +423,7 @@ function jigim_single_meta_header( $post ){
 
 		//2.文章分类
 		jigim_entry_category();
+		echo '<span class="entry-views">阅读次数 '.jigim_get_post_views(get_the_ID()).'</span>';
 
 		//3: 文章标题
 		jigim_entry_title();
@@ -430,7 +431,6 @@ function jigim_single_meta_header( $post ){
 		//4: 作者、日期
 		echo '<div class="entry-meta">';
 			jigim_posted_on();    //打印作者头像日期时间
-			echo '<span class="entry-views">阅读次数 '.jigim_get_post_views(get_the_ID()).'</span>';
 			jigim_edit_link();  //打印编辑链接
 		echo '</div>';  //.entry-meta
 	echo '</div>';  //.meta-content
@@ -556,7 +556,7 @@ function jigim_archive_meta_header(){
 	echo '<div class="featured-image-header">' . $feature_image . '</div>';
 	echo '<div class="meta-content">';
 		echo '<div class="meta-label">'.$label_string.'</div>';
-		echo '<h1 class="meta-title">';
+		echo '<h1 class="entry-title">';
 		if( is_author() ){
 			echo '<span class="meta-avatar">' .$avatar. '</span>';
 		}
