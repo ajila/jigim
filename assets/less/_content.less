@@ -54,6 +54,7 @@ article {
   }
 
   .entry-gallery,
+  .entry-audio,
   .entry-video,
   .entry-video iframe {
     width: 100%;
@@ -72,10 +73,11 @@ article {
     padding-bottom: 5px;
     //background-color: @mytheme-bg-module;
   }
-  .entry-content img,
-  .entry-content figure {
-    max-width: 100%;
-    height: auto;
+  .entry-content {
+    img, figure, iframe, video, audio, embed, object {
+      max-width: 100%;
+      height: auto;
+    }
   }
 
   //** 置顶图标
@@ -109,7 +111,7 @@ article {
       }
   }//.entry-categories
 
-  //**页面标签
+  //**标记page页面的标签
   .page-label {
     display: inline-block;
     background-color: @mytheme-interf-label;
@@ -125,9 +127,6 @@ article {
   .entry-title {
     margin-bottom: 0;
     font-weight: bold;
-    a {
-      //color: @mytheme-text-title;
-    }
   }//.entry-title
 
   //** 文章tag
@@ -187,8 +186,47 @@ article.format-aside:not(.sticky) {
 }
 
 
-//** gallery文章特定样式
-article.format-gallery {
+//** 置顶文章特定样式
+article.sticky {
+
+  @media (min-width: @screen-lg-min) {
+    height: @my-article-sticy-height;
+    overflow: hidden;
+
+    .post-thumbnail, .post-image-attachment {
+      float: left;
+      width: 50%;
+      overflow: hidden;
+      img {
+        height: @my-article-sticy-height;
+        width: auto;
+      }
+    }
+    .post-outline {
+      width: 50%;
+      height: @my-article-sticy-height;
+      margin-left: 50%;
+
+      .entry-header {
+        @media (min-width: @screen-lg-min) {
+          position: relative; //覆盖lg断点下的绝对定位
+          top: 0;
+        }
+      }
+      ul.entry-categories {
+        display: table;
+      }
+    }//.post-outline
+
+  }
+
+}//article.sticky
+
+
+//** 文章列表显示时，gallery文章特定样式
+.home article.format-gallery,
+.blog article.format-gallery,
+.archive article.format-gallery {
 
   .entry-header,
   .entry-footer {
@@ -228,94 +266,48 @@ article.format-gallery {
 }//article.format-gallery
 
 
-//** 置顶文章特定样式
-article.sticky {
-
-  @media (min-width: @screen-lg-min) {
-    height: @my-article-sticy-height;
-    overflow: hidden;
-
-    .post-thumbnail, .post-image-attachment {
-      float: left;
-      width: 50%;
-      overflow: hidden;
-      img {
-        height: @my-article-sticy-height;
-        width: auto;
-      }
-    }
-    .post-outline {
-      width: 50%;
-      height: @my-article-sticy-height;
-      margin-left: 50%;
-
-      .entry-header {
-        @media (min-width: @screen-lg-min) {
-          position: relative; //覆盖lg断点下的绝对定位
-          top: 0;
-        }
-      }
-      ul.entry-categories {
-        display: table;
-      }
-    }//.post-outline
-
-  }
-
-}//article.sticky
-
-
-//** 搜索结构页的gallery文章样式重置
-.search-results article.format-gallery {
-
-  .entry-header,
-  .entry-footer {
-    position: relative;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    color: @text-color;
-    a {
-      color: @link-color;
-      &:hover,
-      &:focus {
-        color: @link-hover-color;
-      }
-    }
-  }
-
-  .entry-categories a {
-    color: #fff;
-  }
-  .entry-title {
-    text-shadow: none;
-  }
-
-  .entry-footer {
-    .entry-tags li,
-    .entry-meta {
-      border-color: @mytheme-text-meta;
-    }
-    .entry-tags a {
-      color: @mytheme-text-meta;
-      &:hover,
-      &:focus {
-        color: #fff;
-      }
-    }
-  }//.entry-footer
-}
-
-
-//** single文章详细内容页样式
+//** single文章内容页样式
 .single article {
   padding: @my-article-padding;
   background-color: @mytheme-bg-module;
-}
+
+  .entry-content, .entry-footer {
+    padding: 15px 0;
+  }
+
+  .entry-content {
+
+    //文章内容分页
+    .pagination a {
+      padding: @padding-base-vertical @padding-base-horizontal;
+      border: 1px solid @mytheme-interf-btn;
+      line-height: @line-height-base;
+      color: @mytheme-interf-btn;
+      &:hover, &:focus {
+        color: #fff;
+      }
+    }
+  }//.entry-content
+
+  .entry-footer {
+    border-top: 1px dotted @mytheme-text-meta;
+
+    .tag-text {
+      display: inline-block;
+      float: left;
+      padding: 6px 10px 6px 0;
+    }
+    .entry-tags li {
+      margin-right: 10px;
+    }
+  }//.entry-footer
+
+}//.single article
 
 
 //== 4.分页导航按钮
 //
+//** 文章分页
 .pagination {
   width: 100%;
   text-align: center;
@@ -344,6 +336,10 @@ article.sticky {
 
 }//.pagination
 
+//** 评论分页
+.comments-pagination {
+  .pagination;
+}
 
 //== 5. 404、search结果页提示信息，排除content-none页
 //
