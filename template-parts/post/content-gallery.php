@@ -58,10 +58,10 @@
 
             //单文章分页时，显示分页链接
             wp_link_pages( array(
-                'before'      => '<div class="page-links">' . __( 'Pages:', 'twentyseventeen' ),
+                'before'      => '<div class="page-links pagination">' . __( 'Pages:', 'twentyseventeen' ),
                 'after'       => '</div>',
-                'link_before' => '<span class="page-number">',
-                'link_after'  => '</span>',
+                //'link_before' => '<span class="page-numbers">',
+                //'link_after'  => '</span>',
             ) );
 		    ?>
     	</div><!-- .entry-content -->

@@ -14,7 +14,7 @@
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
-	<?php if( !is_single()) { //非单篇文章(文章列表)
+	<?php if( !is_single() ) : //非单篇文章(文章列表)
 
 		//获取文章内容中的音频
 		$content = apply_filters( 'the_content', get_the_content() );
@@ -43,13 +43,12 @@
 			    echo '<img data-src = "'. $img . '" class="lazyload" alt="post image attachment">';
 			echo '</a> </div><!-- .post-image-attachment -->';
         }
-	}
 
-	//显示文章meta信息和标题
-	echo '<div class="post-outline">';
-	jigim_entry_header();
+        //显示文章meta信息和标题
+        echo '<div class="post-outline">';
+        jigim_entry_header();
 
-	?>
+	endif; ?>
 
 
 	<?php if ( is_single() || ( empty($audio) && !get_the_post_thumbnail() ) ):
@@ -64,10 +63,10 @@
 
 			//显示分页链接
 			wp_link_pages( array(
-				'before'      => '<div class="page-links">' . __( 'Pages:', 'twentyseventeen' ),
+				'before'      => '<div class="page-links pagination">' . __( 'Pages:', 'twentyseventeen' ),
 				'after'       => '</div>',
-				'link_before' => '<span class="page-number">',
-				'link_after'  => '</span>',
+				//'link_before' => '<span class="page-numbers">',
+				//'link_after'  => '</span>',
 			) );
         ?>
 	    </div><!-- .entry-content -->

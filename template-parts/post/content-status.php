@@ -14,7 +14,7 @@
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
-	<?php if( !is_single()) : //非单篇文章(文章列表)
+	<?php if( !is_single() ) : //非单篇文章(文章列表)
 
         //文章缩略图
 		if ( '' !== get_the_post_thumbnail() ) { //有缩略图，则显示缩略图
@@ -61,6 +61,16 @@
 			__( 'Continue reading<span class="screen-reader-text"> "%s"</span>', 'twentyseventeen' ),
 			get_the_title()
 		) );
+
+		if( is_single() ) {
+			//文章内部分页时，显示分页数字链接
+			wp_link_pages( array(
+				'before'      => '<div class="page-links pagination">' . __( 'Pages:', 'twentyseventeen' ),
+				'after'       => '</div>',
+				//'link_before' => '<span class="page-numbers">',
+				//'link_after'  => '</span>',
+			) );
+		}
 		?>
 	</div><!-- .entry-content -->
 

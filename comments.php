@@ -63,6 +63,7 @@ if ( post_password_required() ) {
 		<?php the_comments_pagination( array(
 			'prev_text' => '<span class="fa fa-chevron-left"></span><span class="screen-reader-text">' . __( 'Previous', 'twentyseventeen' ) . '</span>',
 			'next_text' => '<span class="screen-reader-text">' . __( 'Next', 'twentyseventeen' ) . '</span><span class="fa fa-chevron-right"></span>' ,
+			'before_page_number' => '<span class="meta-nav screen-reader-text">' . __( 'Comments Page', 'twentyseventeen' ) . ' </span>',
 		) );
 	endif; // Check for have_comments().
 
