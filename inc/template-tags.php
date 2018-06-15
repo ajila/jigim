@@ -694,8 +694,8 @@ function jigim_echo_responsive_thumbnail( $post, $thumb_pos ){
 
 		case 'slider-related-post':
 
-		//使用flickity方案，懒加载图片
-		$html = get_the_post_thumbnail( $post, 'jigim-thumbnail-vertical' );
+		//使用固定分辨率的图片，使用flickity方案懒加载图片
+		$html = get_the_post_thumbnail( $post, 'jigim-thumbnail-horizontal' );
 		$html = jigim_carousel_img_lazyload($html);
 		break;
 

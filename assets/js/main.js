@@ -25,7 +25,9 @@
             cellAlign: 'left',
             contain: true,
             wrapAround: false,
+            dragThreshold: 10,
             groupCells: 2,
+            adaptiveHeight: true,
             lazyLoad: true
         });
         $('.gallery-carousel').flickity({

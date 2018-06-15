@@ -265,15 +265,63 @@
 //== 3. 相关文章slider
 //
 .related-post-panel {
-  >ul {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  margin-bottom: @my-content-module-margin;
+  padding: @my-article-padding;
+  @media (max-width: @screen-xs-min) {
+    padding: @my-article-padding 6px;
+  }
+  background-color: @mytheme-bg-module;
+
+  .related-post-header {
+    margin-left: 6px;
+    margin-right: 6px;
+  }
+
+  > ul {
     list-style: none;
     padding: 0;
   }
+}
 
+
+.related-post-carousel {
+
+  //** 幻灯片单元
   .carousel-cell {
     width: 50%;
-    height: 300px;
+    //height: 300px;
+    padding: 0 6px;
+
+    //** 文章缩略图
+    .post-thumbnail,
+    .post-image-attachment {
+      background: url('../images/loader.gif') center center no-repeat;
+    }
+    img {
+      width: 100%;
+      height: auto;
+    }
+
+    //** 文章信息
+    .entry-content {
+      .entry-summary {
+        margin-bottom: 10px;
+      }
+    }
   }
+
+  //** 指示器
+  .flickity-page-dots {
+    bottom: -20px;
+  }
+  .flickity-page-dots .dot {
+    width: 15px;
+    height: 15px;
+  }
+
 }
 
 
