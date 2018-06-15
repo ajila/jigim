@@ -30,7 +30,7 @@
 			    echo $video[0];
 			echo '</div>';
 		}
-		else if ( '' !== get_the_post_thumbnail() ) {   //若无视频，有缩略图则显示缩略图
+		else if ( has_post_thumbnail() ) {   //若无视频，有缩略图则显示缩略图
 			echo '<div class="post-thumbnail"><a href="' . esc_url( get_permalink() ) . '">';
 			    //the_post_thumbnail( 'jigim-thumbnail-horizontal' );
 			    jigim_echo_responsive_thumbnail( $post, 'post-list' );
@@ -51,7 +51,7 @@
 	endif; ?>
 
 
-	<?php //if ( is_single() || ( empty($video) &&  !get_the_post_thumbnail()) ) :
+	<?php //if ( is_single() || ( empty($video) &&  !has_post_thumbnail()) ) :
         //若是单篇文章，或文章列表时既无视频也无缩略图，则显示文章内容 ?>
 	<?php if ( is_single() ) : //若是单篇文章，则显示文章内容 ?>
 	    <div class="entry-content">

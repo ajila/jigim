@@ -17,7 +17,7 @@
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
     <?php
-    if ( '' !== get_the_post_thumbnail() ) { //有缩略图，则显示缩略图
+    if ( has_post_thumbnail() ) { //有缩略图，则显示缩略图
 	    echo '<div class="post-thumbnail"><a href="' .esc_url(get_permalink()) .'">';
 	        //the_post_thumbnail( 'jigim-thumbnail-horizontal' );
 	        jigim_echo_responsive_thumbnail( $post, 'post-list' );

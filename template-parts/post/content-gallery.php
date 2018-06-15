@@ -45,7 +45,7 @@
     <?php endif; ?>
 
 
-	<?php //if ( is_single() || (!get_post_gallery() &&  !get_the_post_thumbnail()) ):
+	<?php //if ( is_single() || (!get_post_gallery() &&  !has_post_thumbnail()) ):
 	    //若是单篇文章，或文章列表时既无画廊也无缩略图，则显示文章内容    ?>
     <?php if ( is_single() ): //若是单篇文章，则显示文章内容 ?>
 	    <div class="entry-content">

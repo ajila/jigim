@@ -31,7 +31,7 @@
             $the_query->the_post();
             echo '<div class="carousel-cell">';
 
-            if(has_post_thumbnail( $post )) {
+            if( has_post_thumbnail( $post ) ) {
 
                 jigim_echo_responsive_thumbnail( $post, 'slider-front-page' );
 
