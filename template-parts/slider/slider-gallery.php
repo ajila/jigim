@@ -15,7 +15,8 @@
 	$gallery_img = get_post_gallery_images(); //获取画廊的所有图片
 
 	foreach( $gallery_img as $image ){
-	    //获取画廊图片的对应分辨率的图片
+	    //获取画廊图片
+        //目前只支持固定分辨率768x960，命名后缀-768x960的图片
 	    $ext = '.' . pathinfo( $image, PATHINFO_EXTENSION );
 	    $basename = basename( $image, $ext) . '-768x960' . $ext;
 		$image_show = dirname( $image ) . '/' . $basename;

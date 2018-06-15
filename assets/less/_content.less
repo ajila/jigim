@@ -74,9 +74,12 @@ article {
     //background-color: @mytheme-bg-module;
   }
   .entry-content {
-    img, figure, iframe, video, audio, embed, object {
+    img, figure, video, audio, embed, object {
       max-width: 100%;
       height: auto;
+    }
+    iframe {
+      max-width: 100%;
     }
   }
 
@@ -269,6 +272,7 @@ article.sticky {
 //** single文章内容页样式
 .single article {
   padding: @my-article-padding;
+  margin-bottom: @my-content-module-margin;
   background-color: @mytheme-bg-module;
 
   .entry-content, .entry-footer {
@@ -336,12 +340,21 @@ article.sticky {
 
 }//.pagination
 
-//** 评论分页
-.comments-pagination {
-  .pagination;
+
+//== 5. single文章内各模块标题
+//
+.content-module-header {
+  margin-bottom: 15px;
+  h3 {
+    padding: 6px 0;
+    margin: 0;
+    border-bottom: 1px dotted;
+    color: @mytheme-text-widget;
+  }
 }
 
-//== 5. 404、search结果页提示信息，排除content-none页
+
+//== 6. 404、search结果页提示信息，排除content-none页
 //
 .not-found:not(.no-results) {
   width: 70%;
@@ -371,6 +384,7 @@ article.sticky {
   }
 }
 
+//content-none内容区
 .page-content {
   padding: @my-sidebar-header-padding;
   background-color: @mytheme-bg-module;
