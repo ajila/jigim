@@ -1,0 +1,122 @@
+//
+// comments评论部分的样式，移动优先
+// --------------------------------------------------
+
+.comments-area {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  margin-bottom: @my-content-module-margin;
+  padding: @my-article-padding;
+  background-color: @mytheme-bg-module;
+  @media (max-width: @screen-xs-min) {
+    padding: @my-article-padding 0;
+  }
+}
+
+
+//== 1. 评论区标题
+//
+.comments-area-header,
+.no-comments {
+  margin: 0 15px 20px 15px;
+}
+
+
+//== 2. 评论列表
+//
+.comment-list {
+  padding: 0;
+  margin: 0 15px 15px 15px;
+  list-style: none;
+
+  .comment {
+    margin-bottom: 30px;
+    border-left: 1px dotted;
+    //border-bottom: 1px dotted;
+
+    article.comment-body {
+      margin: 0 0 15px 0;
+      padding: 0 15px 0 15px;
+
+      .avatar {
+        width: 10%;
+        max-width: 64px;
+        height: auto;
+        float: left;
+        margin-right: 10px
+      }
+      .comment-content {
+        img, iframe {
+          max-width: 100%;
+        }
+      }
+      .icon {
+        margin-right: 6px;
+      }
+    }//article.comment-body
+
+    .children {
+      padding-left: 30px;
+      @media (max-width: @screen-xs-min) {
+        padding-left: 0;
+      }
+    }
+
+  }//.comment
+
+}//.comment-list
+
+
+//== 3. 评论分页
+//
+.comments-pagination {
+  .pagination;
+}
+
+
+//== 4. 评论表单
+//
+.comment-respond {
+  margin: 15px 15px 20px 15px;
+
+  .comment-reply-title {
+    padding: 6px 0;
+    margin: 0 0 15px 0;
+    border-bottom: 1px dotted;
+    color: @mytheme-text-widget;
+  }
+
+  form {
+    padding: 20px;
+    background-color: @mytheme-category-1;
+    p {
+      margin-bottom: 15px;
+
+      label {
+        display: block;
+      }
+      textarea {
+        width: 100%;
+      }
+      input {
+        max-width: 100%;
+      }
+    }
+    .comment-form-author, .comment-form-email, .comment-form-url {
+      @media (min-width: @screen-xs-max) {
+        display: inline-block;
+        width: 32%;
+      }
+    }
+    .form-submit {
+      margin-top: 15px;
+      .submit {
+        .btn;
+        .btn-primary;
+      }
+    }
+  }//form
+
+}//.comment-respond
+

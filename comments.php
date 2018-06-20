@@ -30,7 +30,8 @@ if ( post_password_required() ) {
 	if ( have_comments() ) : ?>
 
         <?php //1.评论标题和评论数 ?>
-		<h2 class="comments-title">
+        <header class="content-module-header comments-area-header">
+		    <h3 class="comments-title">
 			<?php
 			$comments_number = get_comments_number();
 			if ( '1' === $comments_number ) {
@@ -45,16 +46,17 @@ if ( post_password_required() ) {
 				);
 			}
 			?>
-		</h2>
+		    </h3>
+        </header>
 
         <?php //2.列出所有评论 ?>
 		<ol class="comment-list">
 			<?php
             wp_list_comments( array(
-                'avatar_size' => 100,
+                'avatar_size' => 64,
                 'style'       => 'ul',
                 'short_ping'  => true,
-                'reply_text'  => '<span class="fa fa-reply"></span>' . __( 'Reply', 'twentyseventeen' ),
+                'reply_text'  => '<span class="fa fa-reply icon"></span>' . __( 'Reply', 'twentyseventeen' ),
             ) );
 			?>
 		</ol>
