@@ -45,17 +45,18 @@ get_header(); ?>
 				'prev_text' => '<span class="screen-reader-text">'
 				               . __( 'Previous Post', 'twentyseventeen' )
 				               . '</span><span aria-hidden="true" class="nav-subtitle">'
+                               //. '<span class="nav-title-icon-wrapper">'
+				               . '<span class="fa fa-chevron-left icon"></span><span class="nav-subtitle-text">'
 				               . __( 'Previous', 'twentyseventeen' )
-				               . '</span> <span class="nav-title"><span class="nav-title-icon-wrapper">'
-				               . '<span class="fa fa-chevron-left"></span>'
-				               . '</span>%title</span>',
+				               . '</span></span> <span class="nav-title">%title</span>',
+
 				'next_text' => '<span class="screen-reader-text">'
 				               . __( 'Next Post', 'twentyseventeen' )
-				               . '</span><span aria-hidden="true" class="nav-subtitle">'
+				               . '</span><span aria-hidden="true" class="nav-subtitle"><span class="nav-subtitle-text">'
 				               . __( 'Next', 'twentyseventeen' )
-				               . '</span> <span class="nav-title">%title<span class="nav-title-icon-wrapper">'
-				               . '<span class="fa fa-chevron-right"></span>'
-				               . '</span></span>',
+				               //. '<span class="nav-title-icon-wrapper">'
+				               . '</span><span class="fa fa-chevron-right icon"></span>'
+				               . '</span> <span class="nav-title">%title</span>'
 			) );
 			?>
         </main><!-- #main -->
