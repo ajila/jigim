@@ -1,0 +1,85 @@
+//
+// footer部分的样式，移动优先
+// --------------------------------------------------
+.site-footer {
+  margin-top: 30px;
+  padding-top: 20px;
+  padding-bottom: 30px;
+  background-color: @mytheme-bg-mask;
+  color: #fff;
+  a {
+    color: #fff;
+    &:hover,
+    &:focus {
+      color: @mytheme-interf-btn;
+    }
+  }
+}
+
+//== 1. Widget Area
+//
+//## 放widget的sidebar区
+.widget {
+  padding: 15px;
+}
+
+.wp-calendar {
+  td {
+    padding: 6px;
+  }
+}
+
+
+//== 2. Site Info
+//
+//## 站点信息区
+.site-info {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  @media (max-width: @screen-xs-max - 1) {
+    text-align: center;
+  }
+
+
+  //** logo
+  .custom-logo {
+    width: @my-footer-logo-width;
+    height: auto;
+    @media (min-width: @screen-xs-max) {
+      float: left;
+    }
+  }
+
+
+  //** 网站版权声明
+  .site-declaration{
+    padding: 18px 0 0 10px;
+    @media (min-width: @screen-xs-max) {
+      float: left;
+    }
+  }
+
+
+  //** 社交网络链接菜单
+  .social-navigation {
+    padding: 15px 15px 0 0;
+    @media (min-width: @screen-xs-max) {
+      float: right;
+    }
+
+    ul.social-links-menu {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-size: 2em;
+
+      li {
+        display: inline-block;
+        padding: 6px;
+      }
+    }
+  }//.social-navigation
+
+
+}//.site-info
+
