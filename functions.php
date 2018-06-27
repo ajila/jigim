@@ -292,7 +292,7 @@ function jigim_scripts() {
     wp_enqueue_style( 'jigim-style', get_stylesheet_uri() );
 
     // 自定义样式main.css
-    wp_enqueue_style( 'jigim-main-style', get_theme_file_uri( '/assets/css/main.css' ), array(),'1.0' );
+    wp_enqueue_style( 'jigim-main-style', get_theme_file_uri( '/assets/css/main.min.css' ), array(),'1.0' );
 
     //最终效果参考，开发时临时使用，todo：发布时删除
 	//wp_enqueue_style( 'jigim-dev-style', get_theme_file_uri( '/assets/css/for_dev.css' ), array(),'1.0' );
@@ -360,10 +360,10 @@ function jigim_scripts() {
     wp_enqueue_script( 'jigim-plugins', get_theme_file_uri( '/assets/js/plugins.js' ), array( 'jquery' ), '1.0', true );
 
     //todo :后续uglify后放到plugins.js里
-	wp_enqueue_script( 'jigim-picturefill', get_theme_file_uri( '/assets/js/picturefill.js' ), array( 'jigim-plugins' ), '1.0', true );
+	//wp_enqueue_script( 'jigim-picturefill', get_theme_file_uri( '/assets/js/picturefill.js' ), array( 'jigim-plugins' ), '1.0', true );
 
     //自定义js
-    wp_enqueue_script( 'jigim-main-js', get_theme_file_uri( '/assets/js/main.js' ), array( 'jigim-plugins' ), '1.0', true );
+    wp_enqueue_script( 'jigim-main-js', get_theme_file_uri( '/assets/js/main.min.js' ), array( 'jigim-plugins' ), '1.0', true );
 
 }
 endif;
