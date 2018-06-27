@@ -3,12 +3,6 @@
 
     $( document ).ready(function() {
 
-        //** 将传送带的间隔时间初始化为 8000 毫秒
-        //$('#carousel-front-page').carousel({
-            //interval: 8000
-        //});
-
-
         //** flickity initialize
         $('.main-carousel').flickity({
             // options
@@ -66,14 +60,17 @@
 
 
         //** jQuery.lazyload initialize
-        //lazyload();   //picturefill.js中，图片标签准备好会重新调用
-        $("img.lazyload").lazyload({
+        //避免重复初始化，放到picturefill.js中，当图片标签准备好后调用
+        //lazyload();   //2.x版本用工厂模式
+        /*
+        $("img.lazyload").lazyload({      //1.9版本的初始化
             effect:"fadeIn",
             failurelimit:40,
             data_attribute: "src",  //1.x默认data-original，兼容1.x和2.x版本
             placeholder: null,
-            load:f_masonry,
+            load:f_masonry
         });
+        */
 
 
         //** Infinite Scroll Initialize

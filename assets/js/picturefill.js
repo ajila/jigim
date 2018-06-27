@@ -10,21 +10,6 @@ A Responsive Images approach that you can use today that mimics the [proposed pi
 */
 
 
-
-/*
-$(function(){
-    $.fn.lazyload=function(){
-        console.log("in img lazyload");
-        $("img.lazyload").lazyload({
-            effect:"fadeIn",
-            failurelimit:40,
-            load:f_masonry,
-        });
-    }
-});
-*/
-
-
 function f_masonry(){
 	//console.log("masonry layout cnt");
     var jq = jQuery.noConflict();
@@ -93,17 +78,7 @@ function f_masonry(){
                     //将img的src属性改为data-src
 					var picSrc = matchedEl.getAttribute( "data-src" );
 					picImg.removeAttribute("src");
-
 					picImg.setAttribute("data-src",picSrc);
-					//lazyload();					//for lazyload 2.x
-                    var jq = jQuery.noConflict();	//注意：WordPress中调用jquery方法需此
-                    jq("img.lazyload").lazyload({
-                        effect: "fadeIn",
-                        failurelimit: 40,
-                        data_attribute: "src",	//1.x默认data-original，兼容1.x和2.x版本
-                        placeholder: null,
-                        load: f_masonry
-                    });
 
                 }
 				
@@ -117,6 +92,17 @@ function f_masonry(){
 			}
 		//}	//modified by jig
 		}
+
+        //lazyload();					//for lazyload 2.x
+        var jq = jQuery.noConflict();	//注意：WordPress中调用jquery方法需此
+        jq("img.lazyload").lazyload({
+            effect: "fadeIn",
+            failurelimit: 40,
+            data_attribute: "src",	//1.x默认data-original，兼容1.x和2.x版本
+            placeholder: null,
+            load: f_masonry
+        });
+
 	};
 
 	// Run on resize and domready (w.load as a fallback)
