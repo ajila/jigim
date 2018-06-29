@@ -29,6 +29,13 @@
 <body <?php body_class(); //hook方便添加class ?>>
 
 <div id="page" class="site">
+    <!--[if lt IE 8]>
+    <div class="browserupgrade">
+        <h4>You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/" style="text-decoration:underline">upgrade your browser</a> to improve your experience.</h4>
+        <h4>你使用的浏览器版本<strong>已经过时</strong>. 为了获得更好的体验，请<a href="http://browsehappy.com/" style="text-decoration:underline">升级你的浏览器</a>.</h4>
+    </div>
+    <![endif]-->
+
 	<a class="screen-reader-text" href="#content"><?php _e( 'Skip to content', 'twentyseventeen' ); ?></a>
 
 	<header id="masthead" class="site-header" role="banner">
@@ -105,10 +112,3 @@
 
 	<div class="site-content-contain">
 		<div id="content" class="site-content">
-
-            <!--[if lt IE 8]>
-            <div class="browserupgrade">
-            <p>You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/" style="text-decoration:underline">upgrade your browser</a> to improve your experience.</p>
-            <p>你使用的浏览器版本<strong>已经过时</strong>. 为了获得更好的体验，请<a href="http://browsehappy.com/" style="text-decoration:underline">升级你的浏览器</a>.</p>
-            </div>
-            <![endif]-->
