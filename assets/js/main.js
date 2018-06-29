@@ -10,7 +10,7 @@
             contain: true,
             wrapAround: true,
             autoPlay: 8000,
-            dragThreshold: 10,
+            //dragThreshold: 10,
             //adaptiveHeight: true,
             setGallerySize: false   //用CSS设置幻灯片的大小，而不是使用单元格的大小
         });
@@ -19,7 +19,7 @@
             cellAlign: 'left',
             contain: true,
             wrapAround: false,
-            dragThreshold: 10,
+            //dragThreshold: 10,
             groupCells: 2,
             adaptiveHeight: true,
             lazyLoad: true
@@ -29,7 +29,7 @@
             cellAlign: 'center',
             contain: true,
             wrapAround: true,
-            dragThreshold: 10,
+            //dragThreshold: 10,
             setGallerySize: false,   //用CSS设置幻灯片的大小，而不是使用单元格的大小
             lazyLoad: true
         });
