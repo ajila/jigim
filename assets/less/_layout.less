@@ -58,19 +58,21 @@
 .search:not(.search-no-results) {
 
   #primary #main {
-    .make-row();
 
-    .masonry-layout-column-width, //just for masonry layout
-    article.post,
-    article.page {
-      .make-lg-column(6);
+    @media (min-width: @screen-lg-min) {
+      .make-row();
+
+      .masonry-layout-column-width, //just for masonry layout
+      article.post,
+      article.page {
+        .make-lg-column(6);
+      }
+
+      article.sticky {
+        .make-lg-column(12);
+      }
     }
-
-    article.sticky {
-      .make-lg-column(12);
-    }
-  }
-
+  }//#primary #main
 }
 
 .site-footer {
