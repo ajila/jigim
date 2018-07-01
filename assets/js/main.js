@@ -9,9 +9,10 @@
             cellAlign: 'center',
             contain: true,
             wrapAround: true,
-            autoPlay: 8000,
-            //dragThreshold: 10,
-            //adaptiveHeight: true,
+            //autoPlay: 8000,
+            dragThreshold: 1,
+            //selectedAttraction: 0.9,
+            //friction: 0.9,
             setGallerySize: false   //用CSS设置幻灯片的大小，而不是使用单元格的大小
         });
         $('.related-post-carousel').flickity({
@@ -29,7 +30,7 @@
             cellAlign: 'center',
             contain: true,
             wrapAround: true,
-            //dragThreshold: 10,
+            dragThreshold: 1,
             setGallerySize: false,   //用CSS设置幻灯片的大小，而不是使用单元格的大小
             lazyLoad: true
         });

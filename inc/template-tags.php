@@ -458,12 +458,12 @@ function jigim_archive_meta_header(){
 		$title_string = sprintf( __( '%1$s Category: %2$s','twentyseventeen' ),
 			'<span class="sr-only">','</span>'.$title );
 		//$feature_image = get_stylesheet_directory_uri() . '/assets/images/feature_category-' . $arch_obj->slug . '.jpg';
-		$feature_image = '<span class="picture-fill" data-picture data-alt="category feature image">'
-		                 . '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_category-' . $arch_obj->slug . '_small.jpg' . '"></span>'
-		                 . '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_category-' . $arch_obj->slug . '_middle.jpg' . '" data-media="(min-width: 769px)"></span>'
-		                 . '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_category-' . $arch_obj->slug . '.jpg' . '" data-media="(min-width: 1200px)"></span>'
+		$feature_image = '<div class="picture-fill" data-picture data-alt="category feature image">'
+		                 . '<div data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_category-' . $arch_obj->slug . '_small.jpg' . '"></div>'
+		                 . '<div data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_category-' . $arch_obj->slug . '_middle.jpg' . '" data-media="(min-width: 769px)"></div>'
+		                 . '<div data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_category-' . $arch_obj->slug . '.jpg' . '" data-media="(min-width: 1200px)"></div>'
 		                 . '<noscript><img src="' . get_stylesheet_directory_uri() . '/assets/images/feature_category-' . $arch_obj->slug . '_small.jpg' . '" alt="category feature image"></noscript>'
-		                 . '</span>';
+		                 . '</div>';
 
 	} elseif ( is_tag() ) {
 
@@ -473,12 +473,12 @@ function jigim_archive_meta_header(){
 			'<span class="sr-only">','</span>'.$title );
 		//$feature_image = get_stylesheet_directory_uri() . '/assets/images/feature_tag-'.$arch_obj->slug.'.jpg';
 		//所有tags先暂时使用同一图片
-		$feature_image = '<span class="picture-fill" data-picture data-alt="tag feature image">'
-		                 . '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_tag_small.jpg' . '"></span>'
-		                 . '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_tag_middle.jpg' . '" data-media="(min-width: 769px)"></span>'
-		                 . '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_tag.jpg' . '" data-media="(min-width: 1200px)"></span>'
+		$feature_image = '<div class="picture-fill" data-picture data-alt="tag feature image">'
+		                 . '<div data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_tag_small.jpg' . '"></div>'
+		                 . '<div data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_tag_middle.jpg' . '" data-media="(min-width: 769px)"></div>'
+		                 . '<div data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_tag.jpg' . '" data-media="(min-width: 1200px)"></div>'
 		                 . '<noscript><img src="' . get_stylesheet_directory_uri() . '/assets/images/feature_tag_small.jpg' . '" alt="tag feature image"></noscript>'
-		                 . '</span>';
+		                 . '</div>';
 
 	} elseif ( is_author() ) {
 
@@ -488,12 +488,12 @@ function jigim_archive_meta_header(){
 			'<span class="sr-only">','</span><span class="vcard">' .$title . '</span>' );
 		//$feature_image = get_stylesheet_directory_uri() . '/assets/images/feature_author-'.$title.'.jpg';
 		//所有author先暂时使用同一图片
-		$feature_image = '<span class="picture-fill" data-picture data-alt="author feature image">'
-		                 . '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_author_small.jpg' . '"></span>'
-		                 . '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_author_middle.jpg' . '" data-media="(min-width: 769px)"></span>'
-		                 . '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_author.jpg' . '" data-media="(min-width: 1200px)"></span>'
+		$feature_image = '<div class="picture-fill" data-picture data-alt="author feature image">'
+		                 . '<div data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_author_small.jpg' . '"></div>'
+		                 . '<div data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_author_middle.jpg' . '" data-media="(min-width: 769px)"></div>'
+		                 . '<div data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_author.jpg' . '" data-media="(min-width: 1200px)"></div>'
 		                 . '<noscript><img src="' . get_stylesheet_directory_uri() . '/assets/images/feature_author_small.jpg' . '" alt="author feature image"></noscript>'
-		                 . '</span>';
+		                 . '</div>';
 		$avatar = get_avatar(get_the_author_meta( 'ID' ),64,'','');
 		//$post_num = get_the_author_posts();
 
@@ -501,12 +501,12 @@ function jigim_archive_meta_header(){
 
 		$label_string = '<span class="fa fa-calendar icon"></span>'.__('year','twentyseventeen');
 		//$feature_image = get_stylesheet_directory_uri() . '/assets/images/feature_year.jpg';
-		$feature_image = '<span class="picture-fill" data-picture data-alt="year feature image">'
-		                 . '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_day_small.jpg' . '"></span>'
-		                 . '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_day_middle.jpg' . '" data-media="(min-width: 769px)"></span>'
-		                 . '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_day.jpg' . '" data-media="(min-width: 1200px)"></span>'
+		$feature_image = '<div class="picture-fill" data-picture data-alt="year feature image">'
+		                 . '<div data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_day_small.jpg' . '"></div>'
+		                 . '<div data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_day_middle.jpg' . '" data-media="(min-width: 769px)"></div>'
+		                 . '<div data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_day.jpg' . '" data-media="(min-width: 1200px)"></div>'
 		                 . '<noscript><img src="' . get_stylesheet_directory_uri() . '/assets/images/feature_day_small.jpg' . '" alt="year feature image"></noscript>'
-		                 . '</span>';
+		                 . '</div>';
 		$title_string = sprintf( __( '%1$s Year: %2$s','twentyseventeen' ),
 			'<span class="sr-only">', '</span>'.get_the_date( _x( 'Y', 'yearly archives date format' ) ) );
 
@@ -514,12 +514,12 @@ function jigim_archive_meta_header(){
 
 		$label_string = '<span class="fa fa-calendar icon"></span>'.__('month','twentyseventeen');
 		//$feature_image = get_stylesheet_directory_uri() . '/assets/images/feature_month.jpg';
-		$feature_image = '<span class="picture-fill" data-picture data-alt="month feature image">'
-		                 . '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_day_small.jpg' . '"></span>'
-		                 . '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_day_middle.jpg' . '" data-media="(min-width: 769px)"></span>'
-		                 . '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_day.jpg' . '" data-media="(min-width: 1200px)"></span>'
+		$feature_image = '<div class="picture-fill" data-picture data-alt="month feature image">'
+		                 . '<div data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_day_small.jpg' . '"></div>'
+		                 . '<div data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_day_middle.jpg' . '" data-media="(min-width: 769px)"></div>'
+		                 . '<div data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_day.jpg' . '" data-media="(min-width: 1200px)"></div>'
 		                 . '<noscript><img src="' . get_stylesheet_directory_uri() . '/assets/images/feature_day_small.jpg' . '" alt="month feature image"></noscript>'
-		                 . '</span>';
+		                 . '</div>';
 		$title_string = sprintf( __( '%1$s Month: %2$s','twentyseventeen' ),
 			'<span class="sr-only">', '</span>'.get_the_date( _x( 'F Y', 'monthly archives date format' ) ) );
 
@@ -527,12 +527,12 @@ function jigim_archive_meta_header(){
 
 		$label_string = '<span class="fa fa-calendar icon"></span>'.__('day','twentyseventeen');
 		//$feature_image = get_stylesheet_directory_uri() . '/assets/images/feature_day.jpg';
-		$feature_image = '<span class="picture-fill" data-picture data-alt="day feature image">'
-		                 . '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_day_small.jpg' . '"></span>'
-		                 . '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_day_middle.jpg' . '" data-media="(min-width: 769px)"></span>'
-		                 . '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_day.jpg' . '" data-media="(min-width: 1200px)"></span>'
+		$feature_image = '<div class="picture-fill" data-picture data-alt="day feature image">'
+		                 . '<div data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_day_small.jpg' . '"></div>'
+		                 . '<div data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_day_middle.jpg' . '" data-media="(min-width: 769px)"></div>'
+		                 . '<div data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_day.jpg' . '" data-media="(min-width: 1200px)"></div>'
 		                 . '<noscript><img src="' . get_stylesheet_directory_uri() . '/assets/images/feature_day_small.jpg' . '" alt="day feature image"></noscript>'
-		                 . '</span>';
+		                 . '</div>';
 		$title_string = sprintf( __( '%1$s Day: %2$s','twentyseventeen' ),
 			'<span class="sr-only">', '</span>'.get_the_date( _x( 'F j, Y', 'daily archives date format' ) ) );
 
@@ -540,12 +540,12 @@ function jigim_archive_meta_header(){
 
 		$label_string = '<span class="fa fa-file-archive-o icon"></span>'.__('archive','twentyseventeen');
 		//$feature_image = get_stylesheet_directory_uri() . '/assets/images/feature_default.jpg';
-		$feature_image = '<span class="picture-fill" data-picture data-alt="archive feature image">'
-		                 . '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_default_small.jpg' . '"></span>'
-		                 . '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_default_middle.jpg' . '" data-media="(min-width: 769px)"></span>'
-		                 . '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_default.jpg' . '" data-media="(min-width: 1200px)"></span>'
+		$feature_image = '<div class="picture-fill" data-picture data-alt="archive feature image">'
+		                 . '<div data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_default_small.jpg' . '"></div>'
+		                 . '<div data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_default_middle.jpg' . '" data-media="(min-width: 769px)"></div>'
+		                 . '<div data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_default.jpg' . '" data-media="(min-width: 1200px)"></div>'
 		                 . '<noscript><img src="' . get_stylesheet_directory_uri() . '/assets/images/feature_default_small.jpg' . '" alt="archive feature image"></noscript>'
-		                 . '</span>';
+		                 . '</div>';
 		$title_string = __( 'Archives','twentyseventeen' );
 		$post_num = 0;
 
@@ -682,13 +682,13 @@ function jigim_echo_responsive_thumbnail( $post, $thumb_pos ){
 		$img_sm = get_the_post_thumbnail_url( $post, 'jigim-featured-sm');
 		//使用响应式要加.picture-fill，使用响应式同时lazyload要加data-lazy-load（picturefill.js会据此为图片添加.lazyload）
 		//$html = '<span class="picture-fill" data-picture data-lazy-load data-alt="feature image">'
-		$html = '<span class="picture-fill" data-picture data-alt="feature image">'
-		        . '<span data-src="' . $img_sm . '"></span>'
-		        . '<span data-src="' . $img_md . '" data-media="(min-width: 769px)"></span>'
-		        . '<span data-src="' . $img_lg . '" data-media="(min-width: 1200px)"></span>'
+		$html = '<div class="picture-fill" data-picture data-alt="feature image">'
+		        . '<div data-src="' . $img_sm . '"></div>'
+		        . '<div data-src="' . $img_md . '" data-media="(min-width: 769px)"></div>'
+		        . '<div data-src="' . $img_lg . '" data-media="(min-width: 1200px)"></div>'
 		        //. '<!--[if (lt IE 9) & (!IEMobile)]><span data-src="' . $img_lg . '"></span><![endif]-->' //已通过respond.js支持media query
 		        . '<noscript><img src="' . $img_lg . '" alt="feature image"></noscript>'
-		        . '</span>';
+		        . '</div>';
 
 		break;
 
@@ -714,47 +714,47 @@ function jigim_echo_responsive_thumbnail( $post, $thumb_pos ){
 		$img_vt = get_the_post_thumbnail_url( $post, 'jigim-thumbnail-vertical');
 		$img_hz = get_the_post_thumbnail_url( $post, 'jigim-thumbnail-horizontal');
 		//使用响应式要加.picture-fill，使用响应式同时lazyload要加data-lazy-load
-		$html = '<span class="picture-fill" data-picture data-lazy-load data-alt="post thumbnail image">'
-		        . '<span data-src="' . $img_hz . '"></span>'
-		        . '<span data-src="' . $img_vt . '" data-media="(min-width: 1200px)"></span>'
+		$html = '<div class="picture-fill" data-picture data-lazy-load data-alt="post thumbnail image">'
+		        . '<div data-src="' . $img_hz . '"></div>'
+		        . '<div data-src="' . $img_vt . '" data-media="(min-width: 1200px)"></div>'
 		        //. '<!--[if (lt IE 9) & (!IEMobile)]><span data-src="' . $img_lg . '"></span><![endif]-->' //已通过respond.js支持media query
 		        . '<noscript><img src="' . $img_hz . '" alt="post thumbnail image"></noscript>'
-		        . '</span>';
+		        . '</div>';
 		break;
 
 		case '404-feature-image':
-			$html = '<span class="picture-fill" data-picture data-alt="feature image">'
-			        . '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_404_small.jpg' . '"></span>'
-			        . '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_404_middle.jpg' . '" data-media="(min-width: 769px)"></span>'
-			        . '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_404.jpg' . '" data-media="(min-width: 1200px)"></span>'
+			$html = '<div class="picture-fill" data-picture data-alt="feature image">'
+			        . '<div data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_404_small.jpg' . '"></div>'
+			        . '<div data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_404_middle.jpg' . '" data-media="(min-width: 769px)"></div>'
+			        . '<div data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_404.jpg' . '" data-media="(min-width: 1200px)"></div>'
 			        . '<noscript><img src="' . get_stylesheet_directory_uri() . '/assets/images/feature_404_small.jpg' . '" alt="feature image"></noscript>'
-			        . '</span>';
+			        . '</div>';
 			break;
 
 		case 'search-result':
-			$html = '<span class="picture-fill" data-picture data-alt="feature image">'
-			        . '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_search_small.jpg' . '"></span>'
-			        . '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_search_middle.jpg' . '" data-media="(min-width: 769px)"></span>'
-			        . '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_search.jpg' . '" data-media="(min-width: 1200px)"></span>'
+			$html = '<div class="picture-fill" data-picture data-alt="feature image">'
+			        . '<div data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_search_small.jpg' . '"></div>'
+			        . '<div data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_search_middle.jpg' . '" data-media="(min-width: 769px)"></div>'
+			        . '<div data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_search.jpg' . '" data-media="(min-width: 1200px)"></div>'
 			        . '<noscript><img src="' . get_stylesheet_directory_uri() . '/assets/images/feature_search_small.jpg' . '" alt="feature image"></noscript>'
-			        . '</span>';
+			        . '</div>';
 			break;
 		case 'search-none':
-			$html = '<span class="picture-fill" data-picture data-alt="feature image">'
-			        . '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_search_none_small.jpg' . '"></span>'
-			        . '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_search_none_middle.jpg' . '" data-media="(min-width: 769px)"></span>'
-			        . '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_search_none.jpg' . '" data-media="(min-width: 1200px)"></span>'
+			$html = '<div class="picture-fill" data-picture data-alt="feature image">'
+			        . '<div data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_search_none_small.jpg' . '"></div>'
+			        . '<div data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_search_none_middle.jpg' . '" data-media="(min-width: 769px)"></div>'
+			        . '<div data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_search_none.jpg' . '" data-media="(min-width: 1200px)"></div>'
 			        . '<noscript><img src="' . get_stylesheet_directory_uri() . '/assets/images/feature_search_none_small.jpg' . '" alt="feature image"></noscript>'
-			        . '</span>';
+			        . '</div>';
 			break;
 
 		default:
-			$html = '<span class="picture-fill" data-picture data-alt="feature image">'
-			. '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_default_small.jpg' . '"></span>'
-			. '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_default_middle.jpg' . '" data-media="(min-width: 769px)"></span>'
-			. '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_default.jpg' . '" data-media="(min-width: 1200px)"></span>'
+			$html = '<div class="picture-fill" data-picture data-alt="feature image">'
+			. '<div data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_default_small.jpg' . '"></div>'
+			. '<div data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_default_middle.jpg' . '" data-media="(min-width: 769px)"></div>'
+			. '<div data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_default.jpg' . '" data-media="(min-width: 1200px)"></div>'
 			. '<noscript><img src="' . get_stylesheet_directory_uri() . '/assets/images/feature_default_small.jpg' . '" alt="feature image"></noscript>'
-			. '</span>';
+			. '</div>';
 			break;
 	}
 

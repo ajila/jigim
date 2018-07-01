@@ -39,7 +39,8 @@ function f_masonry(){
 		for( var i = 0, il = ps.length; i < il; i++ ){
 			//if( ps[ i ].getAttribute( "data-picture" ) !== null ){	//modified by jig
 
-				var sources = ps[ i ].getElementsByTagName( "span" ),
+				//var sources = ps[ i ].getElementsByTagName( "span" ),	//modified by jig
+            	var sources = ps[ i ].getElementsByTagName( "div" ),
 					matches = [];
 
 				// See if which sources match

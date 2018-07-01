@@ -32,19 +32,8 @@
             echo '<div class="carousel-cell">';
 
             if( has_post_thumbnail( $post ) ) {
-
                 jigim_echo_responsive_thumbnail( $post, 'slider-front-page' );
-
             } else {
-             /*
-
-	            echo '<span class="picture-fill" data-picture data-alt="feature image">'
-	                 . '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_default_small.jpg' . '"></span>'
-	                 . '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_default_middle.jpg' . '" data-media="(min-width: 769px)"></span>'
-	                 . '<span data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_default.jpg' . '" data-media="(min-width: 1200px)"></span>'
-	                 . '<noscript><img src="' . get_stylesheet_directory_uri() . '/assets/images/feature_default_small.jpg' . '" alt="feature image"></noscript>'
-	                 . '</span>';
-             */
 	            jigim_echo_responsive_thumbnail( $post, 'default' );
             }
     ?>

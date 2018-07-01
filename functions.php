@@ -357,7 +357,7 @@ function jigim_scripts() {
     }
 
     //所有插件js
-    wp_enqueue_script( 'jigim-plugins', get_theme_file_uri( '/assets/js/plugins.js' ), array( 'jquery' ), '1.0', true );
+    wp_enqueue_script( 'jigim-plugins', get_theme_file_uri( '/assets/js/plugins.min.js' ), array( 'jquery' ), '1.0', true );
 
     //todo :后续uglify后放到plugins.js里
 	//wp_enqueue_script( 'jigim-picturefill', get_theme_file_uri( '/assets/js/picturefill.js' ), array( 'jigim-plugins' ), '1.0', true );
