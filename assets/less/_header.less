@@ -13,6 +13,22 @@ header.site-header {
   height: @my-header-height;
   width: 100%;
 
+  //自动隐藏显示动画
+  /* Force Hardware Acceleration */
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  will-change: transform;
+  -webkit-transition: -webkit-transform .5s;
+  transition: -webkit-transform .5s;
+  transition: transform .5s;
+  transition: transform .5s, -webkit-transform .5s;
+  &.is-hidden {
+    //-webkit-transform: translateY(-100%);
+    //-ms-transform: translateY(-100%);
+    //transform: translateY(-100%);
+    .translate(0, -100%);
+  }
+
   @media (min-width: @grid-float-breakpoint) {
     position: relative;
     background: transparent;

@@ -77,3 +77,49 @@ A Responsive Images approach that you can use today that mimics the [proposed pi
 function f_masonry(){jQuery.noConflict()(".masonry-layout").masonry("layout")}!function(u){"use strict";u.picturefill=function(){for(var e=u.document.getElementsByClassName("picture-fill"),t=0,a=e.length;t<a;t++){for(var i=e[t].getElementsByTagName("div"),r=[],l=0,n=i.length;l<n;l++){var o=i[l].getAttribute("data-media");(!o||u.matchMedia&&u.matchMedia(o).matches)&&r.push(i[l])}var d=e[t].getElementsByTagName("img")[0];if(r.length){var s=r.pop();if(d&&"NOSCRIPT"!==d.parentNode.nodeName){if(s===d.parentNode)continue}else(d=u.document.createElement("img")).alt=e[t].getAttribute("data-alt"),d.className="responsive-img";if(null===e[t].getAttribute("data-lazy-load"))d.src=s.getAttribute("data-src");else{d.className="responsive-img lazyload";var c=s.getAttribute("data-src");d.removeAttribute("src"),d.setAttribute("data-src",c)}s.appendChild(d),d.removeAttribute("width"),d.removeAttribute("height")}else d&&d.parentNode.removeChild(d)}jQuery.noConflict()("img.lazyload").lazyload({effect:"fadeIn",failurelimit:40,data_attribute:"src",placeholder:null,load:f_masonry})},u.addEventListener?(u.addEventListener("resize",u.picturefill,!1),u.addEventListener("DOMContentLoaded",function(){u.picturefill(),u.removeEventListener("load",u.picturefill,!1)},!1),u.addEventListener("load",u.picturefill,!1)):u.attachEvent&&u.attachEvent("onload",u.picturefill)}(this);
 
 
+/*! 
+ * AutoHideHeader 1.0.0  
+ * MIT license - jigim
+ */
+jQuery(document).ready(function($){
+    var mainHeader = $('.site-header'),
+        headerHeight = mainHeader.height();
+
+    //set scrolling variables
+    var scrolling = false,
+        previousTop = 0,
+        currentTop = 0,
+        scrollDelta = 10,
+        scrollOffset = 150;
+
+    $(window).on('scroll', function(){
+        if( !scrolling ) {
+            scrolling = true;
+            (!window.requestAnimationFrame)
+                ? setTimeout(autoHideHeader, 250)
+                : requestAnimationFrame(autoHideHeader);
+        }
+    });
+
+    $(window).on('resize', function(){
+        headerHeight = mainHeader.height();
+    });
+
+    function autoHideHeader() {
+        var currentTop = $(window).scrollTop();
+        checkSimpleNavigation(currentTop);
+        previousTop = currentTop;
+        scrolling = false;
+    }
+
+    function checkSimpleNavigation(currentTop) {
+        //there's no secondary nav or secondary nav is below primary nav
+        if (previousTop - currentTop > scrollDelta) {
+            //if scrolling up...
+            mainHeader.removeClass('is-hidden');
+        } else if( currentTop - previousTop > scrollDelta && currentTop > scrollOffset) {
+            //if scrolling down...
+            mainHeader.addClass('is-hidden');
+        }
+    }
+});
