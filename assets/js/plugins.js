@@ -90,7 +90,7 @@ jQuery(document).ready(function($){
         previousTop = 0,
         currentTop = 0,
         scrollDelta = 10,
-        scrollOffset = 150;
+        scrollOffset = 60;
 
     $(window).on('scroll', function(){
         if( !scrolling ) {
@@ -117,7 +117,8 @@ jQuery(document).ready(function($){
         if (previousTop - currentTop > scrollDelta) {
             //if scrolling up...
             mainHeader.removeClass('is-hidden');
-        } else if( currentTop - previousTop > scrollDelta && currentTop > scrollOffset) {
+        //} else if( currentTop - previousTop > scrollDelta && currentTop > scrollOffset) {
+		} else if( currentTop - previousTop > 0 ) {
             //if scrolling down...
             mainHeader.addClass('is-hidden');
         }
