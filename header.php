@@ -57,6 +57,18 @@
 
 	</header><!-- #masthead -->
 
+    <?php //搜索模态对话框 ?>
+    <div id="searchModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="fa fa-close icon" id="searchModalClose"></span>
+                <h4 class="modal-title"><?php _e('search all over the site', 'twentyseventeen'); ?></h4>
+            </div>
+            <div class="modal-body">
+				<?php get_search_form();?>
+            </div>
+        </div>
+    </div>
 
     <div class="content-wrap">
 	<?php   //首页显示 幻灯片轮播

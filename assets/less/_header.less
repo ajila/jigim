@@ -115,7 +115,8 @@ header.site-header {
       font-size: 2em;
       color: @mytheme-text-heading;
 
-      a {
+      a.nav-search-btn {
+        float: right;
         color: inherit;
         padding: 9px 10px;
         &:hover,
@@ -123,17 +124,6 @@ header.site-header {
           background-color: @navbar-default-toggle-hover-bg;
         }
       }
-
-      ul.dropdown-menu {
-        padding: 10px 20px;
-        border: 0;
-        background-color: @navbar-default-toggle-hover-bg;
-
-        .input-group {
-          width: @my-header-dropdown-input-width;
-        } //.input-group
-
-      } //ul.dropdown-menu
     } //li
 
     .nav-login {
@@ -275,8 +265,71 @@ header.site-header {
 
 } //.navigation-top
 
+//== 3. 模态搜索框
+.modal {
+  display: none;
+  position: fixed;
+  z-index: @zindex-modal;
+  padding-top: 260px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 
-//== 3. 浏览器版本更新提示
+  //** Modal Content
+  .modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    //border: 1px solid #888;
+    width: 80%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+  }
+
+  //** Add Animation
+  @-webkit-keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+  }
+
+  @keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+  }
+
+  .modal-header {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ccc;
+
+    #searchModalClose {
+      float: right;
+      font-size: 24px;
+      cursor: pointer;
+      color: #ccc;
+    }
+
+    .modal-title {
+      margin: 0;
+      padding: 6px;
+    }
+  }//.modal-header
+
+  .modal-body {
+    padding: 20px;
+  }//.modal-body
+
+}//.modal
+
+
+//== 4. 浏览器版本更新提示
 //
 .browserupgrade  {
   text-align: center;

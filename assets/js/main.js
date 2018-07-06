@@ -171,11 +171,42 @@
             widget_toggle_btn($('.widget_recent_comments .widget-toggle'));
             $('.widget_recent_comments ul').slideToggle();
         } );
+
+        search_modal_init();
+
     });
 
 })( jQuery );
 
 
+/* 搜索框模态对话框动画 */
+function search_modal_init() {
+    // Get the modal
+    var modal = document.getElementById("searchModal");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("searchModalBtn");
+
+    // Get the <span> element that closes the modal
+    var close = document.getElementById("searchModalClose");
+
+    // When the user clicks the button, open the modal
+    btn.onclick = function() {
+        modal.style.display = "block";
+    };
+
+    // When the user clicks on <span> (x), close the modal
+    close.onclick = function() {
+        modal.style.display = "none";
+    };
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    };
+}
 
 /* 打开和关闭导航条侧边菜单 */
 function side_nav_toggle(btn) {

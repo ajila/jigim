@@ -23,16 +23,11 @@
 
     <?php //搜索按钮下拉搜索框 ?>
     <li class="nav-search">
-        <div class="dropdown">
-            <a class="nav-search-btn" id="dropdown_search"
-               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">
-                <span class="sr-only"><?php _e('navigation search button', 'twentyseventeen'); ?></span>
-                <span class="fa fa-search fa-lg"></span>
-            </a>
-            <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown_search" role="menu" >
-                <?php get_search_form();?>
-            </ul>
-        </div>
+        <a class="nav-search-btn" id="searchModalBtn" role="button">
+            <span class="sr-only"><?php _e('navigation search button', 'twentyseventeen'); ?></span>
+            <span class="fa fa-search fa-lg"></span>
+        </a>
+
     </li>  <!-- /.nav-search -->
 
 
