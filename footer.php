@@ -31,7 +31,21 @@
 		get_template_part( 'template-parts/footer/site', 'info' );
 		?>
 
-</footer><!-- #colophon -->
+    </footer><!-- #colophon -->
+
+
+    <?php //搜索模态对话框 ?>
+    <div id="searchModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="fa fa-close icon" id="searchModalClose"></span>
+                <h4 class="modal-title"><?php _e('search all over the site', 'twentyseventeen'); ?></h4>
+            </div>
+            <div class="modal-body">
+                <?php get_search_form();?>
+            </div>
+        </div>
+    </div>
 
 </div><!-- #page -->
 
