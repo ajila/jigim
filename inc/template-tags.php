@@ -237,6 +237,9 @@ function jigim_entry_footer() {
 	    jigim_edit_link();  //登录状态下打印编辑链接
         echo '</div>';
     }
+    else {
+    	jigim_share_plugin();
+    }
 
 	echo '</footer>';
 }
@@ -305,6 +308,24 @@ function jigim_edit_link() {
 		'<span class="edit-link">',
 		'</span>'
 	);
+}
+endif;
+
+
+if ( ! function_exists( 'jigim_share_plugin' ) ) :
+/**
+ * 文章分享按钮列表
+ */
+function jigim_share_plugin() {
+	echo '<div class="bdsharebuttonbox">
+		<span class="tag-text">分享到：</span>
+		<a href="#" class="bds_more" data-cmd="more"></a>
+		<a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+		<a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+		<a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+		<a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+		<a class="bds_count" data-cmd="count"></a>
+	</div>';
 }
 endif;
 
@@ -629,7 +650,7 @@ function jigim_echo_responsive_thumbnail( $post, $thumb_pos ){
 		//return;
 	//}
 
-	$html = null;
+	$html = '<i class="fa fa-spinner fa-spin loading" ></i>';
 	switch( $thumb_pos ) {
 		case 'slider-front-page':
 		case 'single-feature-image':
@@ -682,7 +703,7 @@ function jigim_echo_responsive_thumbnail( $post, $thumb_pos ){
 		$img_sm = get_the_post_thumbnail_url( $post, 'jigim-featured-sm');
 		//使用响应式要加.picture-fill，使用响应式同时lazyload要加data-lazy-load（picturefill.js会据此为图片添加.lazyload）
 		//$html = '<span class="picture-fill" data-picture data-lazy-load data-alt="feature image">'
-		$html = '<div class="picture-fill" data-picture data-alt="feature image">'
+		$html .= '<div class="picture-fill" data-picture data-alt="feature image">'
 		        . '<div data-src="' . $img_sm . '"></div>'
 		        . '<div data-src="' . $img_md . '" data-media="(min-width: 769px)"></div>'
 		        . '<div data-src="' . $img_lg . '" data-media="(min-width: 1200px)"></div>'
@@ -695,7 +716,7 @@ function jigim_echo_responsive_thumbnail( $post, $thumb_pos ){
 		case 'slider-related-post':
 
 		//使用固定分辨率的图片，使用flickity方案懒加载图片
-		$html = get_the_post_thumbnail( $post, 'jigim-thumbnail-horizontal' );
+		$html .= get_the_post_thumbnail( $post, 'jigim-thumbnail-horizontal' );
 		$html = jigim_carousel_img_lazyload($html);
 		break;
 
@@ -714,7 +735,7 @@ function jigim_echo_responsive_thumbnail( $post, $thumb_pos ){
 		$img_vt = get_the_post_thumbnail_url( $post, 'jigim-thumbnail-vertical');
 		$img_hz = get_the_post_thumbnail_url( $post, 'jigim-thumbnail-horizontal');
 		//使用响应式要加.picture-fill，使用响应式同时lazyload要加data-lazy-load
-		$html = '<div class="picture-fill" data-picture data-lazy-load data-alt="post thumbnail image">'
+		$html .= '<div class="picture-fill" data-picture data-lazy-load data-alt="post thumbnail image">'
 		        . '<div data-src="' . $img_hz . '"></div>'
 		        . '<div data-src="' . $img_vt . '" data-media="(min-width: 1200px)"></div>'
 		        //. '<!--[if (lt IE 9) & (!IEMobile)]><span data-src="' . $img_lg . '"></span><![endif]-->' //已通过respond.js支持media query
@@ -723,7 +744,7 @@ function jigim_echo_responsive_thumbnail( $post, $thumb_pos ){
 		break;
 
 		case '404-feature-image':
-			$html = '<div class="picture-fill" data-picture data-alt="feature image">'
+			$html .= '<div class="picture-fill" data-picture data-alt="feature image">'
 			        . '<div data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_404_small.jpg' . '"></div>'
 			        . '<div data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_404_middle.jpg' . '" data-media="(min-width: 769px)"></div>'
 			        . '<div data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_404.jpg' . '" data-media="(min-width: 1200px)"></div>'
@@ -732,7 +753,7 @@ function jigim_echo_responsive_thumbnail( $post, $thumb_pos ){
 			break;
 
 		case 'search-result':
-			$html = '<div class="picture-fill" data-picture data-alt="feature image">'
+			$html .= '<div class="picture-fill" data-picture data-alt="feature image">'
 			        . '<div data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_search_small.jpg' . '"></div>'
 			        . '<div data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_search_middle.jpg' . '" data-media="(min-width: 769px)"></div>'
 			        . '<div data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_search.jpg' . '" data-media="(min-width: 1200px)"></div>'
@@ -740,7 +761,7 @@ function jigim_echo_responsive_thumbnail( $post, $thumb_pos ){
 			        . '</div>';
 			break;
 		case 'search-none':
-			$html = '<div class="picture-fill" data-picture data-alt="feature image">'
+			$html .= '<div class="picture-fill" data-picture data-alt="feature image">'
 			        . '<div data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_search_none_small.jpg' . '"></div>'
 			        . '<div data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_search_none_middle.jpg' . '" data-media="(min-width: 769px)"></div>'
 			        . '<div data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_search_none.jpg' . '" data-media="(min-width: 1200px)"></div>'
@@ -749,7 +770,7 @@ function jigim_echo_responsive_thumbnail( $post, $thumb_pos ){
 			break;
 
 		default:
-			$html = '<div class="picture-fill" data-picture data-alt="feature image">'
+			$html .= '<div class="picture-fill" data-picture data-alt="feature image">'
 			. '<div data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_default_small.jpg' . '"></div>'
 			. '<div data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_default_middle.jpg' . '" data-media="(min-width: 769px)"></div>'
 			. '<div data-src="' . get_stylesheet_directory_uri() . '/assets/images/feature_default.jpg' . '" data-media="(min-width: 1200px)"></div>'
