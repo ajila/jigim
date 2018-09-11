@@ -172,12 +172,57 @@
             $('.widget_recent_comments ul').slideToggle();
         } );
 
+
+        img_loaded_icon_setup();
+
         search_modal_init();
 
     });
 
 })( jQuery );
 
+
+/* 图片加载完成隐藏loading图标 */
+function img_loaded_icon_setup() {
+    var i, len, imgContainers, img;
+    //文章列表特性图、首页slider等响应式图片的操作，在picturefill.js中
+
+    //文章列表默认缩略图
+    imgContainers = document.getElementsByClassName("post-image-attachment");
+    for (i = 0 ,len = imgContainers.length; i<len; i++) {
+        img = imgContainers[i].getElementsByTagName("img")[0];
+        img.addEventListener("load", function(e){
+            e.target.parentNode.getElementsByTagName("i")[0].style.display = "none";
+        },false);
+    }
+
+    //文章列表video文章
+    imgContainers = document.getElementsByClassName("entry-video");
+    for (i = 0 ,len = imgContainers.length; i<len; i++) {
+        img = imgContainers[i].getElementsByTagName("iframe")[0];
+        img.addEventListener("load", function(e){
+            e.target.parentNode.getElementsByTagName("i")[0].style.display = "none";
+        },false);
+    }
+
+    //文章列表gallery文章
+    imgContainers = document.querySelectorAll(".entry-gallery .carousel-cell");
+    for (i = 0 ,len = imgContainers.length; i<len; i++) {
+        img = imgContainers[i].getElementsByTagName("img")[0];
+        img.addEventListener("load", function(e){
+            e.target.parentNode.getElementsByTagName("i")[0].style.display = "none";
+        },false);
+    }
+
+    //相关文章slider
+    imgContainers = document.getElementsByClassName("related-post-item");
+    for (i = 0 ,len = imgContainers.length; i<len; i++) {
+        img = imgContainers[i].getElementsByClassName("carousel-cell-image")[0];
+        img.addEventListener("load", function(e){
+            e.target.parentNode.getElementsByTagName("i")[0].style.display = "none";
+        },false);
+    }
+}
 
 /* 搜索框模态对话框动画 */
 function search_modal_init() {

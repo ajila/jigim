@@ -43,7 +43,8 @@
 			$img = jigim_get_post_first_img( get_the_content() );
 			echo '<div class="post-image-attachment"><a href="' . esc_url(get_permalink()) . '">';
 			    //echo '<img src = "'. $img . '" alt="post image attachment">';
-			    echo '<img data-src = "'. $img . '" class="lazyload" alt="post image attachment">';
+			    echo '<i class="fa fa-spinner fa-spin loading" ></i><img data-src = "'
+                     . $img . '" class="lazyload" alt="post image attachment">';
 			echo '</a> </div><!-- .post-image-attachment -->';
 		}
 

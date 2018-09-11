@@ -43,23 +43,24 @@ article {
 
   //** 文章特色图
   .post-thumbnail,
-  .post-image-attachment {
-    width: 100%;
-    min-height: 200px;
-    background: @mytheme-bg-module url('../images/loader.gif') center center no-repeat;
-    img {
-      width: 100%;
-      height: auto;
-    }
-  }
-
+  .post-image-attachment,
   .entry-gallery,
   .entry-audio,
   .entry-video,
   .entry-video iframe {
+    position: relative;
     width: 100%;
-    //background-color: @mytheme-bg-module;
-    background: @mytheme-bg-module url('../images/loader.gif') center center no-repeat;
+    min-height: 200px;
+    background-color: @mytheme-bg-module;
+  }
+  .entry-audio {
+    min-height: 10px;
+  }
+
+  .post-thumbnail img,
+  .post-image-attachment img{
+    width: 100%;
+    height: auto;
   }
 
   //** 文章内容块
@@ -195,6 +196,7 @@ article.sticky {
     .post-thumbnail, .post-image-attachment {
       float: left;
       width: 50%;
+      height: @my-article-sticy-height;
       overflow: hidden;
       img {
         height: @my-article-sticy-height;

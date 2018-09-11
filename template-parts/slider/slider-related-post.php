@@ -56,7 +56,8 @@ if( $cat_array ) :
                     else{   //无缩略图，则显示第一张图片附件（无附件显示默认图片）
                         $img = jigim_get_post_first_img( get_the_content() );
                         echo '<div class="post-image-attachment"><a href="' . esc_url(get_permalink()) . '">'
-                            . '<img data-flickity-lazyload = "'. $img . '" class="carousel-cell-image" alt="post image attachment">'
+                            . '<i class="fa fa-spinner fa-spin loading" ></i><img data-flickity-lazyload = "'
+                             . $img . '" class="carousel-cell-image" alt="post image attachment">'
                             . '</a> </div>';
                     }
                     echo '<div class="entry-content">';

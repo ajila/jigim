@@ -82,7 +82,12 @@ function f_masonry(){
 					picImg.setAttribute("data-src",picSrc);
 
                 }
-				
+
+                //绑定图片加载完成事件，隐藏加载图标。	added by ljj
+				picImg.addEventListener("load", function (e) {
+                    e.target.parentNode.parentNode.parentNode.getElementsByTagName("i")[0].style.display = "none";
+                }, false);
+
 				matchedEl.appendChild( picImg );
 				picImg.removeAttribute("width");
 				picImg.removeAttribute("height");

@@ -28,7 +28,7 @@
 		}
         */
 
-        echo '<div class="carousel-cell"><img data-flickity-lazyload="'
+        echo '<div class="carousel-cell"><i class="fa fa-spinner fa-spin loading"></i><img data-flickity-lazyload="'
              . $image_show . '" class="carousel-cell-image"></div>';
 	}
 	?>

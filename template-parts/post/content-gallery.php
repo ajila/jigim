@@ -22,8 +22,9 @@
             </div>  <!-- .entry-gallery -->
 
         <?php elseif( has_post_thumbnail() ) : //无画廊有缩略图，则显示缩略图 ?>
-            <div class="post-thumbnail">
+            <div class="post-image-attachment">
                 <a href="<?php the_permalink(); ?>">
+                    <i class="fa fa-spinner fa-spin loading" ></i>
 				    <?php //jigim_echo_responsive_thumbnail( $post, 'post-list' ); ?>
                     <img data-src = "<?php get_the_post_thumbnail_url( $post, 'jigim-thumbnail-vertical'); ?>"
                         class="lazyload" alt="post image attachment">
@@ -33,6 +34,7 @@
         <?php else: //也无缩略图，则显示文章中第一张图片 ?>
             <div class="post-image-attachment">
                 <a href="<?php the_permalink(); ?>">
+                    <i class="fa fa-spinner fa-spin loading" ></i>
                     <img data-src = "<?php jigim_get_post_first_img( get_the_content() );?>" class="lazyload" alt="post image attachment">
                 </a>
             </div><!-- .post-image-attachment -->

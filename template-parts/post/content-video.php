@@ -26,7 +26,7 @@
 		}
 
 		if ( ! empty( $video ) ) {  //若有视频，则显示第一个视频标签
-			echo '<div class="entry-video">';
+			echo '<div class="entry-video"><i class="fa fa-spinner fa-spin loading" ></i>';
 			    echo $video[0];
 			echo '</div>';
 		}
@@ -40,7 +40,8 @@
 			$img = jigim_get_post_first_img( get_the_content() );
 			echo '<div class="post-image-attachment"><a href="' . esc_url(get_permalink()) . '">';
 			    //echo '<img src = "'. $img . '" alt="post image attachment">';
-			    echo '<img data-src = "'. $img . '" class="lazyload" alt="post image attachment">';
+			    echo '<i class="fa fa-spinner fa-spin loading" ></i><img data-src = "'
+                     . $img . '" class="lazyload" alt="post image attachment">';
 			echo '</a> </div><!-- .post-image-attachment -->';
         }
 

@@ -74,8 +74,7 @@ A Responsive Images approach that you can use today that mimics the [proposed pi
 * Modified by jig for lazyload
 * License: MIT/GPLv2
 */
-function f_masonry(){jQuery.noConflict()(".masonry-layout").masonry("layout")}!function(u){"use strict";u.picturefill=function(){for(var e=u.document.getElementsByClassName("picture-fill"),t=0,a=e.length;t<a;t++){for(var i=e[t].getElementsByTagName("div"),r=[],l=0,n=i.length;l<n;l++){var o=i[l].getAttribute("data-media");(!o||u.matchMedia&&u.matchMedia(o).matches)&&r.push(i[l])}var d=e[t].getElementsByTagName("img")[0];if(r.length){var s=r.pop();if(d&&"NOSCRIPT"!==d.parentNode.nodeName){if(s===d.parentNode)continue}else(d=u.document.createElement("img")).alt=e[t].getAttribute("data-alt"),d.className="responsive-img";if(null===e[t].getAttribute("data-lazy-load"))d.src=s.getAttribute("data-src");else{d.className="responsive-img lazyload";var c=s.getAttribute("data-src");d.removeAttribute("src"),d.setAttribute("data-src",c)}s.appendChild(d),d.removeAttribute("width"),d.removeAttribute("height")}else d&&d.parentNode.removeChild(d)}jQuery.noConflict()("img.lazyload").lazyload({effect:"fadeIn",failurelimit:40,data_attribute:"src",placeholder:null,load:f_masonry})},u.addEventListener?(u.addEventListener("resize",u.picturefill,!1),u.addEventListener("DOMContentLoaded",function(){u.picturefill(),u.removeEventListener("load",u.picturefill,!1)},!1),u.addEventListener("load",u.picturefill,!1)):u.attachEvent&&u.attachEvent("onload",u.picturefill)}(this);
-
+function f_masonry(){jQuery.noConflict()(".masonry-layout").masonry("layout")}!function(u){"use strict";u.picturefill=function(){for(var e=u.document.getElementsByClassName("picture-fill"),t=0,a=e.length;t<a;t++){for(var i=e[t].getElementsByTagName("div"),n=[],r=0,l=i.length;r<l;r++){var o=i[r].getAttribute("data-media");(!o||u.matchMedia&&u.matchMedia(o).matches)&&n.push(i[r])}var d=e[t].getElementsByTagName("img")[0];if(n.length){var s=n.pop();if(d&&"NOSCRIPT"!==d.parentNode.nodeName){if(s===d.parentNode)continue}else(d=u.document.createElement("img")).alt=e[t].getAttribute("data-alt"),d.className="responsive-img";if(null===e[t].getAttribute("data-lazy-load"))d.src=s.getAttribute("data-src");else{d.className="responsive-img lazyload";var c=s.getAttribute("data-src");d.removeAttribute("src"),d.setAttribute("data-src",c)}d.addEventListener("load",function(e){e.target.parentNode.parentNode.parentNode.getElementsByTagName("i")[0].style.display="none"},!1),s.appendChild(d),d.removeAttribute("width"),d.removeAttribute("height")}else d&&d.parentNode.removeChild(d)}jQuery.noConflict()("img.lazyload").lazyload({effect:"fadeIn",failurelimit:40,data_attribute:"src",placeholder:null,load:f_masonry})},u.addEventListener?(u.addEventListener("resize",u.picturefill,!1),u.addEventListener("DOMContentLoaded",function(){u.picturefill(),u.removeEventListener("load",u.picturefill,!1)},!1),u.addEventListener("load",u.picturefill,!1)):u.attachEvent&&u.attachEvent("onload",u.picturefill)}(this);
 
 /*! 
  * AutoHideHeader 1.0.0  
@@ -124,3 +123,13 @@ jQuery(document).ready(function($){
         }
     }
 });
+
+ 
+/*!
+ * BAIDU Share
+ * 百度社交化分享按钮
+ * http://share.baidu.com/
+ */
+(function() {
+    window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":["qzone","douban","tsina","weixin","sqq","tqq","renren","bdysc","bdxc","tieba","meilishuo","mogujie","huaban","youdao","evernotecn","fbook","twi","linkedin","copy"],"bdPic":"","bdStyle":"1","bdSize":"32"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+})();
